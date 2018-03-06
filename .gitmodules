@@ -1,0 +1,3 @@
+[submodule "third-party/evil"]
+	path = third-party/evil
+	url = git@github.com:/emacs-evil/evil
