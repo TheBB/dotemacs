@@ -3,7 +3,7 @@
 			 ("melpa" . "https://melpa.org/packages/"))
 
       bb-packages
-      '(
-	(evil :location "~/.emacs.d/third-party/evil")
+      `(
+	(evil :location ,(concat bb-cfg-dir "third-party/evil"))
 	monokai-theme
 	))
