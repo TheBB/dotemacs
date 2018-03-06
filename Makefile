@@ -1,10 +1,13 @@
 EMACS = emacs --batch -l early-init.el -l config.el -l bb-compile
 
-compile:
+dirs:
+	mkdir -p elpa
+	mkdir -p .cache/backups
+
+compile: dirs
 	$(EMACS) -f bb-compile
 
-update:
-	mkdir -p elpa
+update: dirs
 	rm -rf elpa.bak
 	cp -R elpa elpa.bak
 	rm -rf elpa/*

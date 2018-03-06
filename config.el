@@ -6,4 +6,5 @@
       `(
 	(evil :location ,(concat bb-cfg-dir "third-party/evil"))
 	monokai-theme
+	(emacs :location internal)
 	))
