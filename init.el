@@ -5,6 +5,7 @@
   (bb-set-load-path))
 
 (bb-set-load-path)
+(bb-stage boot)
 (bb-stage pre-init)
 (bb-stage init)
 (bb-stage post-init)
