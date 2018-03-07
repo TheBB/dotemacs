@@ -5,6 +5,7 @@
 
   ;; Miscellaneous
   (setq-default
+   inhibit-startup-screen t
    vc-follow-symlinks t
    ring-bell-function 'ignore
    require-final-newline t
