@@ -23,12 +23,9 @@
                          :action 'bb-helm-new-config-file))))
 
 (defun bb-helm-config-candidates ()
-  (delq nil
-        (mapcar (lambda (f)
-                  (unless (string-match-p f "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'")
-                    (cons (substring f 3 -3)
-                          (concat (bb-dir "config/") f))))
-                (directory-files (bb-dir "config")))))
+  (cl-loop for f in (directory-files (bb-dir "config"))
+           unless (string-match-p f "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'")
+           collect (cons (substring f 3 -3) (concat (bb-dir "config/") f))))
 
 
 
