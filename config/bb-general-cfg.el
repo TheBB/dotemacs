@@ -1,3 +1,4 @@
 (defmacro bb-leader (&rest args)
-  (require 'general)
-  `(general-define-key :prefix "SPC" :keymaps 'normal ,@args))
+  `(progn
+     (require 'general)
+     (general-define-key :prefix "SPC" :keymaps 'normal ,@args)))
