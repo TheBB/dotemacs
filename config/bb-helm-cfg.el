@@ -2,8 +2,30 @@
   (require 'helm))
 
 
+;; Remove dotted entries from helm-find-files
+
+(defun bb-helm-ff-filter-candidate-one-by-one (func file)
+  (unless (string-match-p "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
+    (funcall func file)))
+
+(defun bb-helm-file-completion-source-p (&rest args) t)
+
+(defun bb-helm-attrset (func attribute-name value &optional src)
+  (let ((src (or src (helm-get-current-source))))
+    (when src (funcall func attribute-name value src))))
+
+(defun bb-helm-find-files-up-one-level (func &rest args)
+  (advice-add 'helm-file-completion-source-p :around 'bb-helm-file-completion-source-p)
+  (advice-add 'helm-attrset :around 'bb-helm-attrset)
+  (let ((res (apply func args)))
+    (advice-remove 'helm-file-completion-source-p 'bb-helm-file-completion-source-p)
+    (advice-remove 'helm-attrset 'bb-helm-attrset)
+    res))
+  
+
+
 ;; Show the helm buffer in a child frame
-;; Lifted with modifications form:
+;; Lifted with modifications from:
 ;;   https://gist.github.com/fuxialexander/5ad46671689d96a29f9865c1c0b42d10
 
 (defvar bb-helm--frame-alist
