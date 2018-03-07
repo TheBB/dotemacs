@@ -33,7 +33,12 @@ appropriate."
 an alist mapping stage names to lists of forms. If the alist
 doesn't exist it is created first."
   (unless (assq pkg-name bb--cfg)
-    (push `(,pkg-name . ((boot) (pre-init) (init) (post-init))) bb--cfg))
+    (push (cons pkg-name (list (list 'cfg)
+                               (list 'boot)
+                               (list 'pre-init)
+                               (list 'init)
+                               (list 'post-init)))
+          bb--cfg))
   (cdr (assq pkg-name bb--cfg)))
 
 (defun bb--get-cfg (pkg-name stage)
@@ -59,7 +64,7 @@ keyword element found."
   "Macro for statically resolving a subdirectory of the root
 dir."
   (concat bb-cfg-dir dir))
-    
+
 (defmacro bb-package (name &rest code)
   "A do-nothing macro that stores code to be compiled into the
 init file. Don't use outside package config files."
@@ -106,6 +111,12 @@ autoloads files."
   "Recompile the init file."
   (interactive)
   (dolist (pkg (bb-normalized-packages))
+    (let ((cfg-file (format "%sconfig/bb-%s-cfg.el" bb-cfg-dir (car pkg))))
+      (when (file-exists-p cfg-file)
+        (with-temp-buffer
+          (insert-file-contents cfg-file)
+          (bb-push-cfg (car pkg) 'cfg
+                       (cdr (read (format "(progn\n%s)\n" (buffer-string))))))))
     (require (intern (format "bb-%s" (car pkg))) nil 'noerror))
   (dolist (dir '())
     (byte-recompile-directory (concat bb-cfg-dir dir) 0 'force))
