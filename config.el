@@ -10,7 +10,9 @@
 
         (emacs :location internal)
         (evil :location ,(concat bb-cfg-dir "third-party/evil"))
+        evil-magit
         helm
+        magit
         page-break-lines
 
         ;; Packages needed as dependencies
