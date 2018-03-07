@@ -1,3 +1,6 @@
 [submodule "third-party/evil"]
 	path = third-party/evil
 	url = git@github.com:/emacs-evil/evil
+[submodule "third-party/spaceline"]
+	path = third-party/spaceline
+	url = git@github.com:TheBB/spaceline
