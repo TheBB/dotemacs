@@ -1,6 +1,36 @@
 (eval-when-compile
   (require 'helm))
 
+
+
+;; Configuration source
+
+(defun bb-helm-new-config-file (filename)
+  (find-file (concat (bb-dir "config/bb-") filename ".el")))
+
+(defun bb-helm-config ()
+  (interactive)
+  (require 'helm)
+  (require 'helm-source)
+  (helm :buffer "*helm: config*"
+        :sources (list (helm-build-sync-source "Configuration files"
+                         :candidates 'bb-helm-config-candidates
+                         :persistent-action 'find-file
+                         :action 'find-file
+                         :fuzzy-match t)
+                       (helm-build-dummy-source "New configuration file"
+                         :persistent-action 'bb-helm-new-config-file
+                         :action 'bb-helm-new-config-file))))
+
+(defun bb-helm-config-candidates ()
+  (delq nil
+        (mapcar (lambda (f)
+                  (unless (string-match-p f "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'")
+                    (cons (substring f 3 -3)
+                          (concat (bb-dir "config/") f))))
+                (directory-files (bb-dir "config")))))
+
+
 
 ;; Remove dotted entries from helm-find-files
 
@@ -76,7 +106,7 @@
                     (- (cdr pos) helm-pixel-height)
                   (+ (cdr pos) (cdr char-size))))
 
-           ;; Finalize the frame parmeters
+           ;; Finalize the frame parameters
            (default-frame-alist (append bb-helm--frame-alist
                                         `((parent . ,(selected-frame))
                                           (width . ,helm-display-buffer-width)
