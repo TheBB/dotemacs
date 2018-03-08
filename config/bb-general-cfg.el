@@ -1,7 +1,7 @@
 (defmacro bb-leader (&rest args)
   `(progn
      (require 'general)
-     (general-define-key :prefix "SPC" :states '(normal motion) ,@args)))
+     (general-define-key :prefix "SPC" :states '(normal motion) :keymaps 'override ,@args)))
 
 (defmacro bb-create-dispatch (keys)
   (let ((funcname (intern (format "bb-dispatch-%s" keys)))
