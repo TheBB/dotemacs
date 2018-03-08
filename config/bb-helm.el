@@ -13,5 +13,6 @@
     (advice-add 'helm-find-files-up-one-level
                 :around 'bb-helm-find-files-up-one-level))
   :post-init general
-  (bb-leader "ff" 'helm-find-files
+  (bb-leader "bb" 'helm-mini
+             "ff" 'helm-find-files
              "hh" 'bb-helm-config))

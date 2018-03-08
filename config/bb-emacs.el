@@ -25,4 +25,10 @@
    kept-old-versions 2
    create-lockfiles nil)
 
-  (require 'uniquify))
+  :init
+  (require 'uniquify)
+  (global-auto-revert-mode)
+  (diminish 'auto-revert-mode)
+
+  :post-init general
+  (bb-leader "fs" 'save-buffer))

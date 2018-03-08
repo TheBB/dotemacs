@@ -8,4 +8,5 @@
    evil-visual-state-cursor '("gray" (hbar . 2))
    evil-motion-state-cursor '("plum3" box))
   (require 'evil)
-  (evil-mode))
+  (evil-mode)
+  (define-key evil-motion-state-map (kbd "SPC") nil))
