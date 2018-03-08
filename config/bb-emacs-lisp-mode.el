@@ -8,4 +8,7 @@
   (with-eval-after-load 'elisp-mode
     (require 'evil-collection-elisp-mode)
     (evil-collection-elisp-mode-setup)
-    (advice-add 'eval-last-sexp :around 'evil-collection-elisp-mode-last-sexp)))
+    (advice-add 'eval-last-sexp :around 'evil-collection-elisp-mode-last-sexp))
+
+  :post-init company
+  (bb-company emacs-lisp-mode company-capf))
