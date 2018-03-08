@@ -7,6 +7,7 @@
    evil-replace-state-cursor '("chocolate" (hbar . 2))
    evil-visual-state-cursor '("gray" (hbar . 2))
    evil-motion-state-cursor '("plum3" box))
+  (setq evil-want-integration nil)
   (require 'evil)
   (evil-mode)
   (define-key evil-motion-state-map (kbd "SPC") nil))
