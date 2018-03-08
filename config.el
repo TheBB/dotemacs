@@ -14,6 +14,7 @@
         helm
         magit
         page-break-lines
+        ws-butler
 
         ;; Packages needed as dependencies
         dash
