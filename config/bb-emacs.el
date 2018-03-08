@@ -6,6 +6,7 @@
 
   ;; Miscellaneous
   (setq-default
+   recentf-save-file (bb-dir ".cache/recentf")
    scroll-conservatively 101
    inhibit-startup-screen t
    vc-follow-symlinks t
