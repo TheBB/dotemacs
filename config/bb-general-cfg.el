@@ -1,4 +1,5 @@
 (defmacro bb-leader (&rest args)
+  (declare (indent 0))
   `(progn
      (require 'general)
      (general-define-key :prefix "SPC" :states '(normal motion) :keymaps 'override ,@args)))
@@ -19,6 +20,7 @@
          (bb-leader ,keys ',funcname)))))
 
 (defmacro bb-mm-leader (mode &rest args)
+  (declare (indent 1))
   (let (bindings)
     (while args
       (push (cons (car args) (cadr args)) bindings)

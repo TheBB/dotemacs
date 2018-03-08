@@ -1,6 +1,9 @@
 (bb-package emacs-lisp-mode
+
   :post-init general
-  (bb-mm-leader emacs-lisp-mode "cp" eval-last-sexp)
+  (bb-mm-leader emacs-lisp-mode
+    "cp" eval-last-sexp)
+
   :post-init evil-collection
   (with-eval-after-load 'elisp-mode
     (require 'evil-collection-elisp-mode)
