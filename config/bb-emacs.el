@@ -3,6 +3,8 @@
 
   (put 'bb-autoload 'lisp-indent-function 1)
   (put 'bb-package 'lisp-indent-function 1)
+  (put 'bb-leader 'lisp-indent-function 0)
+  (put 'bb-mm-leader 'lisp-indent-function 1)
 
   ;; Miscellaneous
   (setq-default
@@ -31,4 +33,5 @@
   (diminish 'auto-revert-mode)
 
   :post-init general
-  (bb-leader "fs" 'save-buffer))
+  (bb-leader "bd" 'bb-kill-buffer
+             "fs" 'save-buffer))
