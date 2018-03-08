@@ -6,17 +6,24 @@
       `(
         general
         monokai-theme
+        diminish
         (spaceline :location ,(concat bb-cfg-dir "third-party/spaceline"))
 
         (emacs :location internal)
+
+        (eldoc :location internal)
         (evil :location ,(concat bb-cfg-dir "third-party/evil"))
-        evil-magit
         helm
+        helm-projectile
         magit
+        evil-magit
         page-break-lines
+        projectile
         ws-butler
 
         ;; Packages needed as dependencies
         dash
+        powerline
         s
-        powerline))
+        undo-tree
+        ))

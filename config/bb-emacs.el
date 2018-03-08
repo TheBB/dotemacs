@@ -1,6 +1,7 @@
 (bb-package emacs
   :boot
 
+  (put 'bb-autoload 'lisp-indent-function 1)
   (put 'bb-package 'lisp-indent-function 1)
 
   ;; Miscellaneous

@@ -65,6 +65,12 @@ keyword element found."
 dir."
   (concat bb-cfg-dir dir))
 
+(defmacro bb-autoload (file &rest funcs)
+  (declare (indent 1))
+  `(progn
+     ,@(cl-loop for func in funcs
+                collect `(autoload ',func ,file))))
+
 (defmacro bb-package (name &rest code)
   "A do-nothing macro that stores code to be compiled into the
 init file. Don't use outside package config files."
