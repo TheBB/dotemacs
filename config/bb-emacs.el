@@ -5,6 +5,7 @@
 
   ;; Miscellaneous
   (setq-default
+   scroll-conservatively 101
    inhibit-startup-screen t
    vc-follow-symlinks t
    ring-bell-function 'ignore
