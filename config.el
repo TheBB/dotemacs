@@ -21,6 +21,8 @@
         projectile
         ws-butler
 
+        (emacs-lisp-mode :location internal)
+
         ;; Packages needed as dependencies
         dash
         powerline
