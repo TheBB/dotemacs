@@ -12,6 +12,7 @@
         (emacs :location internal)
 
         company
+        company-childframe
         (eldoc :location internal)
         (evil :location ,(concat bb-cfg-dir "third-party/evil"))
         evil-collection
