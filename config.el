@@ -9,6 +9,7 @@
         monokai-theme
         diminish
         (spaceline :location ,(concat bb-cfg-dir "third-party/spaceline"))
+        exec-path-from-shell
 
         (emacs :location internal)
 
