@@ -20,6 +20,7 @@
         evil-collection
         helm
         helm-projectile
+        lsp-mode
         magit
         evil-magit
         page-break-lines
