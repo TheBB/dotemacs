@@ -28,6 +28,7 @@
         ws-butler
 
         (emacs-lisp-mode :location internal)
+        python
 
         ;; Packages needed as dependencies
         dash
