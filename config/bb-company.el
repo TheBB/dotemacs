@@ -4,4 +4,5 @@
         company-minimum-prefix-length 2
         company-require-match nil)
   (with-eval-after-load 'company
-    (diminish 'company-mode)))
+    (diminish 'company-mode)
+    (define-key company-active-map (kbd "<right>") 'company-complete-selection)))
