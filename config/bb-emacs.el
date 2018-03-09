@@ -33,5 +33,7 @@
   (diminish 'auto-revert-mode)
 
   :post-init general
-  (bb-leader "bd" 'bb-kill-buffer
-             "fs" 'save-buffer))
+  (bb-leader
+    "bd" 'bb-kill-buffer
+    "fs" 'save-buffer
+    "w" 'hydra-windows/body))

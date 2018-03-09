@@ -5,6 +5,7 @@
       bb-packages
       `(
         general
+        hydra
         monokai-theme
         diminish
         (spaceline :location ,(concat bb-cfg-dir "third-party/spaceline"))

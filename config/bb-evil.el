@@ -8,6 +8,11 @@
    evil-visual-state-cursor '("gray" (hbar . 2))
    evil-motion-state-cursor '("plum3" box))
   (setq evil-want-integration nil)
+
   (require 'evil)
   (evil-mode)
-  (define-key evil-motion-state-map (kbd "SPC") nil))
+
+  (define-key evil-motion-state-map (kbd "<left>") 'windmove-left)
+  (define-key evil-motion-state-map (kbd "<down>") 'windmove-down)
+  (define-key evil-motion-state-map (kbd "<up>") 'windmove-up)
+  (define-key evil-motion-state-map (kbd "<right>") 'windmove-right))
