@@ -21,6 +21,7 @@
         helm
         helm-projectile
         lsp-mode
+        company-lsp
         magit
         evil-magit
         page-break-lines

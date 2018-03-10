@@ -25,4 +25,13 @@
     (set-face-attribute 'powerline-inactive2 nil
                         :box '(:color "#666666" :line-width 1 :style released-button)))
   (with-eval-after-load 'helm
-    (set-face-attribute 'helm-prefarg nil :foreground "PaleGreen")))
+    (set-face-attribute 'helm-prefarg nil :foreground "PaleGreen"))
+
+  :post-init company
+  (with-eval-after-load 'company
+    (set-face-attribute 'company-tooltip-selection nil
+                        :background monokai-comments :foreground monokai-emphasis)
+    (set-face-attribute 'company-tooltip-common-selection nil
+                        :foreground monokai-blue :background monokai-comments)
+    (set-face-attribute 'company-tooltip-annotation-selection nil
+                        :background monokai-comments)))

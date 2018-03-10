@@ -8,4 +8,4 @@
   (add-hook 'python-mode-hook 'lsp-python-enable)
 
   :post-init company
-  (bb-company python-mode company-capf))
+  (bb-company python-mode company-lsp))
