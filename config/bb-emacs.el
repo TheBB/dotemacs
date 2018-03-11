@@ -20,7 +20,7 @@
   ;; Backups
   (setq-default
    auto-save-list-file-prefix nil
-   backup-directory-alist `(("." . ,(bb-dir ".cache/backups")))
+   backup-directory-alist `((".*" . ,(bb-dir ".cache/backups")))
    backup-by-copying t
    delete-old-versions t
    kept-new-versions 6

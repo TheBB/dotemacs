@@ -2,7 +2,9 @@
 
   :post-init general
   (bb-mm-leader emacs-lisp-mode
-    "cp" eval-last-sexp)
+    "cp" eval-last-sexp
+    "cf" eval-defun
+    "cb" eval-buffer)
 
   :post-init evil-collection
   (with-eval-after-load 'elisp-mode
