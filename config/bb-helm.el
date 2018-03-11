@@ -1,4 +1,5 @@
 (bb-package helm
+
   :init
   (setq helm-display-function 'bb-helm-display-child-frame
         helm-display-buffer-reuse-frame t
@@ -14,6 +15,8 @@
                 :around 'bb-helm-find-files-up-one-level))
   (with-eval-after-load 'helm-imenu
     (define-key helm-imenu-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
+  (helm-mode)
+
   :post-init general
   (bb-leader
     "bb" 'helm-mini
