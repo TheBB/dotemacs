@@ -12,7 +12,11 @@
                 :around 'bb-helm-ff-filter-candidate-one-by-one)
     (advice-add 'helm-find-files-up-one-level
                 :around 'bb-helm-find-files-up-one-level))
+  (with-eval-after-load 'helm-imenu
+    (define-key helm-imenu-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
   :post-init general
-  (bb-leader "bb" 'helm-mini
-             "ff" 'helm-find-files
-             "hh" 'bb-helm-config))
+  (bb-leader
+    "bb" 'helm-mini
+    "ff" 'helm-find-files
+    "hh" 'bb-helm-config
+    "ji" 'helm-imenu))

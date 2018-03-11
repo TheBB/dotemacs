@@ -18,10 +18,13 @@
         (eldoc :location internal)
         (evil :location ,(concat bb-cfg-dir "third-party/evil"))
         evil-collection
+        flycheck
         helm
         helm-projectile
+        helm-xref
         lsp-mode
         company-lsp
+        lsp-ui
         magit
         evil-magit
         page-break-lines

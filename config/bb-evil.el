@@ -15,4 +15,5 @@
   (define-key evil-motion-state-map (kbd "<left>") 'windmove-left)
   (define-key evil-motion-state-map (kbd "<down>") 'windmove-down)
   (define-key evil-motion-state-map (kbd "<up>") 'windmove-up)
-  (define-key evil-motion-state-map (kbd "<right>") 'windmove-right))
+  (define-key evil-motion-state-map (kbd "<right>") 'windmove-right)
+  (define-key evil-motion-state-map (kbd "gd") 'xref-find-definitions))
