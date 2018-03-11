@@ -18,6 +18,8 @@
         (eldoc :location internal)
         (evil :location ,(concat bb-cfg-dir "third-party/evil"))
         evil-collection
+        evil-embrace
+        evil-surround
         flycheck
         helm
         helm-ag
