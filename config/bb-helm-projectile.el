@@ -1,4 +1,5 @@
 (bb-package helm-projectile
+
   :init
   (setq projectile-switch-project-action 'helm-projectile)
   (bb-autoload "helm-projectile"
@@ -9,6 +10,7 @@
     helm-projectile-switch-to-buffer)
   (with-eval-after-load 'helm-projectile
     (define-key helm-projectile-find-file-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
+
   :post-init general
   (bb-leader "pb" 'helm-projectile-switch-to-buffer
              "pd" 'helm-projectile-find-dir

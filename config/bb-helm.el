@@ -1,8 +1,6 @@
 (bb-package helm
 
   :init
-  (push "\\*helm.+\\*" bb-useless-buffers-regexp)
-
   (setq helm-display-function 'bb-helm-display-child-frame
         helm-display-buffer-reuse-frame t
         helm-display-buffer-width 120
@@ -28,4 +26,8 @@
     "ff" 'helm-find-files
     "fl" 'helm-locate-library
     "hh" 'bb-helm-config
-    "ji" 'helm-imenu))
+    "ji" 'helm-imenu
+    "rl" 'helm-resume)
+
+  :post-init evil-unimpaired
+  (push "\\*helm.+\\*" bb-useless-buffers-regexp))
