@@ -3,7 +3,8 @@
   :init
   (setq helm-display-function 'bb-helm-display-child-frame
         helm-display-buffer-reuse-frame t
-        helm-display-buffer-width 80)
+        helm-display-buffer-width 120
+        helm-display-buffer-height 25)
   (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
   (with-eval-after-load 'helm
     (define-key helm-map (kbd "<right>") 'helm-maybe-exit-minibuffer))

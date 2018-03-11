@@ -20,6 +20,7 @@
         evil-collection
         flycheck
         helm
+        helm-ag
         helm-projectile
         helm-xref
         lsp-mode
