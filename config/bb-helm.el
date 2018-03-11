@@ -1,6 +1,8 @@
 (bb-package helm
 
   :init
+  (push "\\*helm.+\\*" bb-useless-buffers-regexp)
+
   (setq helm-display-function 'bb-helm-display-child-frame
         helm-display-buffer-reuse-frame t
         helm-display-buffer-width 120

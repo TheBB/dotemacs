@@ -34,6 +34,7 @@
 
   :post-init general
   (bb-leader
+    "<tab>" 'bb-alternate-buffer
     "bd" 'bb-kill-buffer
     "fs" 'save-buffer
     "w" 'hydra-windows/body))

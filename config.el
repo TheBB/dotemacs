@@ -20,6 +20,7 @@
         evil-collection
         evil-embrace
         evil-surround
+        (evil-unimpaired :location internal)
         flycheck
         helm
         helm-ag

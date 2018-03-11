@@ -40,3 +40,10 @@
 (defun bb-kill-buffer ()
   (interactive)
   (kill-buffer nil))
+
+(defun bb-alternate-buffer ()
+  (interactive)
+  (let ((buf (window-buffer)))
+    (switch-to-buffer
+     (cl-find-if (lambda (b) (not (eq b buf)))
+                 (mapcar 'car (window-prev-buffers))))))
