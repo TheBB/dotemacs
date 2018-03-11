@@ -17,6 +17,7 @@
   (with-eval-after-load 'helm-imenu
     (define-key helm-imenu-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
   (helm-mode)
+  (diminish 'helm-mode)
 
   :post-init general
   (bb-leader
