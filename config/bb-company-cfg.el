@@ -6,3 +6,7 @@
          (company-mode)
          (setq-local company-backends ',backends))
        (add-hook ',hookname ',funcname))))
+
+(defun bb-company-lsp ()
+  (company-mode)
+  (setq-local company-backends '(company-lsp)))
