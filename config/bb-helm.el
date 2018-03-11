@@ -19,7 +19,9 @@
 
   :post-init general
   (bb-leader
+    "SPC" 'helm-M-x
     "bb" 'helm-mini
     "ff" 'helm-find-files
+    "fl" 'helm-locate-library
     "hh" 'bb-helm-config
     "ji" 'helm-imenu))
