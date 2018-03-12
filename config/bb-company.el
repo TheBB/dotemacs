@@ -1,7 +1,7 @@
 (bb-package company
   :init
-  (setq company-idle-delay 0.2
-        company-minimum-prefix-length 2
+  (setq company-idle-delay 0.1
+        company-minimum-prefix-length 0
         company-require-match nil)
   (with-eval-after-load 'company
     (diminish 'company-mode)
