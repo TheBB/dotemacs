@@ -37,6 +37,7 @@
 
         (emacs-lisp-mode :location internal)
         python
+        pyvenv
 
         ;; Packages needed as dependencies
         dash
