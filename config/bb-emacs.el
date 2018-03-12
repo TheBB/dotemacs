@@ -16,6 +16,7 @@
    require-final-newline t
    indent-tabs-mode nil
    read-quoted-char-radix 16)
+  (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; Backups
   (setq-default
@@ -36,5 +37,6 @@
   (bb-leader
     "<tab>" 'bb-alternate-buffer
     "bd" 'bb-kill-buffer
+    "fd" 'bb-kill-buffer-file
     "fs" 'save-buffer
     "w" 'hydra-windows/body))

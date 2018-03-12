@@ -41,6 +41,16 @@
   (interactive)
   (kill-buffer nil))
 
+(defun bb-kill-buffer-file ()
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer)))
+    (if (not (and filename (file-exists-p filename)))
+        (kill-buffer buffer)
+      (when (y-or-n-p "Are you sure you want to delete this file? ")
+        (delete-file filename 'trash)
+        (kill-buffer buffer)))))
+
 (defun bb-alternate-buffer ()
   (interactive)
   (let ((buf (window-buffer)))
