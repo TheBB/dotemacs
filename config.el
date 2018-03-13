@@ -20,6 +20,7 @@
         evil-args
         evil-collection
         evil-embrace
+        (evil-little-word :location ,(bb-dir "third-party/evil-little-word"))
         evil-surround
         (evil-unimpaired :location internal)
         flycheck
