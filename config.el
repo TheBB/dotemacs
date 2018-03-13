@@ -17,6 +17,7 @@
         company-childframe
         (eldoc :location internal)
         (evil :location ,(concat bb-cfg-dir "third-party/evil"))
+        evil-args
         evil-collection
         evil-embrace
         evil-surround
