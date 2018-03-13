@@ -33,6 +33,9 @@
   (global-auto-revert-mode)
   (diminish 'auto-revert-mode)
 
+  (require 'hl-line)
+  (global-hl-line-mode)
+
   (with-eval-after-load 'simple
     (diminish 'auto-fill-function))
 
