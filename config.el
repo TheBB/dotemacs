@@ -36,6 +36,7 @@
         ws-butler
 
         (emacs-lisp-mode :location internal)
+        cython-mode
         python
         pyvenv
 
