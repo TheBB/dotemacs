@@ -39,6 +39,7 @@
         cython-mode
         python
         pyvenv
+        (text-mode :location internal)
 
         ;; Packages needed as dependencies
         dash
