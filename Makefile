@@ -1,4 +1,4 @@
-EMACS = emacs --batch -l early-init.el -l config.el -l bb-compile
+EMACS = emacs --batch -l early-init.el -l bb-compile -l config.el
 
 dirs:
 	mkdir -p elpa

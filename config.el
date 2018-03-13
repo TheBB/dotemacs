@@ -1,4 +1,4 @@
-(setq package-user-dir (concat bb-cfg-dir "elpa/")
+(setq package-user-dir (bb-dir "elpa/")
       package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/"))
 
@@ -8,7 +8,7 @@
         hydra
         monokai-theme
         diminish
-        (spaceline :location ,(concat bb-cfg-dir "third-party/spaceline"))
+        (spaceline :location ,(bb-dir "third-party/spaceline"))
         exec-path-from-shell
 
         (emacs :location internal)
@@ -16,7 +16,7 @@
         company
         company-childframe
         (eldoc :location internal)
-        (evil :location ,(concat bb-cfg-dir "third-party/evil"))
+        (evil :location ,(bb-dir "third-party/evil"))
         evil-args
         evil-collection
         evil-embrace
