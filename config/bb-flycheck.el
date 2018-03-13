@@ -4,7 +4,7 @@
   (bb-leader "tf" 'flycheck-mode)
   (with-eval-after-load 'flycheck
     (diminish 'flycheck-mode "f")
-    (aset flycheck-error-list-format 4 '("Message" 0 t)))
+    (aset flycheck-error-list-format 5 '("Message" 0 t)))
 
   :post-init lsp-mode
   (add-hook 'lsp-mode-hook 'flycheck-mode))
