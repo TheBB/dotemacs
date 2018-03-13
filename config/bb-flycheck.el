@@ -2,6 +2,7 @@
 
   :init
   (bb-leader "tf" 'flycheck-mode)
+  (setq-default flycheck-check-syntax-automatically '(save mode-enabled))
   (with-eval-after-load 'flycheck
     (diminish 'flycheck-mode "f")
     (aset flycheck-error-list-format 5 '("Message" 0 t)))
