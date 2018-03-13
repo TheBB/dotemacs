@@ -33,6 +33,9 @@
   (global-auto-revert-mode)
   (diminish 'auto-revert-mode)
 
+  (with-eval-after-load 'simple
+    (diminish 'auto-fill-function))
+
   :post-init general
   (bb-leader
     "<tab>" 'bb-alternate-buffer
