@@ -16,3 +16,25 @@
                  thereis (string-match-p regexp name))
         (cl-loop for regexp in bb-useless-buffers-regexp
                  never (string-match-p regexp name)))))
+
+
+
+;; Text manipulation
+
+(defun bb-insert-line-above (count)
+  (interactive "p")
+  (dotimes (- count) (save-excursion (evil-insert-newline-above))))
+
+(defun bb-insert-line-below (count)
+  (interactive "p")
+  (dotimes (- count) (save-excursion (evil-insert-newline-below))))
+
+(defun bb-insert-spaces-before (count)
+  (interactive "p")
+  (dotimes (- count) (insert " ")))
+
+(defun bb-insert-spaces-after (count)
+  (interactive "p")
+  (forward-char)
+  (dotimes (- count) (insert " "))
+  (backward-char (1+ count)))

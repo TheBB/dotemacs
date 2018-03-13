@@ -9,6 +9,9 @@
 
   :post-init evil
   (with-eval-after-load 'evil
-    (define-key evil-motion-state-map (kbd "[b") 'previous-buffer)
-    (define-key evil-motion-state-map (kbd "]b") 'next-buffer)
-    ))
+    (define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
+    (define-key evil-motion-state-map (kbd "] b") 'next-buffer)
+    (define-key evil-normal-state-map (kbd "[ SPC") 'bb-insert-line-above)
+    (define-key evil-normal-state-map (kbd "] SPC") 'bb-insert-line-below)
+    (define-key evil-normal-state-map (kbd "[ s") 'bb-insert-spaces-before)
+    (define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after)))
