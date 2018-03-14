@@ -29,5 +29,5 @@
        ,@(cl-loop for binding in bindings
                   collect `(bb-create-dispatch ,(car binding)))
        ,@(cl-loop for binding in bindings
-                  collect `(push '(,mode . ,(cdr binding))
+                  collect `(push (cons ',mode ,(cdr binding))
                                  ,(intern (format "bb-dispatch-table-%s" (car binding))))))))
