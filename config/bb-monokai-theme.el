@@ -34,4 +34,8 @@
     (set-face-attribute 'company-tooltip-common-selection nil
                         :foreground monokai-blue :background monokai-comments)
     (set-face-attribute 'company-tooltip-annotation-selection nil
-                        :background monokai-comments)))
+                        :background monokai-comments))
+
+  :post-init lsp-mode
+  (with-eval-after-load 'lsp-methods
+    (set-face-attribute 'lsp-face-highlight-textual nil :background monokai-highlight-line)))
