@@ -38,6 +38,8 @@
 
   (with-eval-after-load 'simple
     (diminish 'auto-fill-function))
+  (with-eval-after-load 'abbrev
+    (diminish 'abbrev-mode))
 
   :post-init general
   (bb-leader
