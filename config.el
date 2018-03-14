@@ -50,6 +50,7 @@
         (eshell :location internal)
         flycheck
         page-break-lines
+        popwin
         projectile
         ws-butler
 
