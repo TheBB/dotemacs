@@ -9,5 +9,8 @@
     (diminish 'flycheck-mode "f")
     (aset flycheck-error-list-format 5 '("Message" 0 t)))
 
+  :post-init popwin
+  (bb-popwin flycheck-error-list-mode :noselect t)
+
   :post-init lsp-mode
   (add-hook 'lsp-mode-hook 'flycheck-mode))
