@@ -32,7 +32,8 @@
   ("(" bb-shrink-window-horizontally)
   ("[" bb-shrink-window-vertically)
   (")" bb-enlarge-window-horizontally)
-  ("]" bb-enlarge-window-vertically))
+  ("]" bb-enlarge-window-vertically)
+  ("=" balance-windows-area :exit t))
 
 
 ;; Miscellaneous handy functions
