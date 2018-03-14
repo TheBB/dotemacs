@@ -44,6 +44,7 @@
         ;; LSP and friends
         lsp-mode
         company-lsp
+        cquery
         lsp-ui
 
         ;; Miscellaneous
@@ -56,8 +57,9 @@
         ws-butler
 
         ;; Major modes
-        (emacs-lisp-mode :location internal)
+        (c-cpp :location internal)
         cython-mode
+        (emacs-lisp-mode :location internal)
         python
         pyvenv
         (text-mode :location internal)
