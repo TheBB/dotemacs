@@ -21,6 +21,7 @@
         evil-collection
         evil-embrace
         (evil-little-word :location ,(bb-dir "third-party/evil-little-word"))
+        evil-numbers
         evil-surround
         (evil-unimpaired :location internal)
         flycheck

@@ -1,0 +1,5 @@
+(defhydra hydra-numbers ()
+  ("=" evil-numbers/inc-at-pt)
+  ("+" evil-numbers/inc-at-pt)
+  ("-" evil-numbers/dec-at-pt)
+  ("_" evil-numbers/dec-at-pt))
