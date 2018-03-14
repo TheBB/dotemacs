@@ -47,6 +47,7 @@
 
         ;; Miscellaneous
         (eldoc :location internal)
+        (eshell :location internal)
         flycheck
         page-break-lines
         projectile
