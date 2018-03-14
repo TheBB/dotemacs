@@ -4,6 +4,7 @@
 
       bb-packages
       `(
+        ;; Packages that should be initialized early
         general
         hydra
         monokai-theme
@@ -11,11 +12,14 @@
         (spaceline :location ,(bb-dir "third-party/spaceline"))
         exec-path-from-shell
 
+        ;; General setup involving Emacs built-in stuff
         (emacs :location internal)
 
+        ;; Company and friends
         company
         company-childframe
-        (eldoc :location internal)
+
+        ;; Evil and friends
         (evil :location ,(bb-dir "third-party/evil"))
         evil-args
         evil-collection
@@ -24,20 +28,31 @@
         evil-numbers
         evil-surround
         (evil-unimpaired :location internal)
-        flycheck
+
+        ;; Helm and friends
         helm
         helm-ag
         helm-projectile
+        helm-swoop
         helm-xref
+
+        ;; Magit and friends
+        magit
+        evil-magit
+
+        ;; LSP and friends
         lsp-mode
         company-lsp
         lsp-ui
-        magit
-        evil-magit
+
+        ;; Miscellaneous
+        (eldoc :location internal)
+        flycheck
         page-break-lines
         projectile
         ws-butler
 
+        ;; Major modes
         (emacs-lisp-mode :location internal)
         cython-mode
         python
