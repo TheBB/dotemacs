@@ -3,6 +3,13 @@
   "")
 
 
+;; Find files
+
+(defun bb-find-config ()
+  (interactive)
+  (find-file (bb-dir "config.el")))
+
+
 ;; Window management hydra
 
 (defun bb-shrink-window-horizontally (delta)

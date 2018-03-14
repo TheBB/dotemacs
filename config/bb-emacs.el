@@ -45,6 +45,7 @@
     "bd" 'bb-kill-buffer
     "fd" 'bb-kill-buffer-file
     "fs" 'save-buffer
+    "hc" 'bb-find-config
     "w" 'hydra-windows/body)
 
   :post-init popwin
