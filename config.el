@@ -47,6 +47,10 @@
         cquery
         lsp-ui
 
+        ;; Structured editing
+        smartparens
+        evil-smartparens
+
         ;; Miscellaneous
         (eldoc :location internal)
         (eshell :location internal)
