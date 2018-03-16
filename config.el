@@ -62,6 +62,7 @@
 
         ;; Major modes
         (c-cpp :location internal)
+        cmake-mode
         cython-mode
         (emacs-lisp-mode :location internal)
         python
