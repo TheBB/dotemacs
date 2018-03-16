@@ -2,7 +2,7 @@
 
   :init
   (setq company-idle-delay 0.1
-        company-minimum-prefix-length 0
+        company-minimum-prefix-length 1
         company-require-match nil)
   (with-eval-after-load 'company
     (diminish 'company-mode "c")
@@ -13,6 +13,9 @@
     (define-key company-active-map (kbd "<tab>") nil)
     (define-key company-active-map (kbd "C-w") nil))
   (bb-leader "tc" 'company-mode)
+
+  :post-init evil
+  (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
 
   :post-init lsp-mode
   (add-hook 'lsp-mode-hook 'bb-company-lsp))
