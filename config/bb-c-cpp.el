@@ -14,4 +14,10 @@
                     (innamespace . 0)
                     (statement-cont . c-lineup-assignments)
                     (substatement-open . 0))))
-    (push '(other . "personal") c-default-style)))
+    (push '(other . "personal") c-default-style))
+
+  :post-init smartparens
+  (with-eval-after-load 'smartparens
+    (sp-local-pair '(c-mode c++-mode) "'" nil
+                   :post-handlers '(:rem sp-escape-quotes-after-insert))
+    (bb-apply-newline-indent (c-mode c++-mode) "{" "[" "(")))

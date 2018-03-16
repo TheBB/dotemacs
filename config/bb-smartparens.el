@@ -1,6 +1,6 @@
 (bb-package smartparens
   :init
-  (add-hook 'prog-mode-hook 'smartparens-strict-mode)
+  (add-hook 'prog-mode-hook 'smartparens-mode)
   (with-eval-after-load 'smartparens
     (require 'smartparens-config)
     (diminish 'smartparens-mode "s"))
