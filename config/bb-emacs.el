@@ -15,7 +15,8 @@
    ring-bell-function 'ignore
    require-final-newline t
    indent-tabs-mode nil
-   read-quoted-char-radix 16)
+   read-quoted-char-radix 16
+   auto-revert-check-vc-info t)
   (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; Backups
