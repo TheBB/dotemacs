@@ -51,6 +51,10 @@
         smartparens
         evil-smartparens
 
+        ;; Snippets
+        yasnippet
+        yasnippet-snippets
+
         ;; Miscellaneous
         (eldoc :location internal)
         (eshell :location internal)

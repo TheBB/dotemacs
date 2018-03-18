@@ -18,4 +18,4 @@
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
 
   :post-init lsp-mode
-  (add-hook 'lsp-mode-hook 'bb-company-lsp))
+  (bb-company lsp-mode company-lsp))
