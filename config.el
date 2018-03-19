@@ -59,6 +59,7 @@
         (eldoc :location internal)
         (eshell :location internal)
         flycheck
+        (structured-editing :location internal)
         page-break-lines
         popwin
         projectile
