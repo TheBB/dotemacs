@@ -41,6 +41,8 @@
     (diminish 'auto-fill-function))
   (with-eval-after-load 'abbrev
     (diminish 'abbrev-mode))
+  (with-eval-after-load 'smerge-mode
+    (diminish 'smerge-mode "[sm]"))
 
   :post-init general
   (bb-leader
