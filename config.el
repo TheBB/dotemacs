@@ -40,6 +40,7 @@
         ;; Magit and friends
         magit
         evil-magit
+        magithub
 
         ;; LSP and friends
         lsp-mode
