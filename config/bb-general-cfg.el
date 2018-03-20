@@ -12,11 +12,10 @@
          (defvar ,varname nil)
          (defun ,funcname ()
            (interactive)
-           (catch 'done
-             (dolist (entry ,varname)
-               (when (derived-mode-p (car entry))
-                 (throw 'done (call-interactively (cdr entry)))))
-             (user-error "No dispatch found for \"%s\" in %s" ,keys major-mode)))
+           (cl-loop for entry in ,varname
+                    if (derived-mode-p (car entry))
+                    return (call-interactively (cdr entry))
+                    finally return (user-error "No dispatch found for \"%s\" in %s" ,keys major-mode)))
          (bb-leader ,keys ',funcname)))))
 
 (defmacro bb-mm-leader (mode &rest args)
