@@ -74,6 +74,7 @@
         python
         pyvenv
         (text-mode :location internal)
+        yaml-mode
 
         ;; Packages needed as dependencies
         dash
