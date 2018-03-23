@@ -3,8 +3,10 @@
   :init
   (bb-leader
     "tf" 'flycheck-mode
-    "el" 'flycheck-list-errors)
-  (setq-default flycheck-check-syntax-automatically '(save mode-enabled))
+    "el" 'flycheck-list-errors
+    "eb" 'flycheck-buffer
+    "ec" 'flycheck-clear)
+  (setq-default flycheck-check-syntax-automatically nil)
   (with-eval-after-load 'flycheck
     (diminish 'flycheck-mode "f")
     (aset flycheck-error-list-format 5 '("Message" 0 t)))
