@@ -40,6 +40,7 @@
   ("[" bb-shrink-window-vertically)
   (")" bb-enlarge-window-horizontally)
   ("]" bb-enlarge-window-vertically)
+  ("u" winner-undo)
   ("=" balance-windows-area :exit t))
 
 

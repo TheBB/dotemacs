@@ -37,6 +37,9 @@
   (require 'hl-line)
   (global-hl-line-mode)
 
+  (require 'winner)
+  (winner-mode)
+
   (with-eval-after-load 'simple
     (diminish 'auto-fill-function))
   (with-eval-after-load 'abbrev
