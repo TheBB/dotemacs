@@ -60,6 +60,7 @@
         (eldoc :location internal)
         (eshell :location internal)
         flycheck
+        highlight-operators
         highlight-numbers
         (structured-editing :location internal)
         page-break-lines
