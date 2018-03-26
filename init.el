@@ -1,9 +1,16 @@
 ;;; -*- lexical-binding: t -*-
 
+(setq bb-cfg-dir (file-name-directory load-file-name))
+(setq custom-file (concat bb-cfg-dir "custom.el"))
+
 ;; The load path must be set when compiling to get access to macros
 (eval-when-compile
+  (push (concat bb-cfg-dir "lib") load-path)
+  (push (concat bb-cfg-dir "config") load-path)
   (require 'bb-compile)
-  (bb-set-load-path))
+  (load (concat bb-cfg-dir "config.el"))
+  (bb-set-load-path)
+  (bb-collect-cfg))
 
 ;; Set the load path during startup, too
 (bb-set-load-path)

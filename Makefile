@@ -1,11 +1,8 @@
-EMACS = emacs --batch -l early-init.el -l bb-compile -l config.el
+-include lib/borg/borg.mk
 
 dirs:
 	mkdir -p elpa
 	mkdir -p .cache/backups
-
-compile: dirs
-	$(EMACS) -f bb-compile
 
 update: dirs
 	rm -rf elpa.bak
