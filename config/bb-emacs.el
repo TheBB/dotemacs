@@ -50,6 +50,7 @@
   :post-init general
   (bb-leader
     "<tab>" 'bb-alternate-buffer
+    ";" 'eval-expression
     "bd" 'bb-kill-buffer
     "fd" 'bb-kill-buffer-file
     "fs" 'save-buffer
