@@ -98,7 +98,7 @@
                       parent-bottom))
 
            ;; Calculate the positions of the child frame.
-           (left (min (car pos) (- parent-right helm-pixel-width)))
+           (left (max 0 (min (car pos) (- parent-right helm-pixel-width))))
            (top (if abovep
                     (- (cdr pos) helm-pixel-height)
                   (+ (cdr pos) (cdr char-size))))
