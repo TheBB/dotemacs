@@ -113,21 +113,16 @@ autoloads files."
       (setq code (append (bb--get-cfg (car pkg) stage) code)))
     `(progn ,@code)))
 
-(defun bb-collect-cfg ()
-  (dolist (pkg (bb-normalized-packages))
-    (let ((cfg-file (format "%sconfig/bb-%s-cfg.el" bb-cfg-dir (car pkg))))
-      (when (file-exists-p cfg-file)
-        (with-temp-buffer
-          (insert-file-contents cfg-file)
-          (bb-push-cfg (car pkg) 'cfg
-                       (cdr (read (format "(progn\n%s)\n" (buffer-string))))))))
-    (require (intern (format "bb-%s" (car pkg))) nil 'noerror)))
-
-(defun bb-compile ()
-  "Recompile the init file."
-  (interactive)
-  (dolist (file '("early-init.el" "init.el"))
-    (byte-recompile-file (concat bb-cfg-dir file) 'force 0)))
+(defmacro bb-collect-cfg ()
+  (let (code)
+    (dolist (pkg (bb-normalized-packages))
+      (let ((cfg-file (format "%sconfig/bb-%s-cfg.el" bb-cfg-dir (car pkg))))
+        (when (file-exists-p cfg-file)
+          (with-temp-buffer
+            (insert-file-contents cfg-file)
+            (setq code (append code (cdr (read (format "(progn\n%s)\n" (buffer-string)))))))))
+      (require (intern (format "bb-%s" (car pkg))) nil 'noerror))
+    `(progn ,@code)))
 
 (defun bb-update ()
   "Update packages."
