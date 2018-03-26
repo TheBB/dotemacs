@@ -8,6 +8,10 @@
 ;; Set the load path during startup, too
 (bb-set-load-path)
 
+;; Planning to migrate this to a borg collective eventually
+(require 'borg)
+(borg-initialize)
+
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
 ;; Generally intended for defuns and defvars
 (bb-stage cfg)

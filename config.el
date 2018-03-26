@@ -4,6 +4,9 @@
 
       bb-packages
       `(
+        ;; Planning to migrate this to a borg collective eventually
+        (borg :location ,(bb-dir "lib/borg"))
+
         ;; Packages that should be initialized early
         general
         hydra
