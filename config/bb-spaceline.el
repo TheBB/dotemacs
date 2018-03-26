@@ -3,8 +3,9 @@
   (require 'spaceline)
   (eval-when-compile
     (require 'spaceline-segments))
+
+  (autoload 'spaceline-helm-mode "spaceline-config")
   (with-eval-after-load 'helm
-    (require 'spaceline-config)
     (spaceline-helm-mode))
 
   (spaceline-generate
@@ -16,16 +17,11 @@
      (process :when active)
      ((flycheck-error flycheck-warning flycheck-info) :when active :priority 89)
      (minor-modes :when active :priority 9)
-     (mu4e-alert-segment :when active)
      (erc-track :when active)
-     (version-control :when active :priority 78)
-     (org-pomodoro :when active)
-     (org-clock :when active)
-     nyan-cat)
+     (version-control :when active :priority 78))
     (which-function
      (python-pyvenv :fallback python-pyenv)
      (purpose :priority 94)
-     (battery :when active)
      (selection-info :priority 95)
      input-method
      ((buffer-encoding-abbrev
