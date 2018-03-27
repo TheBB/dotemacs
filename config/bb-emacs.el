@@ -55,6 +55,7 @@
     "bd" 'bb-kill-buffer
     "fd" 'bb-kill-buffer-file
     "fs" 'save-buffer
+    "fy" 'bb-show-and-copy-filename
     "hc" 'bb-find-config
     "w" 'hydra-windows/body)
 

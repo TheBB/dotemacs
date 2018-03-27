@@ -9,6 +9,11 @@
   (interactive)
   (find-file (bb-dir "config.el")))
 
+(defun bb-show-and-copy-filename ()
+  (interactive)
+  (when-let* ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (message (kill-new file-name))))
+
 
 ;; Window management hydra
 
