@@ -16,7 +16,8 @@
    require-final-newline t
    indent-tabs-mode nil
    read-quoted-char-radix 16
-   auto-revert-check-vc-info t)
+   auto-revert-check-vc-info t
+   x-wait-for-event-timeout 0.015)
   (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; Backups
