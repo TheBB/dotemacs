@@ -8,11 +8,7 @@
   (push (concat bb-cfg-dir "lib") load-path)
   (push (concat bb-cfg-dir "config") load-path)
   (require 'bb-compile)
-  (load (concat bb-cfg-dir "config.el"))
-  (bb-set-load-path))
-
-;; Set the load path during startup, too
-(bb-set-load-path)
+  (load (concat bb-cfg-dir "config.el")))
 
 ;; Planning to migrate this to a borg collective eventually
 (push (concat bb-cfg-dir "lib/borg") load-path)
