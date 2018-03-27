@@ -151,6 +151,9 @@
 [submodule "monokai-theme"]
 	path = lib/monokai-theme
 	url = git@github.com:oneKelvinSmith/monokai-emacs.git
+[submodule "no-littering"]
+	path = lib/no-littering
+	url = git@github.com:emacscollective/no-littering.git
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git

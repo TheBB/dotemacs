@@ -8,7 +8,6 @@
 
   ;; Miscellaneous
   (setq-default
-   recentf-save-file (bb-dir ".cache/recentf")
    scroll-conservatively 101
    inhibit-startup-screen t
    vc-follow-symlinks t
@@ -23,7 +22,6 @@
   ;; Backups
   (setq-default
    auto-save-list-file-prefix nil
-   backup-directory-alist `((".*" . ,(bb-dir ".cache/backups")))
    backup-by-copying t
    delete-old-versions t
    kept-new-versions 6

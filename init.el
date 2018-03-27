@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
+(require 'no-littering)
+
 (setq bb-cfg-dir (file-name-directory load-file-name))
 (setq custom-file (concat bb-cfg-dir "custom.el"))
 
