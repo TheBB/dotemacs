@@ -1,5 +1,6 @@
 /elpa
 /elpa.bak
-/.cache
+/var
+/etc
 /epkgs
 *.elc
