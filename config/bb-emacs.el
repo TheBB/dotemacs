@@ -17,7 +17,7 @@
    indent-tabs-mode nil
    read-quoted-char-radix 16
    auto-revert-check-vc-info t
-   x-wait-for-event-timeout 0.015)
+   x-wait-for-event-timeout 0.05)
   (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; Backups
