@@ -75,6 +75,9 @@
 [submodule "evil-numbers"]
 	path = lib/evil-numbers
 	url = git@github.com:cofi/evil-numbers.git
+[submodule "evil-plugins"]
+	path = lib/evil-plugins
+	url = git@github.com:tarao/evil-plugins
 [submodule "evil-smartparens"]
 	path = lib/evil-smartparens
 	url = git@github.com:expez/evil-smartparens.git
@@ -135,6 +138,9 @@
 [submodule "lsp-ui"]
 	path = lib/lsp-ui
 	url = git@github.com:emacs-lsp/lsp-ui.git
+[submodule "macrostep"]
+	path = lib/macrostep
+	url = git@github.com:joddie/macrostep.git
 [submodule "magit"]
 	path = lib/magit
 	url = git@github.com:magit/magit.git
@@ -214,6 +220,3 @@
 [submodule "yasnippet-snippets"]
 	path = lib/yasnippet-snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
-[submodule "evil-plugins"]
-	path = lib/evil-plugins
-	url = git@github.com:tarao/evil-plugins

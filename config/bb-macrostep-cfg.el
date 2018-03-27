@@ -1,0 +1,6 @@
+(defhydra hydra-macrostep ()
+  ("e" macrostep-expand)
+  ("c" macrostep-colllapse)
+  ("<right>" macrostep-next-macro)
+  ("<left>" macrostep-prev-macro)
+  ("q" macrostep-collapse-all :exit t))
