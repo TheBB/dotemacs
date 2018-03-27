@@ -89,23 +89,6 @@ init file. Don't use outside package config files."
        ,@forms
        (provide ',(intern (format "bb-%s" name))))))
 
-(defmacro bb-set-load-path ()
-  "Set the load path for all installed packages. Also load their
-autoloads files."
-  (let ((ignore '("." ".." "archives" "gnupg"))
-	paths autoloads)
-    (dolist (pkg-name (directory-files package-user-dir))
-      (unless (member pkg-name ignore)
-	(let ((full-pkg-dir (concat package-user-dir pkg-name)))
-	  (push `(push ,full-pkg-dir load-path) paths)
-	  (dolist (file (directory-files full-pkg-dir))
-	    (when (string-match "autoloads\\.el\\'" file)
-	      (push `(load-file ,(concat full-pkg-dir "/" file)) autoloads))))))
-    (dolist (pkg (bb-normalized-packages))
-      (when (stringp (bb-pkg-location pkg))
-	(push `(push ,(bb-pkg-location pkg) load-path) paths)))
-    `(progn ,@paths ,@autoloads)))
-
 (defmacro bb-stage (stage)
   "Run initialization code for boot-stage STAGE."
   (let (code)
@@ -123,14 +106,5 @@ autoloads files."
             (setq code (append code (cdr (read (format "(progn\n%s)\n" (buffer-string)))))))))
       (require (intern (format "bb-%s" (car pkg))) nil 'noerror))
     `(progn ,@code)))
-
-(defun bb-update ()
-  "Update packages."
-  (interactive)
-  (package-initialize)
-  (package-refresh-contents)
-  (dolist (pkg (bb-normalized-packages))
-    (when (eq 'remote (bb-pkg-location pkg))
-      (package-install (car pkg) nil))))
 
 (provide 'bb-compile)
