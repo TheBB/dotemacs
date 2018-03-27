@@ -1,7 +1,11 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq bb-cfg-dir (file-name-directory load-file-name))
-(setq custom-file (concat bb-cfg-dir "custom.el"))
+
+
+;; Initialize borg and set up load path
+
+(setq bb-cfg-dir (file-name-directory load-file-name)
+      custom-file (concat bb-cfg-dir "custom.el"))
 
 ;; The load path must be set when compiling to get access to macros
 (eval-when-compile
@@ -10,10 +14,67 @@
   (require 'bb-compile)
   (load (concat bb-cfg-dir "config.el")))
 
-;; Planning to migrate this to a borg collective eventually
 (push (concat bb-cfg-dir "lib/borg") load-path)
 (require 'borg)
 (borg-initialize)
+
+
+
+;; General Emacs settings (built-ins, etc.)
+
+(setq user-init-file (or load-file-name buffer-file-name)
+      user-emacs-directory (file-name-directory user-init-file)
+
+      inhibit-startup-buffer-menu t
+      inhibit-startup-screen t
+      initial-buffer-choice t
+      initial-scratch-message ""
+
+      auto-save-list-file-prefix nil
+      backup-by-copying t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      create-lockfiles nil
+
+      auto-revert-check-vc-info t
+      indent-tabs-mode nil
+      load-prefer-newer t
+      read-quoted-char-radix 16
+      require-final-newline t
+      ring-bell-function 'ignore
+      scroll-conservatively 101
+      vc-follow-symlinks t
+      x-wait-for-event-timeout 0.05)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(fset 'startup-echo-area-message (lambda () ""))
+
+(use-package abbrev
+  :defer t
+  :diminish abbrev-mode)
+
+(use-package autorevert
+  :config
+  (global-auto-revert-mode))
+
+(use-package hl-line
+  :config
+  (global-hl-line-mode))
+
+(use-package simple
+  :defer t
+  :diminish auto-fill-function)
+
+(use-package smerge-mode
+  :defer t
+  :diminish (smerge-mode . "[sm]"))
+
+(use-package uniquify)
+
+(use-package winner
+  :config
+  (winner-mode))
 
 (require 'no-littering)
 

@@ -1,7 +1,3 @@
-(defun startup-echo-area-message ()
-  "Override startup message."
-  "")
-
 
 ;; Find files
 

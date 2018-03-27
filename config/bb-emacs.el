@@ -1,50 +1,9 @@
 (bb-package emacs
   :boot
-
   (put 'bb-autoload 'lisp-indent-function 1)
   (put 'bb-package 'lisp-indent-function 1)
   (put 'bb-leader 'lisp-indent-function 0)
   (put 'bb-mm-leader 'lisp-indent-function 1)
-
-  ;; Miscellaneous
-  (setq-default
-   scroll-conservatively 101
-   inhibit-startup-screen t
-   vc-follow-symlinks t
-   ring-bell-function 'ignore
-   require-final-newline t
-   indent-tabs-mode nil
-   read-quoted-char-radix 16
-   auto-revert-check-vc-info t
-   x-wait-for-event-timeout 0.05)
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  ;; Backups
-  (setq-default
-   auto-save-list-file-prefix nil
-   backup-by-copying t
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   create-lockfiles nil)
-
-  :init
-  (require 'uniquify)
-  (global-auto-revert-mode)
-  (diminish 'auto-revert-mode)
-
-  (require 'hl-line)
-  (global-hl-line-mode)
-
-  (require 'winner)
-  (winner-mode)
-
-  (with-eval-after-load 'simple
-    (diminish 'auto-fill-function))
-  (with-eval-after-load 'abbrev
-    (diminish 'abbrev-mode))
-  (with-eval-after-load 'smerge-mode
-    (diminish 'smerge-mode "[sm]"))
 
   :post-init general
   (bb-leader
