@@ -7,3 +7,6 @@
 [submodule "third-party/spaceline"]
 	path = third-party/spaceline
 	url = git@github.com:TheBB/spaceline
+[submodule "epkg"]
+	path = lib/epkg
+	url = git@github.com:emacscollective/epkg.git
