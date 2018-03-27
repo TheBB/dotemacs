@@ -1,4 +1,4 @@
-(defhydra hydra-macrostep ()
+(defhydra hydra-macrostep (:foreign-keys run)
   ("e" macrostep-expand)
   ("c" macrostep-colllapse)
   ("<right>" macrostep-next-macro)
