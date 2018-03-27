@@ -1,18 +1,9 @@
-[submodule "borg"]
-	path = lib/borg
-	url = git@github.com:emacscollective/borg.git
-[submodule "third-party/evil"]
-	path = third-party/evil
-	url = git@github.com:emacs-evil/evil
-[submodule "third-party/spaceline"]
-	path = third-party/spaceline
-	url = git@github.com:TheBB/spaceline
-[submodule "epkg"]
-	path = lib/epkg
-	url = git@github.com:emacscollective/epkg.git
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
+[submodule "borg"]
+	path = lib/borg
+	url = git@github.com:emacscollective/borg.git
 [submodule "closql"]
 	path = lib/closql
 	url = git@github.com:emacscollective/closql.git
@@ -27,6 +18,9 @@
 	path = lib/emacsql
 	url = git@github.com:skeeto/emacsql.git
         no-byte-compile = emacsql-pg.el
+[submodule "epkg"]
+	path = lib/epkg
+	url = git@github.com:emacscollective/epkg.git
 [submodule "ghub"]
 	path = lib/ghub
 	url = git@github.com:magit/ghub.git
@@ -43,6 +37,18 @@
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
+[submodule "powerline"]
+	path = lib/powerline
+	url = git@github.com:milkypostman/powerline.git
+[submodule "s"]
+	path = lib/s
+	url = git@github.com:magnars/s.el.git
+[submodule "spaceline"]
+	path = lib/spaceline
+	url = git@github.com:TheBB/spaceline.git
+[submodule "third-party/evil"]
+	path = third-party/evil
+	url = git@github.com:emacs-evil/evil
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git

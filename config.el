@@ -12,7 +12,7 @@
         hydra
         monokai-theme
         diminish
-        (spaceline :location ,(bb-dir "third-party/spaceline"))
+        (spaceline :location internal)
         exec-path-from-shell
 
         ;; General setup involving Emacs built-in stuff
