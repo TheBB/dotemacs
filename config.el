@@ -1,11 +1,7 @@
-(setq package-user-dir (bb-dir "elpa/")
-      package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/"))
-
-      bb-packages
+(setq bb-packages
       `(
         ;; Planning to migrate this to a borg collective eventually
-        (borg :location ,(bb-dir "lib/borg"))
+        (borg :location internal)
 
         ;; Packages that should be initialized early
         (general :location internal)
@@ -61,7 +57,6 @@
 
         ;; Miscellaneous
         (eldoc :location internal)
-        (eshell :location internal)
         (flycheck :location internal)
         (highlight-operators :location internal)
         (highlight-numbers :location internal)
