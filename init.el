@@ -1,7 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-(require 'no-littering)
-
 (setq bb-cfg-dir (file-name-directory load-file-name))
 (setq custom-file (concat bb-cfg-dir "custom.el"))
 
@@ -17,8 +15,11 @@
 (bb-set-load-path)
 
 ;; Planning to migrate this to a borg collective eventually
+(push (concat bb-cfg-dir "lib/borg") load-path)
 (require 'borg)
 (borg-initialize)
+
+(require 'no-littering)
 
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
 ;; Generally intended for defuns and defvars

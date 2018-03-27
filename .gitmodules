@@ -214,3 +214,6 @@
 [submodule "yasnippet-snippets"]
 	path = lib/yasnippet-snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
+[submodule "evil-plugins"]
+	path = lib/evil-plugins
+	url = git@github.com:tarao/evil-plugins
