@@ -23,6 +23,23 @@
 ;; Function and variable definitions
 
 (require 'bb-general)
+(require 'bb-popwin)
+
+
+
+;; Packages that should be enabled early
+
+(use-package general
+  :config
+  (setq general-override-states '(normal visual motion))
+  (general-override-mode))
+
+(use-package no-littering)
+
+(use-package popwin
+  :config
+  (setq popwin:special-display-config nil)
+  (popwin-mode))
 
 
 
@@ -64,6 +81,11 @@
   :config
   (global-auto-revert-mode))
 
+(use-package help-mode
+  :defer t
+  :init
+  (bb-popwin help-mode))
+
 (use-package hl-line
   :config
   (global-hl-line-mode))
@@ -82,9 +104,14 @@
   :config
   (winner-mode))
 
-
-(require 'no-littering)
-
+(bb-leader
+  "<tab>" 'bb-alternate-buffer
+  ";" 'eval-expression
+  "bd" 'bb-kill-buffer
+  "fd" 'bb-kill-buffer-file
+  "fs" 'save-buffer
+  "fy" 'bb-show-and-copy-filename
+  "w" 'hydra-windows/body)
 
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
 ;; Generally intended for defuns and defvars
@@ -102,16 +129,6 @@
 
 ;; Code injected from other packages
 (bb-stage post-init)
-
-
-
-;; Other packages
-
-(use-package general
-  :config
-  (setq general-override-states '(normal visual motion))
-  (general-override-mode))
-
 
 ;; Finally load customizations, if any
 (load custom-file)
