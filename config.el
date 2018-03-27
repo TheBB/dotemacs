@@ -19,7 +19,7 @@
         (emacs :location internal)
 
         ;; Company and friends
-        company
+        (company :location internal)
         company-childframe
 
         ;; Evil and friends
