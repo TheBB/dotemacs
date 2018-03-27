@@ -8,82 +8,82 @@
         (borg :location ,(bb-dir "lib/borg"))
 
         ;; Packages that should be initialized early
-        general
-        hydra
-        monokai-theme
-        diminish
+        (general :location internal)
+        (hydra :location internal)
+        (monokai-theme :location internal)
+        (diminish :location diminish)
         (spaceline :location internal)
-        exec-path-from-shell
+        (exec-path-from-shell :location internal)
 
         ;; General setup involving Emacs built-in stuff
         (emacs :location internal)
 
         ;; Company and friends
         (company :location internal)
-        company-childframe
+        (company-childframe :location internal)
 
         ;; Evil and friends
         (evil :location internal)
-        evil-args
-        evil-collection
-        evil-embrace
+        (evil-args :location internal)
+        (evil-collection :location internal)
+        (evil-embrace :location internal)
         (evil-little-word :location ,(bb-dir "third-party/evil-little-word"))
-        evil-nerd-commenter
-        evil-numbers
-        evil-surround
+        (evil-nerd-commenter :location internal)
+        (evil-numbers :location internal)
+        (evil-surround :location internal)
         (evil-unimpaired :location internal)
 
         ;; Helm and friends
-        helm
-        helm-ag
-        helm-projectile
-        helm-swoop
-        helm-xref
+        (helm :location internal)
+        (helm-ag :location internal)
+        (helm-projectile :location internal)
+        (helm-swoop :location internal)
+        (helm-xref :location internal)
 
         ;; Magit and friends
-        magit
-        evil-magit
-        magithub
+        (magit :location internal)
+        (evil-magit :location internal)
+        (magithub :location internal)
 
         ;; LSP and friends
-        lsp-mode
-        company-lsp
-        cquery
-        lsp-ui
+        (lsp-mode :location internal)
+        (company-lsp :location internal)
+        (cquery :location internal)
+        (lsp-ui :location internal)
 
         ;; Structured editing
-        smartparens
-        evil-smartparens
+        (smartparens :location internal)
+        (evil-smartparens :location internal)
 
         ;; Snippets
-        yasnippet
-        yasnippet-snippets
+        (yasnippet :location internal)
+        (yasnippet-snippets :location internal)
 
         ;; Miscellaneous
         (eldoc :location internal)
         (eshell :location internal)
-        flycheck
-        highlight-operators
-        highlight-numbers
+        (flycheck :location internal)
+        (highlight-operators :location internal)
+        (highlight-numbers :location internal)
         (structured-editing :location internal)
-        page-break-lines
-        popwin
-        projectile
-        ws-butler
+        (page-break-lines :location internal)
+        (popwin :location internal)
+        (projectile :location internal)
+        (ws-butler :location internal)
 
         ;; Major modes
         (c-cpp :location internal)
-        cmake-mode
-        cython-mode
+        (cmake-mode :location internal)
+        (cython-mode :location internal)
         (emacs-lisp-mode :location internal)
-        python
-        pyvenv
+        (python :location internal)
+        (pyvenv :location internal)
         (text-mode :location internal)
-        yaml-mode
+        (yaml-mode :location internal)
 
         ;; Packages needed as dependencies
-        dash
-        powerline
-        s
-        undo-tree
+        (dash :location internal)
+        (powerline :location internal)
+        (s :location internal)
+        (undo-tree :location internal)
         ))
