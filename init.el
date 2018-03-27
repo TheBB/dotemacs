@@ -20,6 +20,12 @@
 
 
 
+;; Function and variable definitions
+
+(require 'bb-general)
+
+
+
 ;; General Emacs settings (built-ins, etc.)
 
 (setq user-init-file (or load-file-name buffer-file-name)
@@ -76,7 +82,9 @@
   :config
   (winner-mode))
 
+
 (require 'no-littering)
+
 
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
 ;; Generally intended for defuns and defvars
@@ -94,6 +102,16 @@
 
 ;; Code injected from other packages
 (bb-stage post-init)
+
+
+
+;; Other packages
+
+(use-package general
+  :config
+  (setq general-override-states '(normal visual motion))
+  (general-override-mode))
+
 
 ;; Finally load customizations, if any
 (load custom-file)

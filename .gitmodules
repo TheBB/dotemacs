@@ -41,6 +41,9 @@
 [submodule "diminish"]
 	path = lib/diminish
 	url = git@github.com:myrjola/diminish.el.git
+[submodule "dotemacs-misc"]
+	path = lib/dotemacs-misc
+	url = git@github.com:TheBB/dotemacs-misc.git
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = git@github.com:skeeto/emacsql.git
