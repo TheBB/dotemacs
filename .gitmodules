@@ -21,6 +21,9 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "evil"]
+	path = lib/evil
+	url = git@github.com:emacs-evil/evil.git
 [submodule "ghub"]
 	path = lib/ghub
 	url = git@github.com:magit/ghub.git
@@ -46,9 +49,6 @@
 [submodule "spaceline"]
 	path = lib/spaceline
 	url = git@github.com:TheBB/spaceline.git
-[submodule "third-party/evil"]
-	path = third-party/evil
-	url = git@github.com:emacs-evil/evil
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git

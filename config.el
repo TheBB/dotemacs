@@ -23,7 +23,7 @@
         company-childframe
 
         ;; Evil and friends
-        (evil :location ,(bb-dir "third-party/evil"))
+        (evil :location internal)
         evil-args
         evil-collection
         evil-embrace
