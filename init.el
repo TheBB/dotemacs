@@ -157,6 +157,8 @@
   "fy" 'bb-show-and-copy-filename
   "w" 'hydra-windows/body)
 
+(push '(buffer-predicate . bb-useful-buffer-p) default-frame-alist)
+
 
 
 ;; Evil and Co.
@@ -179,7 +181,15 @@
   (define-key evil-motion-state-map (kbd "<right>") 'windmove-right)
   (define-key evil-motion-state-map (kbd "gd") 'xref-find-definitions)
   (define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
-  (define-key evil-visual-state-map (kbd "K") (concat ":m '<-2" (kbd "RET") "gv=gv")))
+  (define-key evil-visual-state-map (kbd "K") (concat ":m '<-2" (kbd "RET") "gv=gv"))
+
+  ;; Unimpaired
+  (define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
+  (define-key evil-motion-state-map (kbd "] b") 'next-buffer)
+  (define-key evil-normal-state-map (kbd "[ SPC") 'bb-insert-line-above)
+  (define-key evil-normal-state-map (kbd "] SPC") 'bb-insert-line-below)
+  (define-key evil-normal-state-map (kbd "[ s") 'bb-insert-spaces-before)
+  (define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after))
 
 (use-package evil-args
   :defer t
@@ -206,6 +216,12 @@
     "cp" 'evilnc-comment-or-uncomment-paragraphs
     "cy" 'evilnc-copy-and-comment-lines))
 
+(use-package evil-numbers
+  :defer t
+  :init
+  (define-key evil-normal-state-map (kbd "+") 'hydra-numbers/evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "_") 'hydra-numbers/evil-numbers/dec-at-pt))
+
 (use-package evil-smartparens
   :hook (smartparens-enabled . evil-smartparens-mode)
   :diminish evil-smartparens-mode)
@@ -215,6 +231,30 @@
   :config
   (global-evil-surround-mode)
   (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
+
+
+
+;; Magit and Co.
+
+(use-package magit
+  :defer t
+  :init
+  (bb-leader "gs" 'magit-status)
+  (push "magit.*" bb-useless-buffers-regexp))
+
+(use-package evil-magit
+  :after magit)
+
+(use-package magithub
+  :after magit
+  :init
+  (setq magithub-clone-default-directory "~/repos")
+  :config
+  (magithub-feature-autoinject 'all))
+
+(use-package with-editor
+  :defer t
+  :diminish with-editor-mode)
 
 
 
