@@ -244,6 +244,44 @@
 
 
 
+;; Company and Co.
+
+(use-package company
+  :defer t
+  :diminish (company-mode . "c")
+  :init
+  (setq company-idle-delay 0.1
+        company-minimum-prefix-length 1
+        company-require-match nil)
+  (bb-leader "tc" 'company-mode)
+  :config
+  (define-key company-active-map (kbd "<right>") 'company-complete-selection)
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "TAB") nil)
+  (define-key company-active-map (kbd "<tab>") nil)
+  (define-key company-active-map (kbd "C-w") nil))
+
+
+
+;; Flycheck and Co.
+
+(use-package flycheck
+  :hook (lsp-mode . flycheck-mode)
+  :diminish (flycheck-mode . "f")
+  :init
+  (setq-default flycheck-check-syntax-automatically nil)
+  (bb-leader
+    "tf" 'flycheck-mode
+    "el" 'flycheck-list-errors
+    "eb" 'flycheck-buffer
+    "ec" 'flycheck-clear)
+  (bb-popwin flycheck-error-list-mode :noselect t)
+  :config
+  (aset flycheck-error-list-format 5 '("Message" 0 t)))
+
+
+
 ;; LSP and Co.
 
 (use-package lsp-mode
@@ -251,10 +289,14 @@
   :diminish (lsp-mode . "l")
   :defer t
   :init
+  ;; We use `lsp-define-stdio-client' at compile-time
   (eval-when-compile (require 'lsp-mode))
+  (put 'lsp-define-stdio-client 'lisp-indent-function 2)
+
   (setq lsp-highlight-symbol-at-point nil)
   (bb-leader "tl" 'lsp-mode)
-  (put 'lsp-define-stdio-client 'lisp-indent-function 2))
+  (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
+  (bb-company lsp-mode company-lsp))
 
 (use-package lsp-ui
   :hook (lsp-mode . bb-lsp-enable-ui))
@@ -368,6 +410,14 @@
   :config
   (global-undo-tree-mode))
 
+(use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
+  :diminish (yas-minor-mode . "y")
+  :init
+  (push 'company-yasnippet bb-company-global-backends)
+  (define-key evil-insert-state-map (kbd "C-SPC") 'yas-expand)
+  :config
+  (yas-reload-all))
 
 
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
