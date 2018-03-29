@@ -63,6 +63,22 @@
 
 
 
+;; Company
+
+(defvar bb-company-global-backends nil)
+
+(defmacro bb-company (mode &rest backends)
+  (let ((funcname (intern (format "bb-company-%s" mode)))
+        (hookname (intern (format "%s-hook" mode))))
+    `(progn
+       (defun ,funcname ()
+         (company-mode)
+         (setq-local company-backends
+                     (list (append ',backends bb-company-global-backends))))
+       (add-hook ',hookname ',funcname))))
+
+
+
 ;; Evil-numbers
 
 (defhydra hydra-numbers ()
@@ -167,6 +183,15 @@
 
 (defmacro bb-popwin (mode &rest args)
   `(push '(,mode ,@args) popwin:special-display-config))
+
+(defmacro bb-adv-only-in-modes (func &rest modes)
+  (let ((funcname
+         (intern (format "bb--only-in-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
+    `(progn
+       (defun ,funcname (orig-fn &rest args)
+         (when (or ,@(cl-loop for mode in modes collect `(eq major-mode ',mode)))
+           (apply orig-fn args)))
+       (advice-add ',func :around ',funcname))))
 
 (defun bb-alternate-buffer ()
   (interactive)

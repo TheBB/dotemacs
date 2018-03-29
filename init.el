@@ -204,6 +204,12 @@
 (use-package evil-collection-integration
   :after evil)
 
+(use-package evil-collection-elisp-mode
+  :after elisp-mode
+  :config
+  (evil-collection-elisp-mode-setup)
+  (advice-add 'eval-last-sexp :around 'evil-collection-elisp-mode-last-sexp))
+
 (use-package evil-embrace
   :after evil-surround
   :config
@@ -284,6 +290,58 @@
 
 
 
+;; Programming languages and other major modes
+
+(use-package cc-mode
+  :defer t
+  :hook ((c-mode c++-mode) . lsp-cquery-enable))
+
+(use-package cc-styles
+  :defer t
+  :config
+  (c-add-style "personal"
+               '((indent-tabs-mode . nil)
+                 (c-basic-offset . 4)
+                 (c-offsets-alist
+                  (arglist-close . 0)
+                  (inextern-lang . 0)
+                  (inline-open . 0)
+                  (innamespace . 0)
+                  (statement-cont . c-lineup-assignments)
+                  (substatement-open . 0))))
+  (push '(other . "personal") c-default-style))
+
+(use-package cmake-mode
+  :defer t
+  :init
+  (bb-company cmake-mode company-cmake))
+
+(use-package elisp-mode
+  :defer t
+  :init
+  (bb-mm-leader emacs-lisp-mode
+    "cs" 'eval-last-sexp
+    "cf" 'eval-defun
+    "cb" 'eval-buffer)
+  (bb-company emacs-lisp-mode company-capf))
+
+(use-package python
+  :defer t
+  :hook (python-mode . lsp-python-enable)
+  :init
+  ;; The "official" client wrongly considers __init__.py to be a project root
+  (lsp-define-stdio-client lsp-python "python"
+    (lsp-make-traverser (lambda (dir)
+                          (directory-files dir nil "\\(setup\\)\\.py")))
+    '("pyls"))
+  ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
+  (bb-adv-only-in-modes lsp-python-enable python-mode))
+
+(use-package text-mode
+  :hook (text-mode . auto-fill-mode))
+
+
+
 ;; Miscellaneous
 
 (use-package smartparens
@@ -293,7 +351,10 @@
   (setq sp-highlight-pair-overlay nil
 	sp-highlight-wrap-overlay nil
 	sp-highlight-wrap-tag-overlay nil)
-  (bb-leader "ts" 'smartparens-mode))
+  (bb-leader "ts" 'smartparens-mode)
+  :config
+  (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
+  (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "("))
 
 (use-package smartparens-config
   :after smartparens)
