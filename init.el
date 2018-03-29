@@ -354,7 +354,7 @@
     "bb" 'helm-mini
     "ff" 'helm-find-files
     "fl" 'helm-locate-library
-    "hh" 'bb-helm-config
+    "hi" 'bb-find-init
     "ji" 'helm-imenu
     "rl" 'helm-resume)
   (push "\\*helm.+\\*" bb-useless-buffers-regexp)

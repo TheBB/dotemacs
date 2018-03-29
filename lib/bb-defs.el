@@ -412,6 +412,11 @@ Suitable for `helm-display-function'."
      (cl-find-if (lambda (b) (not (eq b buf)))
                  (mapcar 'car (window-prev-buffers))))))
 
+(defun bb-find-init ()
+  "Open `user-init-file'."
+  (interactive)
+  (find-file user-init-file))
+
 (defun bb-kill-buffer ()
   "Kill the current buffer."
   (interactive)
