@@ -325,6 +325,7 @@
   `(push '(,mode ,@args) popwin:special-display-config))
 
 (defmacro bb-adv-only-in-modes (func &rest modes)
+  (declare (indent 1))
   (let ((funcname
          (intern (format "bb--only-in-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
     `(progn
@@ -334,6 +335,7 @@
        (advice-add ',func :around ',funcname))))
 
 (defmacro bb-adv-except-derived-modes (func &rest modes)
+  (declare (indent 1))
   (let ((funcname
          (intern (format "bb--except-derived-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
     `(progn
