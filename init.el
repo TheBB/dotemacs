@@ -46,6 +46,24 @@
 
 
 
+;; Theme
+
+(load-theme 'monokai 'noconfirm)
+
+(set-face-attribute 'default nil :font "Iosevka Expanded Bold" :height 100)
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+(set-face-attribute 'font-lock-string-face nil :slant 'italic)
+(set-face-attribute 'font-lock-doc-face nil :slant 'italic :foreground "#75715e")
+(set-face-attribute 'font-lock-keyword-face nil :foreground "#ff4185" :weight 'bold)
+(set-face-attribute 'font-lock-builtin-face nil :foreground "#ffabd6" :weight 'bold)
+
+(set-face-attribute 'header-line nil :box '(:color "#555555"))
+(set-face-attribute 'mode-line nil
+  :box '(:color "#999999" :line-width 1 :style released-button))
+(set-face-attribute 'mode-line-inactive nil
+  :box '(:color "#666666" :line-width 1 :style released-button))
+
+
 ;; Modeline
 
 (use-package spaceline-segments
@@ -84,6 +102,18 @@
   :config
   (spaceline-helm-mode))
 
+(use-package powerline
+  :config
+  (set-face-attribute 'powerline-active1 nil
+    :box '(:color "#999999" :line-width 1 :style released-button)
+    :background "#5a5a5a")
+  (set-face-attribute 'powerline-active2 nil
+    :box '(:color "#999999" :line-width 1 :style released-button))
+  (set-face-attribute 'powerline-inactive1 nil
+    :box '(:color "#666666" :line-width 1 :style released-button))
+  (set-face-attribute 'powerline-inactive2 nil
+    :box '(:color "#666666" :line-width 1 :style released-button)))
+
 
 
 ;; General Emacs settings (built-ins, etc.)
@@ -115,6 +145,7 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (fset 'startup-echo-area-message (lambda () ""))
+(put 'set-face-attribute 'lisp-indent-function 2)
 
 (use-package abbrev
   :defer t
@@ -260,7 +291,13 @@
   (define-key company-active-map (kbd "<return>") nil)
   (define-key company-active-map (kbd "TAB") nil)
   (define-key company-active-map (kbd "<tab>") nil)
-  (define-key company-active-map (kbd "C-w") nil))
+  (define-key company-active-map (kbd "C-w") nil)
+  (set-face-attribute 'company-tooltip-selection nil
+    :background monokai-comments :foreground monokai-emphasis)
+  (set-face-attribute 'company-tooltip-common-selection nil
+    :foreground monokai-blue :background monokai-comments)
+  (set-face-attribute 'company-tooltip-annotation-selection nil
+    :background monokai-comments))
 
 
 
@@ -282,6 +319,85 @@
 
 
 
+;; Helm and Co.
+
+(use-package helm
+  :diminish helm-mode
+  :init
+  (setq helm-display-function 'bb-helm-display-child-frame
+        helm-display-buffer-reuse-frame t
+        helm-display-buffer-width 120
+        helm-display-buffer-height 25)
+  (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
+  (bb-leader
+    "SPC" 'helm-M-x
+    "bb" 'helm-mini
+    "ff" 'helm-find-files
+    "fl" 'helm-locate-library
+    "hh" 'bb-helm-config
+    "ji" 'helm-imenu
+    "rl" 'helm-resume)
+  (push "\\*helm.+\\*" bb-useless-buffers-regexp)
+  :config
+  (helm-mode)
+  (helm-autoresize-mode)
+  (define-key helm-map (kbd "<right>") 'helm-maybe-exit-minibuffer)
+  (set-face-attribute 'helm-prefarg nil :foreground "PaleGreen"))
+
+(use-package helm-ag
+  :defer t
+  :init
+  (bb-leader "/" 'bb-helm-ag-project)
+  :config
+  (define-key helm-ag-map (kbd "<right>") nil)
+  (define-key helm-ag-map (kbd "<left>") 'helm-ag--up-one-level)
+  (define-key helm-ag-map (kbd "C-j") 'helm-ag--next-file)
+  (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file))
+
+(use-package helm-files
+  :defer t
+  :config
+  (define-key helm-find-files-map (kbd "<right>") 'helm-ff-RET)
+  (advice-add 'helm-ff-filter-candidate-one-by-one
+	      :around 'bb-helm-ff-filter-candidate-one-by-one)
+  (advice-add 'helm-find-files-up-one-level
+	      :around 'bb-helm-find-files-up-one-level))
+
+(use-package helm-imenu
+  :defer t
+  :config
+  (define-key helm-imenu-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
+
+(use-package helm-projectile
+  :commands (helm-projectile
+             helm-projectile-find-dir
+             helm-projectile-find-file
+             helm-projectile-switch-project
+             helm-projectile-switch-to-buffer)
+  :init
+  (setq projectile-switch-project-action 'helm-projectile)
+  (bb-leader
+    "pb" 'helm-projectile-switch-to-buffer
+    "pd" 'helm-projectile-find-dir
+    "pf" 'helm-projectile-find-file
+    "ph" 'helm-projectile
+    "pp" 'helm-projectile-switch-project)
+  :config
+  (define-key helm-projectile-find-file-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
+
+(use-package helm-swoop
+  :init
+  (setq helm-swoop-split-with-multiple-windows t
+        elm-swoop-pre-input-function (lambda () ""))
+  (bb-leader "ss" 'bb-helm-swoop))
+
+(use-package helm-xref
+  :after xref
+  :config
+  (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
+
+
+
 ;; LSP and Co.
 
 (use-package lsp-mode
@@ -297,6 +413,12 @@
   (bb-leader "tl" 'lsp-mode)
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
   (bb-company lsp-mode company-lsp))
+
+(use-package lsp-methods
+  :defer t
+  :config
+  (set-face-attribute 'lsp-face-highlight-textual nil
+    :background monokai-highlight-line))
 
 (use-package lsp-ui
   :hook (lsp-mode . bb-lsp-enable-ui))
@@ -378,6 +500,15 @@
     '("pyls"))
   ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
   (bb-adv-only-in-modes lsp-python-enable python-mode))
+
+(use-package pyvenv
+  :defer t
+  :init
+  (bb-mm-leader python-mode
+    "va" 'pyvenv-workon
+    "vd" 'pyvenv-deactivate)
+  (add-hook 'pyvenv-post-activate-hooks 'lsp-restart-workspace)
+  (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
 
 (use-package text-mode
   :hook (text-mode . auto-fill-mode))
