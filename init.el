@@ -20,6 +20,7 @@
 ;; Function, variable, and macro definitions
 
 (require 'bb-defs)
+(require 'bb-hooks)
 
 
 
@@ -482,7 +483,8 @@
     "cf" 'eval-defun
     "cb" 'eval-buffer
     "l" 'hydra-structured-editing-lisp/body)
-  (bb-company emacs-lisp-mode company-capf))
+  (bb-company emacs-lisp-mode company-capf)
+  (add-hook 'emacs-lisp-mode-hook 'bb-elisp))
 
 (use-package lisp-mode
   :defer t
