@@ -4,12 +4,16 @@
 
 ;; Initialize borg and set up load path
 
-(setq bb-cfg-dir (file-name-directory load-file-name)
+(setq user-init-file (or load-file-name buffer-file-name)
+      user-emacs-directory (file-name-directory user-init-file)
+
+      bb-cfg-dir user-emacs-directory
       custom-file (concat bb-cfg-dir "custom.el"))
+
+(push (concat bb-cfg-dir "lib") load-path)
 
 ;; The load path must be set when compiling to get access to macros
 (eval-when-compile
-  (push (concat bb-cfg-dir "lib") load-path)
   (push (concat bb-cfg-dir "config") load-path)
   (require 'bb-compile)
   (load (concat bb-cfg-dir "config.el")))
@@ -20,10 +24,9 @@
 
 
 
-;; Function and variable definitions
+;; Function, variable, and macro definitions
 
-(require 'bb-general)
-(require 'bb-popwin)
+(require 'bb-defs)
 
 
 
@@ -112,6 +115,23 @@
   "fs" 'save-buffer
   "fy" 'bb-show-and-copy-filename
   "w" 'hydra-windows/body)
+
+
+
+;; Miscellaneous
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode)
+  :diminish (smartparens-mode . "s")
+  :init
+  (setq sp-highlight-pair-overlay nil
+	sp-highlight-wrap-overlay nil
+	sp-highlight-wrap-tag-overlay nil)
+  (bb-leader "ts" 'smartparens-mode))
+
+(use-package smartparens-config
+  :after smartparens)
+
 
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
 ;; Generally intended for defuns and defvars
