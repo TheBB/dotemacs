@@ -4,6 +4,13 @@
 [submodule "async"]
 	path = lib/async
 	url = git@github.com:jwiegley/emacs-async.git
+[submodule "auctex"]
+	path = lib/auctex
+	url = https://git.savannah.gnu.org/git/auctex.git
+	build-step = ./autogen.sh
+	build-step = configure
+	build-step = make
+	build-step = "(borg-update-autoloads \"auctex\")"
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git

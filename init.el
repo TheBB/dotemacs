@@ -476,6 +476,8 @@
 
 ;; Programming languages and other major modes
 
+(use-package tex-site)
+
 (use-package cc-mode
   :defer t
   :hook ((c-mode c++-mode) . lsp-cquery-enable))
