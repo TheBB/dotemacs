@@ -408,7 +408,7 @@
 (use-package helm-swoop
   :init
   (setq helm-swoop-split-with-multiple-windows t
-        elm-swoop-pre-input-function (lambda () ""))
+        helm-swoop-pre-input-function (lambda () ""))
   (bb-leader "ss" 'bb-helm-swoop))
 
 (use-package helm-xref
