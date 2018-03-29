@@ -486,8 +486,14 @@
   (bb-mm-leader emacs-lisp-mode
     "cs" 'eval-last-sexp
     "cf" 'eval-defun
-    "cb" 'eval-buffer)
+    "cb" 'eval-buffer
+    "l" 'hydra-structured-editing-lisp/body)
   (bb-company emacs-lisp-mode company-capf))
+
+(use-package lisp-mode
+  :defer t
+  :init
+  (bb-mm-leader lisp-mode "l" 'hydra-structured-editing-lisp/body))
 
 (use-package python
   :defer t
@@ -517,6 +523,40 @@
 
 ;; Miscellaneous
 
+(use-package exec-path-from-shell
+  :config
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-initialize))
+
+(use-package highlight-operators
+  :hook (prog-mode . highlight-operators-mode)
+  :init
+  (bb-adv-except-derived-modes highlight-operators-mode lisp-mode scheme-mode emacs-lisp-mode python-mode)
+  :config
+  (set-face-attribute 'highlight-operators-face nil
+    :inherit 'font-lock-keyword-face))
+
+(use-package highlight-numbers
+  :hook (prog-mode-hook . highlight-numbers-mode))
+
+(use-package macrostep
+  :defer t
+  :init
+  (bb-mm-leader emacs-lisp-mode "cm" 'hydra-macrostep/body))
+
+(use-package page-break-lines
+  :diminish page-break-lines-mode
+  :config
+  (setq page-break-lines-mode '(prog-mode))
+  (global-page-break-lines-mode))
+
+(use-package projectile
+  :diminish projectile-mode
+  :init
+  (bb-leader "ga" 'projectile-find-other-file)
+  :config
+  (projectile-mode))
+
 (use-package smartparens
   :hook (prog-mode . smartparens-mode)
   :diminish (smartparens-mode . "s")
@@ -540,6 +580,11 @@
   (bb-popwin undo-tree-visualizer-mode :width 60 :position right)
   :config
   (global-undo-tree-mode))
+
+(use-package ws-butler
+  :diminish ws-butler-mode
+  :config
+  (ws-butler-global-mode))
 
 (use-package yasnippet
   :hook (prog-mode . yas-minor-mode)

@@ -228,6 +228,17 @@
 
 
 
+;; Macrostep
+
+(defhydra hydra-macrostep (:foreign-keys run)
+  ("e" macrostep-expand)
+  ("c" macrostep-collapse)
+  ("<right>" macrostep-next-macro)
+  ("<left>" macrostep-prev-macro)
+  ("q" macrostep-collapse-all :exit t))
+
+
+
 ;; Smartparens
 
 (defun bb-sp-pair-newline-and-indent (id action context)
@@ -241,6 +252,33 @@
      ,@(cl-loop for pair in pairs
                 collect `(sp-local-pair ',modes ,pair nil :post-handlers
                                         '(:add (bb-sp-pair-newline-and-indent "RET"))))))
+
+
+
+;; Structured editing
+
+(defun bb-wrap-paren ()
+  (interactive)
+  (sp-wrap-with-pair "("))
+
+(defhydra hydra-structured-editing-lisp ()
+  ("u" undo-tree-undo)
+
+  ("b" sp-forward-barf-sexp)
+  ("B" sp-backward-barf-sexp)
+  ("s" sp-forward-slurp-sexp)
+  ("S" sp-backward-slurp-sexp)
+
+  ("dd" sp-kill-sexp)
+  ("ds" sp-kill-symbol)
+  ("dw" sp-kill-word)
+
+  ("w" bb-wrap-paren)
+
+  ("h" sp-backward-symbol)
+  ("<left>" sp-backward-sexp)
+  ("l" sp-forward-symbol)
+  ("<right>" sp-forward-sexp))
 
 
 
@@ -292,6 +330,15 @@
     `(progn
        (defun ,funcname (orig-fn &rest args)
          (when (or ,@(cl-loop for mode in modes collect `(eq major-mode ',mode)))
+           (apply orig-fn args)))
+       (advice-add ',func :around ',funcname))))
+
+(defmacro bb-adv-except-derived-modes (func &rest modes)
+  (let ((funcname
+         (intern (format "bb--except-derived-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
+    `(progn
+       (defun ,funcname (orig-fn &rest args)
+         (unless (derived-mode-p ,@(cl-loop for mode in modes collect `(quote ,mode)))
            (apply orig-fn args)))
        (advice-add ',func :around ',funcname))))
 
