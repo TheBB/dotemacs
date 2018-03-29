@@ -122,6 +122,7 @@
   (spaceline-helm-mode))
 
 (use-package powerline
+  :defer t
   :config
   (set-face-attribute 'powerline-active1 nil
     :box '(:color "#999999" :line-width 1 :style released-button)
@@ -542,9 +543,6 @@
 
 
 ;; Miscellaneous
-
-(use-package auto-compile
-  :hook (emacs-lisp-mode . auto-compile-mode))
 
 (use-package exec-path-from-shell
   :config
