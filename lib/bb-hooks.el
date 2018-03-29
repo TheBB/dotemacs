@@ -28,7 +28,7 @@
 
 (defun bb-elisp ()
   "Run in `emacs-lisp-mode'."
-  (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2) imenu-generic-expression))
+  (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression))
 
 
 (provide 'bb-hooks)
