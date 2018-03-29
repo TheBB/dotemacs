@@ -95,6 +95,21 @@
 
 
 
+;; LSP
+
+(declare-function 'lsp-ui-imenu-enable "lsp-ui-imenu")
+(declare-function 'lsp-ui-flycheck-add-mode "lsp-ui-flycheck")
+(defvar flycheck-checker)
+(defvar flycheck-checkers)
+
+(defun bb-lsp-enable-ui ()
+  (lsp-ui-imenu-enable t)
+  (setq-local flycheck-checker 'lsp-ui)
+  (lsp-ui-flycheck-add-mode major-mode)
+  (add-to-list 'flycheck-checkers 'lsp-ui))
+
+
+
 ;; Smartparens
 
 (defun bb-sp-pair-newline-and-indent (id action context)

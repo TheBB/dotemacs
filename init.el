@@ -125,6 +125,10 @@
   :config
   (global-auto-revert-mode))
 
+(use-package eldoc
+  :defer t
+  :diminish eldoc-mode)
+
 (use-package help-mode
   :defer t
   :init
@@ -234,6 +238,28 @@
 
 
 
+;; LSP and Co.
+
+(use-package lsp-mode
+  :commands (lsp-make-traverser)
+  :diminish (lsp-mode . "l")
+  :defer t
+  :init
+  (eval-when-compile (require 'lsp-mode))
+  (setq lsp-highlight-symbol-at-point nil)
+  (bb-leader "tl" 'lsp-mode)
+  (put 'lsp-define-stdio-client 'lisp-indent-function 2))
+
+(use-package lsp-ui
+  :hook (lsp-mode . bb-lsp-enable-ui))
+
+(use-package lsp-ui-doc :commands lsp-ui-doc-enable)
+(use-package lsp-ui-flycheck :commands (lsp-ui-flycheck-enable lsp-ui-flycheck-add-mode))
+(use-package lsp-ui-imenu :commands lsp-ui-imenu-enable)
+(use-package lsp-ui-sideline :commands lsp-ui-sideline-enable)
+
+
+
 ;; Magit and Co.
 
 (use-package magit
@@ -271,6 +297,16 @@
 
 (use-package smartparens-config
   :after smartparens)
+
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :init
+  (setq undo-tree-enable-undo-in-region nil)
+  (bb-leader "au" 'undo-tree-visualize)
+  (bb-popwin undo-tree-visualizer-mode :width 60 :position right)
+  :config
+  (global-undo-tree-mode))
+
 
 
 ;; The configuration stage runs code from all bb-PKG-cfg.el files
