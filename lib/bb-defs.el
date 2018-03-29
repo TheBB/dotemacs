@@ -428,6 +428,12 @@ Suitable for `helm-display-function'."
         (delete-file filename 'trash)
         (kill-buffer buffer)))))
 
+(defun bb-show-and-copy-filename ()
+  "Show and copy the full path to the current file in the minibuffer."
+  (interactive)
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (when file-name
+      (message (kill-new file-name)))))
 
 (provide 'bb-defs)
 
