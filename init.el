@@ -1,4 +1,29 @@
-;;; -*- lexical-binding: t -*-
+;;; init.el --- Personal configuration. -*- lexical-binding: t -*-
+
+;; Copyright (C) 2018 Eivind Fonn
+
+;; This file is not part of GNU Emacs.
+
+;;; License:
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; General init of Emacs.
+
+;;; Code:
 
 
 
@@ -7,11 +32,10 @@
 (setq user-init-file (or load-file-name buffer-file-name)
       user-emacs-directory (file-name-directory user-init-file)
 
-      bb-cfg-dir user-emacs-directory
-      custom-file (concat bb-cfg-dir "custom.el"))
+      custom-file (concat user-emacs-directory "custom.el"))
 
-(push (concat bb-cfg-dir "lib") load-path)
-(push (concat bb-cfg-dir "lib/borg") load-path)
+(push (concat user-emacs-directory "lib") load-path)
+(push (concat user-emacs-directory "lib/borg") load-path)
 (require 'borg)
 (borg-initialize)
 
@@ -519,6 +543,9 @@
 
 ;; Miscellaneous
 
+(use-package auto-compile
+  :hook (emacs-lisp-mode . auto-compile-mode))
+
 (use-package exec-path-from-shell
   :config
   (setq exec-path-from-shell-check-startup-files nil)
@@ -597,3 +624,6 @@
 ;; Finally load customizations, if any
 
 (load custom-file)
+
+
+;;; init.el ends here

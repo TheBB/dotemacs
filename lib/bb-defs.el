@@ -1,3 +1,32 @@
+;;; bb-defs.el --- Personal definitions. -*- lexical-binding: t -*-
+
+;; Copyright (C) 2018 Eivind Fonn
+
+;; This file is not part of GNU Emacs.
+
+;;; License:
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Miscellaneous functions, macros and associated variables needed in
+;; my Emacs init.
+
+;;; Code:
+
+
 (eval-when-compile
   (require 'cl-lib)
   (require 'hydra))
@@ -9,12 +38,14 @@
 (declare-function 'general-define-key "general")
 
 (defmacro bb-leader (&rest args)
+  "Bind ARGS as leader bindings."
   (declare (indent 0))
   `(progn
      (require 'general)
      (general-define-key :prefix "SPC" :states '(normal motion) :keymaps 'override ,@args)))
 
 (defmacro bb-create-dispatch (keys)
+  "Generate a major mode dispatch system for KEYS."
   (let ((funcname (intern (format "bb-dispatch-%s" keys)))
         (varname (intern (format "bb-dispatch-table-%s" keys))))
     `(progn
@@ -29,6 +60,7 @@
          (bb-leader ,keys ',funcname)))))
 
 (defmacro bb-mm-leader (mode &rest args)
+  "Bind ARGS in MODE as leader bindings."
   (declare (indent 1))
   (let (bindings)
     (while args
@@ -45,14 +77,16 @@
 
 ;; Buffer predicate function
 
-(defvar bb-useful-buffers-regexp nil)
+(defvar bb-useful-buffers-regexp nil
+  "Regular expressions to determine if a buffer is useful.")
 
 (defvar bb-useless-buffers-regexp
   '("\\*Messages\\*"
-    "\\*Help\\*"))
+    "\\*Help\\*")
+  "Regular expressions to determine if a buffer is useless.")
 
 (defun bb-useful-buffer-p (buffer)
-  "Determine if a buffer is useful."
+  "Determine if BUFFER is useful."
   (let ((name (buffer-name buffer)))
     (or (with-current-buffer buffer
           (derived-mode-p 'comint-mode))
@@ -65,9 +99,11 @@
 
 ;; Company
 
-(defvar bb-company-global-backends nil)
+(defvar bb-company-global-backends nil
+  "List of backends to enable everywhere.")
 
 (defmacro bb-company (mode &rest backends)
+  "Run `company-mode' in MODE with BACKENDS."
   (let ((funcname (intern (format "bb-company-%s" mode)))
         (hookname (intern (format "%s-hook" mode))))
     `(progn
@@ -92,18 +128,22 @@
 ;; Evil-unimpaired
 
 (defun bb-insert-line-above (count)
+  "Insert COUNT lines above point."
   (interactive "p")
   (dotimes (- count) (save-excursion (evil-insert-newline-above))))
 
 (defun bb-insert-line-below (count)
+  "Insert COUNT lines below point."
   (interactive "p")
   (dotimes (- count) (save-excursion (evil-insert-newline-below))))
 
 (defun bb-insert-spaces-before (count)
+  "Insert COUNT spaces before point."
   (interactive "p")
   (dotimes (- count) (insert " ")))
 
 (defun bb-insert-spaces-after (count)
+  "Insert COUNT spaces after point."
   (interactive "p")
   (forward-char)
   (dotimes (- count) (insert " "))
@@ -114,16 +154,23 @@
 ;; Functions to remove dotted entries from `helm-find-files'
 
 (defun bb-helm-ff-filter-candidate-one-by-one (func file)
+  "Filter out '.' and '..' from FILE.  Otherwise call FUNC."
   (unless (string-match-p "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
     (funcall func file)))
 
-(defun bb-helm-file-completion-source-p (&rest args) t)
+(defun bb-helm-file-completion-source-p (&rest _)
+  "Always return true."
+  t)
 
 (defun bb-helm-attrset (func attribute-name value &optional src)
+  "Wrapper for FUNC that ensures SRC is always a valid helm source.
+For ATTRIBUTE-NAME and VALUE, see `helm-attrset'."
   (let ((src (or src (helm-get-current-source))))
     (when src (funcall func attribute-name value src))))
 
 (defun bb-helm-find-files-up-one-level (func &rest args)
+  "Wrapper for FUNC that works without looking at any entries.
+For ARGS, see `helm-find-files'."
   (advice-add 'helm-file-completion-source-p :around 'bb-helm-file-completion-source-p)
   (advice-add 'helm-attrset :around 'bb-helm-attrset)
   (let ((res (apply func args)))
@@ -155,9 +202,9 @@
     (alpha . 90))
   "Frame parameters that apply to all helm child frames.")
 
-(defun bb-helm-display-child-frame (buffer &optional resume)
-  "Display helm in a child frame. Suitable for
-`helm-display-function'."
+(defun bb-helm-display-child-frame (buffer &optional _)
+  "Display the helm buffer BUFFER in a child frame.
+Suitable for `helm-display-function'."
 
   ;; Fallback to regular display if not in a GUI
   (if (not (display-graphic-p))
@@ -203,10 +250,12 @@
 ;; Helm helpers
 
 (defun bb-helm-ag-project ()
+  "Call `helm-do-ag' in the project root."
   (interactive)
   (helm-do-ag (projectile-project-root)))
 
 (defun bb-helm-swoop ()
+  "Call `helm-swoop' with `helm-echo-input-in-header-line' set to true."
   (interactive)
   (let ((helm-echo-input-in-header-line t))
     (call-interactively 'helm-swoop)))
@@ -221,6 +270,7 @@
 (defvar flycheck-checkers)
 
 (defun bb-lsp-enable-ui ()
+  "Enable LSP user interface tools."
   (lsp-ui-imenu-enable t)
   (setq-local flycheck-checker 'lsp-ui)
   (lsp-ui-flycheck-add-mode major-mode)
@@ -241,13 +291,15 @@
 
 ;; Smartparens
 
-(defun bb-sp-pair-newline-and-indent (id action context)
+(defun bb-sp-pair-newline-and-indent (&rest _)
+  "Create an empty line between two delimiters."
   (save-excursion
     (newline)
     (indent-according-to-mode))
   (indent-according-to-mode))
 
 (defmacro bb-apply-newline-indent (modes &rest pairs)
+  "Apply newline and indent behaviour for all PAIRS in all MODES."
   `(progn
      ,@(cl-loop for pair in pairs
                 collect `(sp-local-pair ',modes ,pair nil :post-handlers
@@ -258,6 +310,7 @@
 ;; Structured editing
 
 (defun bb-wrap-paren ()
+  "Wrap the symbol under point with parentheses."
   (interactive)
   (sp-wrap-with-pair "("))
 
@@ -285,18 +338,22 @@
 ;; Window management
 
 (defun bb-shrink-window-horizontally (delta)
+  "Shrink the current window horizontally by DELTA units."
   (interactive "p")
   (shrink-window delta 'horizontal))
 
 (defun bb-shrink-window-vertically (delta)
+  "Shrink the current window vertically by DELTA units."
   (interactive "p")
   (shrink-window delta nil))
 
 (defun bb-enlarge-window-horizontally (delta)
+  "Enlarge the current window horizontally by DELTA units."
   (interactive "p")
   (enlarge-window delta 'horizontal))
 
 (defun bb-enlarge-window-vertically (delta)
+  "Enlarge the current window vertically by DELTA units."
   (interactive "p")
   (enlarge-window delta nil))
 
@@ -322,9 +379,11 @@
 (defvar popwin:special-display-config)
 
 (defmacro bb-popwin (mode &rest args)
+  "Push (MODE ARGS...) to `popwin:special-display-config'."
   `(push '(,mode ,@args) popwin:special-display-config))
 
 (defmacro bb-adv-only-in-modes (func &rest modes)
+  "Advice FUNC only to run then `major-mode' is exactly any of MODES."
   (declare (indent 1))
   (let ((funcname
          (intern (format "bb--only-in-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
@@ -335,6 +394,7 @@
        (advice-add ',func :around ',funcname))))
 
 (defmacro bb-adv-except-derived-modes (func &rest modes)
+  "Advice FUNC only to run when `major-mode' is derived from any of MODES."
   (declare (indent 1))
   (let ((funcname
          (intern (format "bb--except-derived-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
@@ -345,6 +405,7 @@
        (advice-add ',func :around ',funcname))))
 
 (defun bb-alternate-buffer ()
+  "Switch to the previous buffer displayed in the current window."
   (interactive)
   (let ((buf (window-buffer)))
     (switch-to-buffer
@@ -352,10 +413,12 @@
                  (mapcar 'car (window-prev-buffers))))))
 
 (defun bb-kill-buffer ()
+  "Kill the current buffer."
   (interactive)
   (kill-buffer nil))
 
 (defun bb-kill-buffer-file ()
+  "Kill the current buffer and delete its associated file, if any."
   (interactive)
   (let ((filename (buffer-file-name))
         (buffer (current-buffer)))
@@ -365,4 +428,7 @@
         (delete-file filename 'trash)
         (kill-buffer buffer)))))
 
+
 (provide 'bb-defs)
+
+;;; bb-defs.el ends here
