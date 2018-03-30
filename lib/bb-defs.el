@@ -104,6 +104,7 @@
 
 (defmacro bb-company (mode &rest backends)
   "Run `company-mode' in MODE with BACKENDS."
+  (declare (indent 1))
   (let ((funcname (intern (format "bb-company-%s" mode)))
         (hookname (intern (format "%s-hook" mode))))
     `(progn

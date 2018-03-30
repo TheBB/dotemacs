@@ -501,7 +501,9 @@
   (setq tex-fontify-script nil
 	font-latex-fontify-script nil
         TeX-parse-self nil)
-  (bb-company LaTeX-mode company-reftex-labels company-reftex-citations))
+  (bb-company LaTeX-mode
+    company-reftex-labels company-reftex-citations
+    company-auctex-macros company-auctex-environments))
 
 
 
