@@ -478,7 +478,11 @@
 
 ;; Programming languages and other major modes
 
-(use-package tex-site)
+(use-package bibtex
+  :defer t
+  :init
+  (setq bibtex-align-at-equal-sign t)
+  (bb-mm-leader bibtex-mode "==" 'bibtex-fill-entry))
 
 (use-package cc-mode
   :defer t
@@ -544,6 +548,14 @@
 (use-package text-mode
   :hook (text-mode . auto-fill-mode))
 
+(use-package tex-site
+  ;; Not deferred, since tex-site.el is essentially an autoloads file.
+  :init
+  (setq tex-fontify-script nil
+	font-latex-fontify-script nil
+        TeX-parse-self t)
+  (bb-company LaTeX-mode company-auctex-labels))
+
 
 
 ;; Miscellaneous
@@ -584,7 +596,7 @@
   (projectile-mode))
 
 (use-package smartparens
-  :hook (prog-mode . smartparens-mode)
+  :hook ((prog-mode LaTeX-mode) . smartparens-mode)
   :diminish (smartparens-mode . "s")
   :init
   (setq sp-highlight-pair-overlay nil
@@ -613,7 +625,7 @@
   (ws-butler-global-mode))
 
 (use-package yasnippet
-  :hook (prog-mode . yas-minor-mode)
+  :hook ((prog-mode LaTeX-mode) . yas-minor-mode)
   :diminish (yas-minor-mode . "y")
   :init
   (push 'company-yasnippet bb-company-global-backends)
