@@ -35,6 +35,9 @@
 [submodule "company-lsp"]
 	path = lib/company-lsp
 	url = git@github.com:tigersoldier/company-lsp.git
+[submodule "company-reftex"]
+	path = lib/company-reftex
+	url = git@github.com:TheBB/company-reftex.git
 [submodule "cquery"]
 	path = lib/cquery
 	url = git@github.com:cquery-project/emacs-cquery.git
@@ -170,6 +173,9 @@
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = git@github.com:emacscollective/no-littering.git
+[submodule "package-lint"]
+	path = lib/package-lint
+	url = git@github.com:purcell/package-lint.git
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
@@ -230,6 +236,3 @@
 [submodule "yasnippet-snippets"]
 	path = lib/yasnippet-snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
-[submodule "company-reftex"]
-	path = lib/company-reftex
-	url = git@github.com:TheBB/company-reftex.git
