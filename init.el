@@ -477,13 +477,34 @@
 
 
 
-;; Programming languages and other major modes
+;; LaTeX and Co.
 
 (use-package bibtex
   :defer t
   :init
   (setq bibtex-align-at-equal-sign t)
   (bb-mm-leader bibtex-mode "==" 'bibtex-fill-entry))
+
+(use-package company-reftex
+  :defer t
+  :init
+  (setq company-reftex-max-annotation-length 100))
+
+(use-package reftex
+  :hook (LaTeX-mode . reftex-mode)
+  :diminish reftex-mode)
+
+(use-package tex-site
+  ;; Not deferred, since tex-site.el is essentially an autoloads file.
+  :init
+  (setq tex-fontify-script nil
+	font-latex-fontify-script nil
+        TeX-parse-self nil)
+  (bb-company LaTeX-mode company-reftex-labels company-reftex-citations))
+
+
+
+;; Programming languages and other major modes
 
 (use-package cc-mode
   :defer t
@@ -548,17 +569,6 @@
 
 (use-package text-mode
   :hook (text-mode . auto-fill-mode))
-
-(use-package tex-site
-  :hook (LaTeX-mode . reftex-mode)
-  :init
-  ;; Not deferred, since tex-site.el is essentially an autoloads file.
-  (require 'tex-site)
-  (setq tex-fontify-script nil
-	font-latex-fontify-script nil
-        TeX-parse-self t
-        company-reftex-max-annotation-length 100)
-  (bb-company LaTeX-mode company-reftex-labels company-reftex-citations))
 
 
 
