@@ -67,6 +67,9 @@
 [submodule "epl"]
 	path = lib/epl
 	url = git@github.com:cask/epl.git
+[submodule "erc-hl-nicks"]
+	path = lib/erc-hl-nicks
+	url = git@github.com:leathekd/erc-hl-nicks.git
 [submodule "evil"]
 	path = lib/evil
 	url = git@github.com:emacs-evil/evil.git
