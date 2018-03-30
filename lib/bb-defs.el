@@ -157,6 +157,19 @@
 (defun bb-start-erc ()
   (interactive)
   (when (boundp 'bb-znc-pwd)
+    (eyebrowse-switch-to-window-config 0)
+    (eyebrowse-rename-window-config 0 "IRC")
+    (delete-other-windows)
+    (evil-window-vsplit)
+    (purpose-set-window-purpose 'erc-evil-mode)
+    (evil-window-split)
+    (windmove-down)
+    (purpose-set-window-purpose 'erc-emacs-beginners)
+    (windmove-right)
+    (purpose-set-window-purpose 'erc-emacs)
+    (evil-window-split)
+    (windmove-down)
+    (purpose-set-window-purpose 'erc)
     (erc :server "efonn.no"
          :port 1025
          :nick "TheBB"

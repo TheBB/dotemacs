@@ -437,7 +437,10 @@
   (bb-leader "ai" 'bb-start-erc)
   (bb-mm-leader erc-mode "qs" 'erc-quit-server)
   (evil-set-initial-state 'erc-mode 'normal)
-  (add-hook 'erc-mode-hook 'bb-erc))
+  (add-hook 'erc-mode-hook 'bb-erc)
+  :config
+  (setq erc-modules (remove 'track erc-modules))
+  (erc-update-modules))
 
 
 
