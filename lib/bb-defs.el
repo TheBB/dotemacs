@@ -383,7 +383,13 @@ Suitable for `helm-display-function'."
   (")" bb-enlarge-window-horizontally)
   ("]" bb-enlarge-window-vertically)
   ("u" winner-undo)
-  ("=" balance-windows-area :exit t))
+  ("=" balance-windows-area :exit t)
+
+  ("w" eyebrowse-switch-to-window-config :exit t)
+  ("<down>" eyebrowse-prev-window-config)
+  ("<up>" eyebrowse-next-window-config)
+
+  ("q" nil :exit t))
 
 
 

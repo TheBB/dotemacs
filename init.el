@@ -91,7 +91,7 @@
 	spaceline-minor-modes-separator "")
   :config
   (spaceline-generate
-    (((persp-name workspace-number window-number) :fallback evil-state :face highlight-face :priority 100)
+    (((evil-state workspace-number window-number) :face highlight-face :priority 100)
      (anzu :priority 95)
      (auto-compile)
      ((buffer-modified buffer-size buffer-id remote-host) :priority 98)
@@ -600,6 +600,13 @@
   :config
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
+
+(use-package eyebrowse
+  :init
+  (setq eyebrowse-new-workspace t
+        eyebrowse-wrap-around t)
+  :config
+  (eyebrowse-mode))
 
 (use-package highlight-operators
   :hook (prog-mode . highlight-operators-mode)
