@@ -549,12 +549,15 @@
   :hook (text-mode . auto-fill-mode))
 
 (use-package tex-site
-  ;; Not deferred, since tex-site.el is essentially an autoloads file.
+  :hook (LaTeX-mode . reftex-mode)
   :init
+  ;; Not deferred, since tex-site.el is essentially an autoloads file.
+  (require 'tex-site)
   (setq tex-fontify-script nil
 	font-latex-fontify-script nil
-        TeX-parse-self t)
-  (bb-company LaTeX-mode company-auctex-labels))
+        TeX-parse-self t
+        company-reftex-max-annotation-length 100)
+  (bb-company LaTeX-mode company-reftex-labels company-reftex-citations))
 
 
 

@@ -230,3 +230,6 @@
 [submodule "yasnippet-snippets"]
 	path = lib/yasnippet-snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
+[submodule "company-reftex"]
+	path = lib/company-reftex
+	url = git@github.com:TheBB/company-reftex.git
