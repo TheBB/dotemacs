@@ -589,7 +589,7 @@
     :inherit 'font-lock-keyword-face))
 
 (use-package highlight-numbers
-  :hook (prog-mode-hook . highlight-numbers-mode))
+  :hook (prog-mode . highlight-numbers-mode))
 
 (use-package macrostep
   :defer t
