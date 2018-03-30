@@ -88,7 +88,8 @@
 (use-package spaceline-segments
   :init
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
-	spaceline-minor-modes-separator "")
+	spaceline-minor-modes-separator ""
+        spaceline-purpose-hide-if-not-dedicated t)
   :config
   (spaceline-generate
     (((evil-state workspace-number window-number) :face highlight-face :priority 100)
