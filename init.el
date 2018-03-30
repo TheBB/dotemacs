@@ -154,7 +154,6 @@
       create-lockfiles nil
 
       auto-revert-check-vc-info t
-      indent-tabs-mode nil
       load-prefer-newer t
       read-quoted-char-radix 16
       require-final-newline t
@@ -162,6 +161,9 @@
       scroll-conservatively 101
       vc-follow-symlinks t
       x-wait-for-event-timeout 0.05)
+
+(setq-default fill-column 100
+              indent-tabs-mode nil)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (fset 'startup-echo-area-message (lambda () ""))
