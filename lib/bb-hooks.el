@@ -32,7 +32,7 @@
 
 (defun bb-erc ()
   "Run in `erc-mode'."
-  (setq-local globa-hl-line-mode nil))
+  (setq-local global-hl-line-mode nil))
 
 
 (provide 'bb-hooks)
