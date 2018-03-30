@@ -306,7 +306,8 @@
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 1
         company-require-match nil
-        company-tooltip-align-annotations t)
+        company-tooltip-align-annotations t
+        company-tooltip-minimum-width 60)
   (bb-leader "tc" 'company-mode)
   :config
   (define-key company-active-map (kbd "<right>") 'company-complete-selection)
