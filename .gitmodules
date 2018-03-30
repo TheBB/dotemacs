@@ -26,6 +26,9 @@
 [submodule "company"]
 	path = lib/company
 	url = git@github.com:company-mode/company-mode.git
+[submodule "company-auctex"]
+	path = lib/company-auctex
+	url = git@github.com:alexeyr/company-auctex.git
 [submodule "company-childframe"]
 	path = lib/company-childframe
 	url = git@github.com:tumashu/company-childframe.git
