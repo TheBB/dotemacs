@@ -422,6 +422,25 @@
 
 
 
+;; IRC and Co.
+
+(use-package erc
+  :defer t
+  :init
+  (setq erc-timestamp-format-let "\n%A %B %e, %Y\n\n"
+        erc-timestamp-format-right "%H:%M"
+        erc-timestamp-right-column 80
+        erc-prompt-for-nickserv-password nil
+        erc-image-inline-rescale 200
+        erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
+        erc-track-position-in-mode-line nil)
+  (bb-leader "ai" 'bb-start-erc)
+  (bb-mm-leader erc-mode "qs" 'erc-quit-server)
+  (evil-set-initial-state 'erc-mode 'normal)
+  (add-hook 'erc-mode-hook 'bb-erc))
+
+
+
 ;; LSP and Co.
 
 (use-package lsp-mode
@@ -652,9 +671,13 @@
 
 
 
-;; Finally load customizations, if any
+;; Finally load customizations and local config, if any
 
 (load custom-file)
+
+(let ((filename (expand-file-name "local.el" user-emacs-directory)))
+  (when (file-exists-p filename)
+    (load-file filename)))
 
 
 ;;; init.el ends here

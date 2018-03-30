@@ -30,6 +30,10 @@
   "Run in `emacs-lisp-mode'."
   (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression))
 
+(defun bb-erc ()
+  "Run in `erc-mode'."
+  (setq-local globa-hl-line-mode nil))
+
 
 (provide 'bb-hooks)
 
