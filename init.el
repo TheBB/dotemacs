@@ -662,6 +662,21 @@
   :config
   (global-undo-tree-mode))
 
+(use-package window-purpose
+  :diminish purpose-mode
+  :init
+  (push "\\*pu-dummy-" bb-useless-buffers-regexp)
+  (push "\\*pu-dummy-" helm-boring-buffer-regexp-list)
+  :config
+  (setq purpose-user-name-purposes
+        '(("#emacs" . erc-emacs)
+          ("#evil-mode" . erc-evil-mode)
+          ("#emacs-beginners" . erc-emacs-beginners))
+        purpose-user-mode-purposes
+        '((erc-mode . erc)))
+  (purpose-compile-user-configuration)
+  (purpose-mode))
+
 (use-package ws-butler
   :diminish ws-butler-mode
   :config
