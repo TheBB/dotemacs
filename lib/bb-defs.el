@@ -442,4 +442,8 @@ Suitable for `helm-display-function'."
 
 (provide 'bb-defs)
 
+;; Local variables:
+;; eval: (auto-compile-mode)
+;; End:
+
 ;;; bb-defs.el ends here
