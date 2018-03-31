@@ -388,9 +388,10 @@ Suitable for `helm-display-function'."
   ("u" winner-undo)
   ("=" balance-windows-area :exit t)
 
+  ("n" eyebrowse-create-window-config :exit t)
   ("w" eyebrowse-switch-to-window-config :exit t)
-  ("<down>" eyebrowse-prev-window-config)
-  ("<up>" eyebrowse-next-window-config)
+  ("<down>" eyebrowse-next-window-config)
+  ("<up>" eyebrowse-prev-window-config)
 
   ("q" nil :exit t))
 
