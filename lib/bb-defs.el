@@ -33,6 +33,33 @@
 
 
 
+;; Postpone code until after display is initialized
+
+(defvar bb--after-display-functions nil
+  "List of functions to be run (in reverse order) after the
+display system is initialized.")
+
+(defun bb--server-create-window-system-frame (&rest args)
+  (dolist (func (reverse bb--after-display-functions))
+    (funcall func))
+  (advice-remove 'server-create-window-system-frame 'bb--server-create-window-system-frame))
+
+(advice-add 'server-create-window-system-frame :after 'bb--server-create-window-system-frame)
+
+
+(defmacro bb-after-display (&rest body)
+  (declare (indent 0))
+  "Run BODY after the display system is initialized."
+  `(let ((initializedp (cond ((boundp 'ns-initialized) ns-initialized)
+                             ((boundp 'w32-initialized) (font-family-list))
+                             ((boundp 'x-initialized) x-initialized)
+                             (t (display-graphic-p)))))
+     (if initializedp
+         (progn ,@body)
+       (push (lambda () ,@body) bb--after-display-functions))))
+
+
+
 ;; Convenience functions for leader bindings
 
 (declare-function 'general-define-key "general")

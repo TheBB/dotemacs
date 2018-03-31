@@ -68,7 +68,8 @@
 
 (load-theme 'monokai 'noconfirm)
 
-(set-face-attribute 'default nil :font "Iosevka Expanded Bold" :height 100)
+(bb-after-display
+  (set-face-attribute 'default nil :font "Iosevka Expanded Bold" :height 100))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
 (set-face-attribute 'font-lock-doc-face nil :slant 'italic :foreground "#75715e")
