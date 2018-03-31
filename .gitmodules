@@ -181,7 +181,7 @@
 	url = git@github.com:oneKelvinSmith/monokai-emacs.git
 [submodule "no-littering"]
 	path = lib/no-littering
-	url = git@github.com:TheBB/no-littering.git
+	url = git@github.com:emacscollective/no-littering.git
 [submodule "package-lint"]
 	path = lib/package-lint
 	url = git@github.com:purcell/package-lint.git
