@@ -659,6 +659,9 @@
   :config
   (projectile-mode))
 
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (use-package smartparens
   :hook ((prog-mode LaTeX-mode) . smartparens-mode)
   :diminish (smartparens-mode . "s")
