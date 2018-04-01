@@ -418,6 +418,7 @@ Suitable for `helm-display-function'."
   (enlarge-window delta nil))
 
 (defhydra hydra-windows ()
+  ("a" ace-select-window :exit t)
   ("h" windmove-left)
   ("j" windmove-down)
   ("k" windmove-up)
