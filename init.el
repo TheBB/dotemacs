@@ -444,7 +444,12 @@
         erc-image-inline-rescale 200
         erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
         erc-track-position-in-mode-line nil)
-  (bb-leader "ai" 'bb-start-erc)
+  (bb-define-display "irc" "ai"
+    :layout "irc"
+    :startup (erc :server "efonn.no"
+                  :port 1025
+                  :nick "TheBB"
+                  :password (format "TheBB/freenode:%s" bb-znc-pwd)))
   (bb-mm-leader erc-mode "qs" 'erc-quit-server)
   (evil-set-initial-state 'erc-mode 'normal)
   (add-hook 'erc-mode-hook 'bb-erc)

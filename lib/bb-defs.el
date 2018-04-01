@@ -211,21 +211,6 @@ display system is initialized.")
 
 
 
-;; IRC
-
-(defun bb-start-erc ()
-  (interactive)
-  (when (boundp 'bb-znc-pwd)
-    (eyebrowse-switch-to-window-config 0)
-    (eyebrowse-rename-window-config 0 "IRC")
-    (purpose-load-window-layout "irc")
-    (erc :server "efonn.no"
-         :port 1025
-         :nick "TheBB"
-         :password (format "TheBB/freenode:%s" bb-znc-pwd))))
-
-
-
 ;; Functions to remove dotted entries from `helm-find-files'
 
 (defun bb-helm-ff-filter-candidate-one-by-one (func file)
