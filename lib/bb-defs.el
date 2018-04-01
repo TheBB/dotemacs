@@ -434,8 +434,8 @@ Suitable for `helm-display-function'."
 
   ("n" eyebrowse-create-window-config :exit t)
   ("w" eyebrowse-switch-to-window-config :exit t)
-  ("<down>" eyebrowse-next-window-config)
-  ("<up>" eyebrowse-prev-window-config)
+  ("C-j" eyebrowse-next-window-config)
+  ("C-k" eyebrowse-prev-window-config)
 
   ("q" nil :exit t))
 
