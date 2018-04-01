@@ -222,6 +222,12 @@
   "fd" 'bb-kill-buffer-file
   "fs" 'save-buffer
   "fy" 'bb-show-and-copy-filename
+  "hdc" 'describe-char
+  "hdf" 'describe-function
+  "hdF" 'describe-face
+  "hdk" 'describe-key
+  "hdv" 'describe-variable
+  "u" 'universal-argument
   "w" 'hydra-windows/body)
 
 (push '(buffer-predicate . bb-useful-buffer-p) default-frame-alist)
