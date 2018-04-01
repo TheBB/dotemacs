@@ -41,6 +41,14 @@
 
 
 
+;; Local settings, if any
+
+(let ((filename (expand-file-name "local.el" user-emacs-directory)))
+  (when (file-exists-p filename)
+    (load-file filename)))
+
+
+
 ;; Function, variable, and macro definitions
 
 (require 'bb-defs)
@@ -700,13 +708,9 @@
 
 
 
-;; Finally load customizations and local config, if any
+;; Finally load customizations, if any
 
 (load custom-file)
-
-(let ((filename (expand-file-name "local.el" user-emacs-directory)))
-  (when (file-exists-p filename)
-    (load-file filename)))
 
 
 ;;; init.el ends here
