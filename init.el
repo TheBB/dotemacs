@@ -673,12 +673,14 @@
   (push "\\*pu-dummy-" bb-useless-buffers-regexp)
   (push "\\*pu-dummy-" helm-boring-buffer-regexp-list)
   :config
-  (setq purpose-user-name-purposes
+  (setq purpose-use-default-configuration nil
+        purpose-user-name-purposes
         '(("#emacs" . erc-emacs)
           ("#evil-mode" . erc-evil-mode)
           ("#emacs-beginners" . erc-emacs-beginners))
         purpose-user-mode-purposes
-        '((erc-mode . erc)))
+        '((erc-mode . erc)
+          (fundamental-mode . general)))
   (purpose-compile-user-configuration)
   (purpose-mode))
 
