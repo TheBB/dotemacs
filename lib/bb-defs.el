@@ -102,6 +102,38 @@ display system is initialized.")
 
 
 
+;; Predefined window configurations
+
+(defvar bb--display-index 100
+  "Internal counter used in `bb-define-display.'")
+
+(defmacro bb-define-display (name leader &rest kwargs)
+  (declare (indent 2))
+  (let ((funcname (intern (format "bb--display-%s" name)))
+        (flagname (intern (format "bb--display-%s-ready" name)))
+        (index (cl-incf bb--display-index))
+        (layout (plist-get kwargs :layout))
+        (startup (plist-get kwargs :startup))
+        (buffers (plist-get kwargs :buffers)))
+    `(progn
+       (defvar ,flagname nil)
+       (defun ,funcname ()
+         (interactive)
+         (let ((existsp (eyebrowse--window-config-present-p ,index)))
+           (eyebrowse-switch-to-window-config ,index)
+           (unless ,flagname
+             ,startup
+             (setq ,flagname t))
+           (unless existsp
+             (eyebrowse-rename-window-config ,index ,name)
+             ,@(when layout `((purpose-load-window-layout ,layout))))
+           ,@(when buffers
+               `((dolist ((win (window-list)))
+                   (set-window-buffer win ,(pop buffers)))))))
+       (bb-leader ,leader ',funcname))))
+
+
+
 ;; Buffer predicate function
 
 (defvar bb-useful-buffers-regexp nil
