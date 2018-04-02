@@ -698,6 +698,8 @@
   (push "\\*pu-dummy-" helm-boring-buffer-regexp-list)
   :config
   (setq purpose-use-default-configuration nil
+        purpose-user-regexp-purposes
+        '(("magit" . general))
         purpose-user-name-purposes
         '(("#emacs" . erc-emacs)
           ("#evil-mode" . erc-evil-mode)
