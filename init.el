@@ -65,11 +65,6 @@
 
 (use-package no-littering)
 
-(use-package popwin
-  :config
-  (setq popwin:special-display-config nil)
-  (popwin-mode))
-
 
 
 ;; Theme
@@ -178,6 +173,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (fset 'startup-echo-area-message (lambda () ""))
 (put 'set-face-attribute 'lisp-indent-function 2)
+(push '(buffer-predicate . bb-useful-buffer-p) default-frame-alist)
+(bb-popwin special-mode)
 
 (use-package abbrev
   :defer t
@@ -229,8 +226,6 @@
   "hdv" 'describe-variable
   "u" 'universal-argument
   "w" 'hydra-windows/body)
-
-(push '(buffer-predicate . bb-useful-buffer-p) default-frame-alist)
 
 
 
@@ -356,7 +351,7 @@
     "el" 'flycheck-list-errors
     "eb" 'flycheck-buffer
     "ec" 'flycheck-clear)
-  (bb-popwin flycheck-error-list-mode :noselect t)
+  (bb-popwin flycheck-error-list-mode)
   :config
   (aset flycheck-error-list-format 5 '("Message" 0 t)))
 
@@ -693,7 +688,6 @@
   :init
   (setq undo-tree-enable-undo-in-region nil)
   (bb-leader "au" 'undo-tree-visualize)
-  (bb-popwin undo-tree-visualizer-mode :width 60 :position right)
   :config
   (global-undo-tree-mode))
 
@@ -713,6 +707,11 @@
           (fundamental-mode . general)))
   (purpose-compile-user-configuration)
   (purpose-mode))
+
+(use-package window-purpose-x
+  :config
+  (purpose-x-popwin-setup)
+  (purpose-x-popwin-update-conf))
 
 (use-package ws-butler
   :diminish ws-butler-mode

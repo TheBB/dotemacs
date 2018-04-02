@@ -444,11 +444,14 @@ Suitable for `helm-display-function'."
 
 ;; Miscellaneous
 
-(defvar popwin:special-display-config)
-
-(defmacro bb-popwin (mode &rest args)
+(defmacro bb-popwin (mode)
   "Push (MODE ARGS...) to `popwin:special-display-config'."
-  `(push '(,mode ,@args) popwin:special-display-config))
+  `(if (featurep 'window-purpose-x)
+       (progn
+         (push ',mode purpose-x-popwin-major-modes)
+         (purpose-x-popwin-update-conf))
+     (with-eval-after-load 'window-purpose-x
+       (push ',mode purpose-x-popwin-major-modes))))
 
 (defmacro bb-adv-only-in-modes (func &rest modes)
   "Advice FUNC only to run then `major-mode' is exactly any of MODES."

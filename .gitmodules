@@ -206,9 +206,6 @@
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
-[submodule "popwin"]
-	path = lib/popwin
-	url = git@github.com:m2ym/popwin-el.git
 [submodule "posframe"]
 	path = lib/posframe
 	url = git@github.com:tumashu/posframe.git
