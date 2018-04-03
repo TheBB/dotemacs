@@ -60,6 +60,23 @@ display system is initialized.")
 
 
 
+;; Convenience macro for advice
+
+(defmacro bb-advise (type func arglist &rest body)
+  (declare (indent 3))
+  (unless arglist
+    (setq arglist '(&rest args)))
+  (when (eq 'around type)
+    (push 'orig-fn arglist))
+  (let ((funcname (intern (format "bb-advise--%s--%s" func type)))
+        (type (intern (format ":%s" type))))
+    `(progn
+       (defun ,funcname ,arglist
+         ,@body)
+       (advice-add ',func ,type ',funcname))))
+
+
+
 ;; Convenience functions for leader bindings
 
 (declare-function 'general-define-key "general")
