@@ -306,7 +306,10 @@
 
 (use-package evil-smartparens
   :hook (smartparens-enabled . evil-smartparens-mode)
-  :diminish evil-smartparens-mode)
+  :diminish evil-smartparens-mode
+  :config
+  (bb-advise after evil-sp--add-bindings ()
+    (evil-define-key 'visual evil-smartparens-mode-map (kbd "o") nil)))
 
 (use-package evil-surround
   :after evil
