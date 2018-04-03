@@ -602,7 +602,7 @@
   ;; The "official" client wrongly considers __init__.py to be a project root
   (lsp-define-stdio-client lsp-python "python"
     (lsp-make-traverser (lambda (dir)
-                          (directory-files dir nil "\\(setup\\)\\.py")))
+                          (directory-files dir nil "\\`setup\\.py\\'")))
     '("pyls"))
   ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
   (bb-adv-only-in-modes lsp-python-enable python-mode))
