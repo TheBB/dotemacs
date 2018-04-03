@@ -243,6 +243,8 @@
 	evil-want-C-u-scroll t)
   :config
   (evil-mode)
+
+  ;; Miscellaneous keybindings
   (define-key evil-motion-state-map (kbd "<left>") 'windmove-left)
   (define-key evil-motion-state-map (kbd "<down>") 'windmove-down)
   (define-key evil-motion-state-map (kbd "<up>") 'windmove-up)
@@ -260,7 +262,10 @@
   (define-key evil-normal-state-map (kbd "[ SPC") 'bb-insert-line-above)
   (define-key evil-normal-state-map (kbd "] SPC") 'bb-insert-line-below)
   (define-key evil-normal-state-map (kbd "[ s") 'bb-insert-spaces-before)
-  (define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after))
+  (define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after)
+
+  ;; Other
+  (evil-set-command-property 'xref-find-definitions :jump t))
 
 (use-package evil-args
   :defer t
