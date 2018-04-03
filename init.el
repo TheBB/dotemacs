@@ -212,6 +212,12 @@
   :config
   (winner-mode))
 
+(use-package whitespace
+  :defer t
+  :diminish (whitespace-mode . "w")
+  :init
+  (bb-leader "tw" 'whitespace-mode))
+
 (bb-leader
   "<tab>" 'bb-alternate-buffer
   ";" 'eval-expression
