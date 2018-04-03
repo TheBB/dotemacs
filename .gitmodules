@@ -47,6 +47,9 @@
 [submodule "cquery"]
 	path = lib/cquery
 	url = git@github.com:cquery-project/emacs-cquery.git
+[submodule "csv-mode"]
+	path = lib/csv-mode
+	url = git@github.com:emacsmirror/csv-mode.git
 [submodule "cython-mode"]
 	path = lib/cython-mode
 	url = git@github.com:emacsmirror/cython-mode.git
