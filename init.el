@@ -302,6 +302,17 @@
   :config
   (evil-embrace-enable-evil-surround-integration))
 
+(use-package evil-escape
+  :diminish evil-escape-mode
+  :config
+  (unless keyboardiop
+    (evil-escape-mode))
+  (define-key minibuffer-local-map [escape] 'evil-escape)
+  (define-key minibuffer-local-ns-map [escape] 'evil-escape)
+  (define-key minibuffer-local-completion-map [escape] 'evil-escape)
+  (define-key minibuffer-local-must-match-map [escape] 'evil-escape)
+  (define-key minibuffer-local-isearch-map [escape] 'evil-escape))
+
 (use-package evil-little-word
   :after evil)
 

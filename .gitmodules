@@ -91,6 +91,9 @@
 [submodule "evil-embrace"]
 	path = lib/evil-embrace
 	url = git@github.com:cute-jumper/evil-embrace.el.git
+[submodule "evil-escape"]
+	path = lib/evil-escape
+	url = git@github.com:syl20bnr/evil-escape.git
 [submodule "evil-magit"]
 	path = lib/evil-magit
 	url = git@github.com:emacs-evil/evil-magit.git
