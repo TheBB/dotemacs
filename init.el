@@ -31,8 +31,14 @@
 
 (setq user-init-file (or load-file-name buffer-file-name)
       user-emacs-directory (file-name-directory user-init-file)
+      custom-file (concat user-emacs-directory "custom.el")
 
-      custom-file (concat user-emacs-directory "custom.el"))
+      ;; Enable Keyboardio Model 01 mode
+      keyboardiop (string= (system-name) "cauchy")
+      bb-left (kbd (if keyboardiop "<left>" "C-h"))
+      bb-down (kbd (if keyboardiop "<down>" "C-j"))
+      bb-up (kbd (if keyboardiop "<up>" "C-k"))
+      bb-right (kbd (if keyboardiop "<right>" "C-l")))
 
 (push (concat user-emacs-directory "lib") load-path)
 (push (concat user-emacs-directory "lib/borg") load-path)
@@ -72,7 +78,7 @@
 (load-theme 'monokai 'noconfirm)
 
 (bb-after-display
-  (set-face-attribute 'default nil :font "Iosevka Expanded Bold" :height 100))
+  (set-face-attribute 'default nil :font "Source Code Pro Semibold" :height 100))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
 (set-face-attribute 'font-lock-doc-face nil :slant 'italic :foreground "#75715e")
@@ -338,7 +344,9 @@
         company-tooltip-minimum-width 60)
   (bb-leader "tc" 'company-mode)
   :config
-  (define-key company-active-map (kbd "<right>") 'company-complete-selection)
+  (define-key company-active-map bb-right 'company-complete-selection)
+  (define-key company-active-map bb-down 'company-select-next-or-abort)
+  (define-key company-active-map bb-up 'company-select-previous-or-abort)
   (define-key company-active-map (kbd "RET") nil)
   (define-key company-active-map (kbd "<return>") nil)
   (define-key company-active-map (kbd "TAB") nil)
@@ -393,7 +401,9 @@
   :config
   (helm-mode)
   (helm-autoresize-mode)
-  (define-key helm-map (kbd "<right>") 'helm-maybe-exit-minibuffer)
+  (define-key helm-map bb-right 'helm-maybe-exit-minibuffer)
+  (define-key helm-map bb-down 'helm-next-line)
+  (define-key helm-map bb-up 'helm-previous-line)
   (set-face-attribute 'helm-prefarg nil :foreground "PaleGreen"))
 
 (use-package helm-ag
@@ -401,15 +411,17 @@
   :init
   (bb-leader "/" 'bb-helm-ag-project)
   :config
-  (define-key helm-ag-map (kbd "<right>") nil)
-  (define-key helm-ag-map (kbd "<left>") 'helm-ag--up-one-level)
-  (define-key helm-ag-map (kbd "C-j") 'helm-ag--next-file)
-  (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file))
+  (define-key helm-ag-map bb-right nil)
+  (define-key helm-ag-map bb-left 'helm-ag--up-one-level)
+  (when keyboardiop
+    (define-key helm-ag-map (kbd "C-j") 'helm-ag--next-file)
+    (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file)))
 
 (use-package helm-files
   :defer t
   :config
-  (define-key helm-find-files-map (kbd "<right>") 'helm-ff-RET)
+  (define-key helm-find-files-map bb-right 'helm-ff-RET)
+  (define-key helm-find-files-map bb-left 'helm-find-files-up-one-level)
   (advice-add 'helm-ff-filter-candidate-one-by-one
 	      :around 'bb-helm-ff-filter-candidate-one-by-one)
   (advice-add 'helm-find-files-up-one-level
@@ -418,7 +430,7 @@
 (use-package helm-imenu
   :defer t
   :config
-  (define-key helm-imenu-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
+  (define-key helm-imenu-map bb-right 'helm-maybe-exit-minibuffer))
 
 (use-package helm-projectile
   :commands (helm-projectile
@@ -435,7 +447,7 @@
     "ph" 'helm-projectile
     "pp" 'helm-projectile-switch-project)
   :config
-  (define-key helm-projectile-find-file-map (kbd "<right>") 'helm-maybe-exit-minibuffer))
+  (define-key helm-projectile-find-file-map bb-right 'helm-maybe-exit-minibuffer))
 
 (use-package helm-swoop
   :init
