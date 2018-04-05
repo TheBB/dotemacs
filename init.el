@@ -76,9 +76,11 @@
 ;; Theme
 
 (load-theme 'monokai 'noconfirm)
+(require 'color)
 
 (bb-after-display
   (set-face-attribute 'default nil :font "Source Code Pro Semibold" :height 100))
+(set-face-attribute 'region nil :background (color-lighten-name monokai-gray 10))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
 (set-face-attribute 'font-lock-doc-face nil :slant 'italic :foreground "#75715e")
@@ -255,6 +257,7 @@
 	evil-want-C-u-scroll t)
   :config
   (evil-mode)
+  (add-hook 'evil-insert-state-exit-hook 'bb-evil-insert-state-exit)
 
   ;; Miscellaneous keybindings
   (define-key evil-motion-state-map (kbd "<left>") 'windmove-left)

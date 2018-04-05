@@ -26,6 +26,10 @@
 ;;; Code:
 
 
+(defun bb-evil-insert-state-exit ()
+  "Run when exiting insert-state."
+  (deactivate-mark))
+
 (defun bb-elisp ()
   "Run in `emacs-lisp-mode'."
   (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression))
