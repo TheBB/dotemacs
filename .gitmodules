@@ -11,7 +11,7 @@
 	path = lib/auctex
 	url = https://git.savannah.gnu.org/git/auctex.git
 	build-step = ./autogen.sh
-	build-step = configure
+	build-step = ./configure
 	build-step = make
 	build-step = "(borg-update-autoloads \"auctex\")"
 [submodule "auto-compile"]
