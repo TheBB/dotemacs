@@ -673,6 +673,14 @@
 (use-package highlight-numbers
   :hook (prog-mode . highlight-numbers-mode))
 
+(use-package lispy
+  :diminish (lispy-mode . "L")
+  :hook ((lisp-mode scheme-mode emacs-lisp-mode) . lispy-mode))
+
+(use-package lispyville
+  :diminish lispyville-mode
+  :hook (lispy-mode . lispyville-mode))
+
 (use-package macrostep
   :defer t
   :init
@@ -703,6 +711,8 @@
 	sp-highlight-wrap-tag-overlay nil)
   (bb-leader "ts" 'smartparens-mode)
   :config
+  (bb-adv-except-derived-modes smartparens-mode
+    lisp-mode scheme-mode emacs-lisp-mode)
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
   (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "("))
 
