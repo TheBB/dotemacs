@@ -79,7 +79,7 @@
 (require 'color)
 
 (bb-after-display
-  (set-face-attribute 'default nil :font "Source Code Pro Semibold" :height 100))
+  (set-face-attribute 'default nil :font "Iosevka Expanded Bold" :height 100))
 (set-face-attribute 'region nil :background (color-lighten-name monokai-gray 10))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
