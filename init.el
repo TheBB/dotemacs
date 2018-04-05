@@ -33,6 +33,8 @@
       user-emacs-directory (file-name-directory user-init-file)
       custom-file (concat user-emacs-directory "custom.el")
 
+      load-prefer-newer t
+
       ;; Enable Keyboardio Model 01 mode
       keyboardiop (string= (system-name) "cauchy")
       bb-left (kbd (if keyboardiop "<left>" "C-h"))
@@ -167,7 +169,6 @@
       create-lockfiles nil
 
       auto-revert-check-vc-info t
-      load-prefer-newer t
       read-quoted-char-radix 16
       require-final-newline t
       ring-bell-function 'ignore
