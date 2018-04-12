@@ -73,6 +73,11 @@
 
 (use-package no-littering)
 
+(use-package popwin
+  :config
+  (setq popwin:special-display-config nil)
+  (popwin-mode))
+
 
 
 ;; Theme
@@ -490,7 +495,7 @@
         erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
         erc-track-position-in-mode-line nil)
   (bb-define-display "irc" "ai"
-    :layout "irc"
+    ;; :layout "irc"
     :startup (erc :server "efonn.no"
                   :port 1025
                   :nick "TheBB"
@@ -741,30 +746,6 @@
   (bb-leader "au" 'undo-tree-visualize)
   :config
   (global-undo-tree-mode))
-
-(use-package window-purpose
-  :diminish purpose-mode
-  :init
-  (push "\\*pu-dummy-" bb-useless-buffers-regexp)
-  (push "\\*pu-dummy-" helm-boring-buffer-regexp-list)
-  :config
-  (setq purpose-use-default-configuration nil
-        purpose-user-regexp-purposes
-        '(("magit" . general))
-        purpose-user-name-purposes
-        '(("#emacs" . erc-emacs)
-          ("#evil-mode" . erc-evil-mode)
-          ("#emacs-beginners" . erc-emacs-beginners))
-        purpose-user-mode-purposes
-        '((erc-mode . erc)
-          (fundamental-mode . general)))
-  (purpose-compile-user-configuration)
-  (purpose-mode))
-
-(use-package window-purpose-x
-  :config
-  (purpose-x-popwin-setup)
-  (purpose-x-popwin-update-conf))
 
 (use-package ws-butler
   :diminish ws-butler-mode

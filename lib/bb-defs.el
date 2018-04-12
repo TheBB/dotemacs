@@ -121,32 +121,35 @@ display system is initialized.")
 
 ;; Predefined window configurations
 
-(defvar bb--display-index 100
-  "Internal counter used in `bb-define-display.'")
+;; (defvar bb--display-index 100
+;;   "Internal counter used in `bb-define-display.'")
 
 (defmacro bb-define-display (name leader &rest kwargs)
   (declare (indent 2))
   (let ((funcname (intern (format "bb--display-%s" name)))
         (flagname (intern (format "bb--display-%s-ready" name)))
-        (index (cl-incf bb--display-index))
-        (layout (plist-get kwargs :layout))
+        ;; (index (cl-incf bb--display-index))
+        ;; (layout (plist-get kwargs :layout))
         (startup (plist-get kwargs :startup))
-        (buffers (plist-get kwargs :buffers)))
+        ;; (buffers (plist-get kwargs :buffers))
+        )
     `(progn
-       (defvar ,flagname nil)
+       ;; (defvar ,flagname nil)
        (defun ,funcname ()
          (interactive)
-         (let ((existsp (eyebrowse--window-config-present-p ,index)))
-           (eyebrowse-switch-to-window-config ,index)
-           (unless ,flagname
-             ,startup
-             (setq ,flagname t))
-           (unless existsp
-             (eyebrowse-rename-window-config ,index ,name)
-             ,@(when layout `((purpose-load-window-layout ,layout))))
-           ,@(when buffers
-               `((dolist ((win (window-list)))
-                   (set-window-buffer win ,(pop buffers)))))))
+         ,startup
+         ;; (let ((existsp (eyebrowse--window-config-present-p ,index)))
+         ;;   (eyebrowse-switch-to-window-config ,index)
+         ;;   (unless ,flagname
+         ;;     ,startup
+         ;;     (setq ,flagname t))
+         ;;   (unless existsp
+         ;;     (eyebrowse-rename-window-config ,index ,name)
+         ;;     ,@(when layout `((purpose-load-window-layout ,layout))))
+         ;;   ,@(when buffers
+         ;;       `((dolist ((win (window-list)))
+         ;;           (set-window-buffer win ,(pop buffers))))))
+         )
        (bb-leader ,leader ',funcname))))
 
 
@@ -461,14 +464,9 @@ Suitable for `helm-display-function'."
 
 ;; Miscellaneous
 
-(defmacro bb-popwin (mode)
+(defmacro bb-popwin (mode &rest args)
   "Push (MODE ARGS...) to `popwin:special-display-config'."
-  `(if (featurep 'window-purpose-x)
-       (progn
-         (push ',mode purpose-x-popwin-major-modes)
-         (purpose-x-popwin-update-conf))
-     (with-eval-after-load 'window-purpose-x
-       (push ',mode purpose-x-popwin-major-modes))))
+  `(push '(,mode ,@args) popwin:special-display-config))
 
 (defmacro bb-adv-only-in-modes (func &rest modes)
   "Advice FUNC only to run then `major-mode' is exactly any of MODES."

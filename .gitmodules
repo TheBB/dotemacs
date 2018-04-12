@@ -224,6 +224,9 @@
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
+[submodule "popwin"]
+	path = lib/popwin
+	url = git@github.com:m2ym/popwin-el.git
 [submodule "posframe"]
 	path = lib/posframe
 	url = git@github.com:tumashu/posframe.git
@@ -254,9 +257,6 @@
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git
-[submodule "window-purpose"]
-	path = lib/window-purpose
-	url = git@github.com:bmag/emacs-purpose.git
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = git@github.com:magit/with-editor.git
