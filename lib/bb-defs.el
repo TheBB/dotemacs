@@ -48,8 +48,8 @@ display system is initialized.")
 
 
 (defmacro bb-after-display (&rest body)
-  (declare (indent 0))
   "Run BODY after the display system is initialized."
+  (declare (indent 0))
   `(let ((initializedp (cond ((boundp 'ns-initialized) ns-initialized)
                              ((boundp 'w32-initialized) (font-family-list))
                              ((boundp 'x-initialized) x-initialized)
