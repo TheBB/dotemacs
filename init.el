@@ -502,6 +502,9 @@
         erc-track-exclude-server-buffer t
         erc-track-exclude-types
         '("JOIN" "NICK" "PART" "QUIT" "MODE" "305" "324" "329" "332" "333" "353" "477")
+        erc-track-shorten-function
+        (lambda (names) (and names (list (propertize "!" 'face 'erc-notice-face))))
+        erc-track-use-faces nil
         erc-join-buffer 'bury)
   (bb-define-display "irc" "ai"
     ;; :layout "irc"
