@@ -493,19 +493,21 @@
         erc-prompt-for-nickserv-password nil
         erc-image-inline-rescale 200
         erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
-        erc-track-position-in-mode-line nil)
+        erc-track-position-in-mode-line t
+        erc-track-exclude-server-buffer t
+        erc-track-exclude-types
+        '("JOIN" "NICK" "PART" "QUIT" "MODE" "305" "324" "329" "332" "333" "353" "477")
+        erc-join-buffer 'bury)
   (bb-define-display "irc" "ai"
     ;; :layout "irc"
     :startup (erc :server "efonn.no"
                   :port 1025
                   :nick "TheBB"
                   :password (format "TheBB/freenode:%s" bb-znc-pwd)))
+  (bb-leader "bi" 'erc-track-switch-buffer)
   (bb-mm-leader erc-mode "qs" 'erc-quit-server)
   (evil-set-initial-state 'erc-mode 'normal)
-  (add-hook 'erc-mode-hook 'bb-erc)
-  :config
-  (setq erc-modules (remove 'track erc-modules))
-  (erc-update-modules))
+  (add-hook 'erc-mode-hook 'bb-erc))
 
 
 
