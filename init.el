@@ -40,7 +40,12 @@
       bb-left (kbd (if keyboardiop "<left>" "C-h"))
       bb-down (kbd (if keyboardiop "<down>" "C-j"))
       bb-up (kbd (if keyboardiop "<up>" "C-k"))
-      bb-right (kbd (if keyboardiop "<right>" "C-l")))
+      bb-right (kbd (if keyboardiop "<right>" "C-l"))
+
+      ;; FIXME: Different fonts on different computers
+      bb-font (if keyboardiop
+                  "Iosevka Expanded Bold"
+                "Source Code Pro Semibold"))
 
 (push (concat user-emacs-directory "lib") load-path)
 (push (concat user-emacs-directory "lib/borg") load-path)
@@ -86,7 +91,7 @@
 (require 'color)
 
 (bb-after-display
-  (set-face-attribute 'default nil :font "Iosevka Expanded Bold" :height 100)
+  (set-face-attribute 'default nil :font bb-font :height 100)
   (set-face-attribute 'region nil :background (color-lighten-name monokai-gray 10)))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
