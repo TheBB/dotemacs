@@ -134,15 +134,14 @@ display system is initialized.")
         ;; (buffers (plist-get kwargs :buffers))
         )
     `(progn
-       ;; (defvar ,flagname nil)
+       (defvar ,flagname nil)
        (defun ,funcname ()
          (interactive)
-         ,startup
+           (unless ,flagname
+             ,startup
+             (setq ,flagname t))
          ;; (let ((existsp (eyebrowse--window-config-present-p ,index)))
          ;;   (eyebrowse-switch-to-window-config ,index)
-         ;;   (unless ,flagname
-         ;;     ,startup
-         ;;     (setq ,flagname t))
          ;;   (unless existsp
          ;;     (eyebrowse-rename-window-config ,index ,name)
          ;;     ,@(when layout `((purpose-load-window-layout ,layout))))
