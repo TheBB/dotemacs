@@ -217,6 +217,12 @@
   :config
   (global-hl-line-mode))
 
+(use-package recentf
+  :init
+  (setq recentf-max-saved-items 10000)
+  :config
+  (recentf-mode))
+
 (use-package simple
   :defer t
   :diminish auto-fill-function)
