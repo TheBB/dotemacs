@@ -526,6 +526,23 @@ Suitable for `helm-display-function'."
     (when file-name
       (message (kill-new file-name)))))
 
+(defun bb-latex-build (arg)
+  "Build the document with latexmk.
+If ARG is given, query for a command."
+  (interactive "P")
+  (if arg
+      (TeX-command-master)
+    (TeX-command "LatexMk" 'TeX-master-file nil)))
+
+(defun bb-latex-check-compilation ()
+  "View the output buffer if compiling.
+If done compiling, kill the auxiliary buffer."
+  (interactive)
+  (cond
+   (compilation-in-progress (TeX-recenter-output-buffer nil))
+   ((-when-let* ((buf (TeX-active-buffer)))
+      (kill-buffer buf)))))
+
 (provide 'bb-defs)
 
 ;; Local variables:

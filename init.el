@@ -583,6 +583,13 @@
 
 ;; LaTeX and Co.
 
+(use-package auctex-latexmk
+  :after latex
+  :init
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+  :config
+  (auctex-latexmk-setup))
+
 (use-package bibtex
   :defer t
   :init
@@ -598,15 +605,23 @@
   :hook (LaTeX-mode . reftex-mode)
   :diminish reftex-mode)
 
+(use-package tex-buf
+  :defer t
+  :diminish (compilation-in-progress . "[c]"))
+
 (use-package tex-site
   ;; Not deferred, since tex-site.el is essentially an autoloads file.
   :init
   (setq tex-fontify-script nil
 	font-latex-fontify-script nil
         TeX-parse-self nil)
+  (add-hook 'latex-mode-hook 'TeX-PDF-mode)
   (bb-company LaTeX-mode
     company-reftex-labels company-reftex-citations
-    company-auctex-macros company-auctex-environments))
+    company-auctex-macros company-auctex-environments)
+  (bb-mm-leader latex-mode
+    "cc" 'bb-latex-build
+    "cv" 'bb-latex-check-compilation))
 
 
 
