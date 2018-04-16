@@ -438,10 +438,17 @@ Suitable for `helm-display-function'."
 
 (defhydra hydra-windows ()
   ("e" ace-select-window :exit t)
-  ("h" windmove-left)
-  ("j" windmove-down)
-  ("k" windmove-up)
-  ("l" windmove-right)
+
+  ("h" windmove-left :exit t)
+  ("j" windmove-down :exit t)
+  ("k" windmove-up :exit t)
+  ("l" windmove-right :exit t)
+
+  ("H" windmove-left)
+  ("J" windmove-down)
+  ("K" windmove-up)
+  ("L" windmove-right)
+
   ("s" evil-window-split)
   ("v" evil-window-vsplit)
   ("d" delete-window)
