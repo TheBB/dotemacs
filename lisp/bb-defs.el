@@ -296,6 +296,12 @@ If done compiling, kill the auxiliary buffer."
    ((-when-let* ((buf (TeX-active-buffer)))
       (kill-buffer buf)))))
 
+(defun bb-toggle-debug-on-error ()
+  "Toggle the value of `debug-on-error'."
+  (interactive)
+  (setq debug-on-error (not debug-on-error))
+  (message "Debug on error now: %S" debug-on-error))
+
 
 (provide 'bb-defs)
 

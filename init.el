@@ -263,6 +263,7 @@
   "hdv" 'describe-variable
   "hi" 'bb-find-init
   "hs" 'bb-find-scratch
+  "td" 'bb-toggle-debug-on-error
   "u" 'universal-argument
   "w" 'hydra-windows/body)
 
