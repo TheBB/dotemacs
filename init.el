@@ -261,6 +261,8 @@
   "hdF" 'describe-face
   "hdk" 'describe-key
   "hdv" 'describe-variable
+  "hi" 'bb-find-init
+  "hs" 'bb-find-scratch
   "u" 'universal-argument
   "w" 'hydra-windows/body)
 
@@ -431,7 +433,6 @@
     "bb" 'helm-mini
     "ff" 'helm-find-files
     "fl" 'helm-locate-library
-    "hi" 'bb-find-init
     "ji" 'helm-imenu
     "rl" 'helm-resume)
   (push "\\*helm.+\\*" bb-useless-buffers-regexp)
