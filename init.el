@@ -554,12 +554,23 @@
     :background monokai-highlight-line))
 
 (use-package lsp-ui
-  :hook (lsp-mode . bb-lsp-enable-ui))
+  :hook (lsp-mode . lsp-ui-mode)
+  :init
+  (setq lsp-ui-flycheck-live-reporting nil
+        lsp-ui-doc-enable nil
+        lsp-ui-sideline-enable nil)
+  (evil-define-key 'motion lsp-ui-mode-map "gr" 'lsp-ui-peek-find-references))
 
-(use-package lsp-ui-doc :commands lsp-ui-doc-enable)
-(use-package lsp-ui-flycheck :commands (lsp-ui-flycheck-enable lsp-ui-flycheck-add-mode))
-(use-package lsp-ui-imenu :commands lsp-ui-imenu-enable)
-(use-package lsp-ui-sideline :commands lsp-ui-sideline-enable)
+(use-package lsp-ui-peek
+  :defer t
+  :init
+  (add-hook 'lsp-ui-peek-mode-hook 'evil-normalize-keymaps)
+  :config
+  (evil-make-intercept-map lsp-ui-peek-mode-map)
+  (define-key lsp-ui-peek-mode-map (kbd "j") 'lsp-ui-peek--select-next)
+  (define-key lsp-ui-peek-mode-map (kbd "k") 'lsp-ui-peek--select-prev)
+  (define-key lsp-ui-peek-mode-map bb-down 'lsp-ui-peek--select-next-file)
+  (define-key lsp-ui-peek-mode-map bb-up 'lsp-ui-peek--select-prev-file))
 
 
 
