@@ -705,6 +705,7 @@
   :init
   (bb-mm-leader python-mode
     "va" 'pyvenv-workon
+    "vc" 'pyvenv-create
     "vd" 'pyvenv-deactivate)
   (add-hook 'pyvenv-post-activate-hooks 'lsp-restart-workspace)
   (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
