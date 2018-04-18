@@ -47,7 +47,7 @@
                   "Iosevka Expanded Bold"
                 "Source Code Pro Semibold"))
 
-(push (concat user-emacs-directory "lib") load-path)
+(push (concat user-emacs-directory "lisp") load-path)
 (push (concat user-emacs-directory "lib/borg") load-path)
 (require 'borg)
 (borg-initialize)

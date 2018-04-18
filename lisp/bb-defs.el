@@ -509,6 +509,11 @@ Suitable for `helm-display-function'."
   (interactive)
   (find-file user-init-file))
 
+(defun bb-find-scratch ()
+  "Open the scratch buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
 (defun bb-kill-buffer ()
   "Kill the current buffer."
   (interactive)
@@ -550,9 +555,5 @@ If done compiling, kill the auxiliary buffer."
       (kill-buffer buf)))))
 
 (provide 'bb-defs)
-
-;; Local variables:
-;; eval: (auto-compile-mode)
-;; End:
 
 ;;; bb-defs.el ends here

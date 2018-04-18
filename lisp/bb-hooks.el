@@ -41,8 +41,4 @@
 
 (provide 'bb-hooks)
 
-;; Local variables:
-;; eval: (auto-compile-mode)
-;; End:
-
 ;;; bb-hooks.el ends here
