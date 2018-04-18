@@ -281,3 +281,6 @@
 [submodule "zoutline"]
 	path = lib/zoutline
 	url = git@github.com:abo-abo/zoutline.git
+[submodule "elibgit2"]
+	path = lib/elibgit2
+	url = git@github.com:TheBB/elibgit2.git
