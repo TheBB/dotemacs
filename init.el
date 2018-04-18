@@ -706,7 +706,7 @@
 (use-package ace-window
   :defer t
   :init
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (setq aw-keys '(?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package exec-path-from-shell
   :config
