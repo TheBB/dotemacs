@@ -573,7 +573,9 @@
   :init
   (setq magithub-clone-default-directory "~/repos")
   :config
-  (magithub-feature-autoinject 'all))
+  (magithub-feature-autoinject 'all)
+  ;; Workaround for vermiculus/magithub#308
+  (remove-hook 'magit-status-headers-hook #'magithub-maybe-insert-ci-status-header))
 
 (use-package with-editor
   :defer t
