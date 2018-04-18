@@ -724,6 +724,10 @@
 (use-package highlight-numbers
   :hook (prog-mode . highlight-numbers-mode))
 
+(use-package hl-todo
+  :config
+  (hl-todo-mode))
+
 (use-package lispy
   :diminish (lispy-mode . "L")
   :hook ((lisp-mode scheme-mode emacs-lisp-mode) . lispy-mode))
