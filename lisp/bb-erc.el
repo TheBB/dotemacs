@@ -1,4 +1,4 @@
-;;; bb-hooks.el --- Personal hook functions. -*- lexical-binding: t -*-
+;;; bb-erc.el --- Personal ERC functions. -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2018 Eivind Fonn
 
@@ -21,24 +21,24 @@
 
 ;;; Commentary:
 
-;; Major mode hook functions needed in my Emacs init.
+;; Miscellaneous functions needed for ERC in my Emacs init.
 
 ;;; Code:
 
+(require 'erc)
 
-(defun bb-evil-insert-state-exit ()
-  "Run when exiting insert-state."
-  (deactivate-mark))
-
-(defun bb-elisp ()
-  "Run in `emacs-lisp-mode'."
-  (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression))
+(defvar bb-znc-pwd nil)
 
 (defun bb-erc ()
-  "Run in `erc-mode'."
-  (setq-local global-hl-line-mode nil))
+  "Start `erc'."
+  (interactive)
+  (if bb-znc-pwd
+      (erc :server "efonn.no"
+           :port 1025
+           :nick "TheBB"
+           :password (format "TheBB/freenode:%s" bb-znc-pwd))
+    (user-error "Missing ZNC password")))
 
+(provide 'bb-erc)
 
-(provide 'bb-hooks)
-
-;;; bb-hooks.el ends here
+;;; bb-erc.el ends here

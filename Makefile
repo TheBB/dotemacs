@@ -15,7 +15,7 @@ SILENCIO += --eval "(fset 'message\
     (apply 'original-message format args))))"
 
 ELFILES = $(wildcard lisp/*.el)
-ELCFILES  = $(ELFILES:.el=.elc)
+ELCFILES = $(ELFILES:.el=.elc)
 
 build build-init quick: $(ELCFILES)
 	@$(MAKE) -f lib/borg/borg.mk $@
@@ -23,7 +23,7 @@ build build-init quick: $(ELCFILES)
 lisp: $(ELCFILES)
 
 $(ELCFILES): %.elc: %.el
-	$(EMACS) $(EMACS_ARGUMENTS) \
+	@$(EMACS) $(EMACS_ARGUMENTS) \
 	--batch -L lib/borg --load borg $(SILENCIO) \
 	--funcall borg-initialize \
 	-f batch-byte-compile $<

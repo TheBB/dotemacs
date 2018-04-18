@@ -65,7 +65,7 @@
 ;; Function, variable, and macro definitions
 
 (require 'bb-defs)
-(require 'bb-hooks)
+(require 'bb-macros)
 
 
 
@@ -282,7 +282,8 @@
 	evil-want-C-u-scroll t)
   :config
   (evil-mode)
-  (add-hook 'evil-insert-state-exit-hook 'bb-evil-insert-state-exit)
+  (bb-add-hook evil-insert-state-exit-hook
+    (deactivate-mark))
 
   ;; Miscellaneous keybindings
   (define-key evil-motion-state-map (kbd "<left>") 'windmove-left)
@@ -437,6 +438,7 @@
     "rl" 'helm-resume)
   (push "\\*helm.+\\*" bb-useless-buffers-regexp)
   :config
+  (require 'bb-helm)
   (helm-mode)
   (helm-autoresize-mode)
   (define-key helm-map bb-right 'helm-maybe-exit-minibuffer)
@@ -502,8 +504,8 @@
 
 ;; IRC and Co.
 
-(use-package erc
-  :defer t
+(use-package bb-erc
+  :commands (bb-erc)
   :init
   (setq erc-timestamp-format-let "\n%A %B %e, %Y\n\n"
         erc-timestamp-format-right "%H:%M"
@@ -519,16 +521,13 @@
         (lambda (names) (and names (list (propertize "!" 'face 'erc-notice-face))))
         erc-track-use-faces nil
         erc-join-buffer 'bury)
-  (bb-define-display "irc" "ai"
-    ;; :layout "irc"
-    :startup (erc :server "efonn.no"
-                  :port 1025
-                  :nick "TheBB"
-                  :password (format "TheBB/freenode:%s" bb-znc-pwd)))
-  (bb-leader "bi" 'erc-track-switch-buffer)
+  (bb-leader
+    "ai" 'bb-erc
+    "bi" 'erc-track-switch-buffer)
   (bb-mm-leader erc-mode "qs" 'erc-quit-server)
   (evil-set-initial-state 'erc-mode 'normal)
-  (add-hook 'erc-mode-hook 'bb-erc))
+  (bb-add-hook erc-mode-hook
+    (setq-local global-hl-line-mode nil)))
 
 
 
@@ -669,7 +668,8 @@
     "cb" 'eval-buffer
     "l" 'hydra-structured-editing-lisp/body)
   (bb-company emacs-lisp-mode company-capf)
-  (add-hook 'emacs-lisp-mode-hook 'bb-elisp))
+  (bb-add-hook emacs-lisp-mode-hook
+    (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression)))
 
 (use-package lisp-mode
   :defer t
@@ -686,7 +686,7 @@
                           (directory-files dir nil "\\`setup\\.py\\'")))
     '("pyls"))
   ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
-  (bb-adv-only-in-modes lsp-python-enable python-mode))
+  (bb-advise-only-in-modes lsp-python-enable python-mode))
 
 (use-package pyvenv
   :defer t
@@ -724,7 +724,7 @@
 (use-package highlight-operators
   :hook (prog-mode . highlight-operators-mode)
   :init
-  (bb-adv-except-derived-modes highlight-operators-mode
+  (bb-advise-except-derived-modes highlight-operators-mode
     lisp-mode scheme-mode emacs-lisp-mode python-mode)
   :config
   (set-face-attribute 'highlight-operators-face nil
@@ -775,7 +775,7 @@
 	sp-highlight-wrap-tag-overlay nil)
   (bb-leader "ts" 'smartparens-mode)
   :config
-  (bb-adv-except-derived-modes smartparens-mode
+  (bb-advise-except-derived-modes smartparens-mode
     lisp-mode scheme-mode emacs-lisp-mode)
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
   (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "("))

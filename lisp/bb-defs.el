@@ -33,92 +33,6 @@
 
 
 
-;; Postpone code until after display is initialized
-
-(defvar bb--after-display-functions nil
-  "List of functions to be run (in reverse order) after the
-display system is initialized.")
-
-(defun bb--server-create-window-system-frame (&rest args)
-  (dolist (func (reverse bb--after-display-functions))
-    (funcall func))
-  (advice-remove 'server-create-window-system-frame 'bb--server-create-window-system-frame))
-
-(advice-add 'server-create-window-system-frame :after 'bb--server-create-window-system-frame)
-
-
-(defmacro bb-after-display (&rest body)
-  "Run BODY after the display system is initialized."
-  (declare (indent 0))
-  `(let ((initializedp (cond ((boundp 'ns-initialized) ns-initialized)
-                             ((boundp 'w32-initialized) (font-family-list))
-                             ((boundp 'x-initialized) x-initialized)
-                             (t (display-graphic-p)))))
-     (if initializedp
-         (progn ,@body)
-       (push (lambda () ,@body) bb--after-display-functions))))
-
-
-
-;; Convenience macro for advice
-
-(defmacro bb-advise (type func arglist &rest body)
-  (declare (indent 3))
-  (unless arglist
-    (setq arglist '(&rest args)))
-  (when (eq 'around type)
-    (push 'orig-fn arglist))
-  (let ((funcname (intern (format "bb-advise--%s--%s" func type)))
-        (type (intern (format ":%s" type))))
-    `(progn
-       (defun ,funcname ,arglist
-         ,@body)
-       (advice-add ',func ,type ',funcname))))
-
-
-
-;; Convenience functions for leader bindings
-
-(declare-function 'general-define-key "general")
-
-(defmacro bb-leader (&rest args)
-  "Bind ARGS as leader bindings."
-  (declare (indent 0))
-  `(progn
-     (require 'general)
-     (general-define-key :prefix "SPC" :states '(normal motion) :keymaps 'override ,@args)))
-
-(defmacro bb-create-dispatch (keys)
-  "Generate a major mode dispatch system for KEYS."
-  (let ((funcname (intern (format "bb-dispatch-%s" keys)))
-        (varname (intern (format "bb-dispatch-table-%s" keys))))
-    `(progn
-       (unless (boundp ',varname)
-         (defvar ,varname nil)
-         (defun ,funcname ()
-           (interactive)
-           (cl-loop for entry in ,varname
-                    if (derived-mode-p (car entry))
-                    return (call-interactively (cdr entry))
-                    finally return (user-error "No dispatch found for \"%s\" in %s" ,keys major-mode)))
-         (bb-leader ,keys ',funcname)))))
-
-(defmacro bb-mm-leader (mode &rest args)
-  "Bind ARGS in MODE as leader bindings."
-  (declare (indent 1))
-  (let (bindings)
-    (while args
-      (push (cons (car args) (cadr args)) bindings)
-      (setq args (cddr args)))
-    `(progn
-       ,@(cl-loop for binding in bindings
-                  collect `(bb-create-dispatch ,(car binding)))
-       ,@(cl-loop for binding in bindings
-                  collect `(push (cons ',mode ,(cdr binding))
-                                 ,(intern (format "bb-dispatch-table-%s" (car binding))))))))
-
-
-
 ;; Predefined window configurations
 
 ;; (defvar bb--display-index 100
@@ -175,25 +89,6 @@ display system is initialized.")
 
 
 
-;; Company
-
-(defvar bb-company-global-backends nil
-  "List of backends to enable everywhere.")
-
-(defmacro bb-company (mode &rest backends)
-  "Run `company-mode' in MODE with BACKENDS."
-  (declare (indent 1))
-  (let ((funcname (intern (format "bb-company-%s" mode)))
-        (hookname (intern (format "%s-hook" mode))))
-    `(progn
-       (defun ,funcname ()
-         (company-mode)
-         (setq-local company-backends
-                     (list (append ',backends bb-company-global-backends))))
-       (add-hook ',hookname ',funcname))))
-
-
-
 ;; Evil-numbers
 
 (defhydra hydra-numbers ()
@@ -227,117 +122,6 @@ display system is initialized.")
   (forward-char)
   (dotimes (- count) (insert " "))
   (backward-char (1+ count)))
-
-
-
-;; Functions to remove dotted entries from `helm-find-files'
-
-(defun bb-helm-ff-filter-candidate-one-by-one (func file)
-  "Filter out '.' and '..' from FILE.  Otherwise call FUNC."
-  (unless (string-match-p "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)
-    (funcall func file)))
-
-(defun bb-helm-file-completion-source-p (&rest _)
-  "Always return true."
-  t)
-
-(defun bb-helm-attrset (func attribute-name value &optional src)
-  "Wrapper for FUNC that ensures SRC is always a valid helm source.
-For ATTRIBUTE-NAME and VALUE, see `helm-attrset'."
-  (let ((src (or src (helm-get-current-source))))
-    (when src (funcall func attribute-name value src))))
-
-(defun bb-helm-find-files-up-one-level (func &rest args)
-  "Wrapper for FUNC that works without looking at any entries.
-For ARGS, see `helm-find-files'."
-  (advice-add 'helm-file-completion-source-p :around 'bb-helm-file-completion-source-p)
-  (advice-add 'helm-attrset :around 'bb-helm-attrset)
-  (let ((res (apply func args)))
-    (advice-remove 'helm-file-completion-source-p 'bb-helm-file-completion-source-p)
-    (advice-remove 'helm-attrset 'bb-helm-attrset)
-    res))
-
-
-
-;; Show the helm buffer in a child frame
-;; Lifted with modifications from:
-;;   https://gist.github.com/fuxialexander/5ad46671689d96a29f9865c1c0b42d10
-
-(defvar bb-helm--frame-alist
-  '((undecorated . t)
-    (left-fringe . 0)
-    (right-fringe . 0)
-    (tool-bar-lines . 0)
-    (line-spacing . 0)
-    (desktop-dont-save . t)
-    (no-special-glyphs . t)
-    (inhibit-double-buffering . t)
-    (tool-bar-lines . 0)
-    (title . "Helm")
-    (vertical-scroll-bars . nil)
-    (menu-bar-lines . nil)
-    (fullscreen . nil)
-    (minibuffer . t)
-    (alpha . 90))
-  "Frame parameters that apply to all helm child frames.")
-
-(defun bb-helm-display-child-frame (buffer &optional _)
-  "Display the helm buffer BUFFER in a child frame.
-Suitable for `helm-display-function'."
-
-  ;; Fallback to regular display if not in a GUI
-  (if (not (display-graphic-p))
-      (helm-default-display-buffer buffer)
-    (setq helm--buffer-in-new-frame-p t)
-    (let* ((pos (window-absolute-pixel-position))
-           (char-size (cons (frame-char-width) (frame-char-height)))
-           (frame-info (frame-geometry))
-
-           ;; The right and bottom boundaries are given by the
-           ;; parent frame's right border and the bottom of the screen
-           (parent-right (+ (cadr (assq 'outer-position frame-info))
-                            (cadr (assq 'outer-size frame-info))))
-           (parent-bottom (display-pixel-height x-display-name))
-           (helm-pixel-width (* (car char-size) helm-display-buffer-width))
-           (helm-pixel-height (* (cdr char-size) helm-display-buffer-height))
-
-           ;; Show helm above the cursor if there's not enough space below
-           (abovep (> (+ (cdr pos) (cdr char-size) helm-pixel-height)
-                      parent-bottom))
-
-           ;; Calculate the positions of the child frame.
-           (left (max 0 (min (car pos) (- parent-right helm-pixel-width))))
-           (top (if abovep
-                    (- (cdr pos) helm-pixel-height)
-                  (+ (cdr pos) (cdr char-size))))
-
-           ;; Finalize the frame parameters
-           (default-frame-alist (append bb-helm--frame-alist
-                                        `((parent . ,(selected-frame))
-                                          (width . ,helm-display-buffer-width)
-                                          (height . ,helm-display-buffer-height)
-                                          (left . ,left)
-                                          (top . ,top)
-                                          (visible . ,(null helm-display-buffer-reuse-frame)))))
-           display-buffer-alist)
-      (with-helm-buffer (setq-local helm-echo-input-in-header-line (not abovep)))
-      (helm-display-buffer-popup-frame buffer default-frame-alist))
-    (helm-log-run-hook 'helm-window-configuration-hook)))
-
-
-
-;; Helm helpers
-
-(defun bb-helm-ag-project ()
-  "Call `helm-do-ag' in the project root."
-  (interactive)
-  (helm-do-ag (projectile-project-root)))
-
-(defun bb-helm-swoop ()
-  "Call `helm-swoop' with `helm-echo-input-in-header-line' set to true."
-  (interactive)
-  (let ((helm-echo-input-in-header-line t))
-    (call-interactively 'helm-swoop)))
 
 
 
@@ -470,32 +254,6 @@ Suitable for `helm-display-function'."
 
 ;; Miscellaneous
 
-(defmacro bb-popwin (mode &rest args)
-  "Push (MODE ARGS...) to `popwin:special-display-config'."
-  `(push '(,mode ,@args) popwin:special-display-config))
-
-(defmacro bb-adv-only-in-modes (func &rest modes)
-  "Advice FUNC only to run then `major-mode' is exactly any of MODES."
-  (declare (indent 1))
-  (let ((funcname
-         (intern (format "bb--only-in-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
-    `(progn
-       (defun ,funcname (orig-fn &rest args)
-         (when (or ,@(cl-loop for mode in modes collect `(eq major-mode ',mode)))
-           (apply orig-fn args)))
-       (advice-add ',func :around ',funcname))))
-
-(defmacro bb-adv-except-derived-modes (func &rest modes)
-  "Advice FUNC only to run when `major-mode' is derived from any of MODES."
-  (declare (indent 1))
-  (let ((funcname
-         (intern (format "bb--except-derived-modes-%s" (mapconcat 'symbol-name modes "-or-")))))
-    `(progn
-       (defun ,funcname (orig-fn &rest args)
-         (unless (derived-mode-p ,@(cl-loop for mode in modes collect `(quote ,mode)))
-           (apply orig-fn args)))
-       (advice-add ',func :around ',funcname))))
-
 (defun bb-alternate-buffer ()
   "Switch to the previous buffer displayed in the current window."
   (interactive)
@@ -553,6 +311,7 @@ If done compiling, kill the auxiliary buffer."
    (compilation-in-progress (TeX-recenter-output-buffer nil))
    ((-when-let* ((buf (TeX-active-buffer)))
       (kill-buffer buf)))))
+
 
 (provide 'bb-defs)
 
