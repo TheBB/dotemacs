@@ -284,3 +284,7 @@
 [submodule "elibgit2"]
 	path = lib/elibgit2
 	url = git@github.com:TheBB/elibgit2.git
+	build-step = mkdir -p build
+	build-step = cd build && cmake ..
+	build-step = cd build && make
+	load-path = build/src
