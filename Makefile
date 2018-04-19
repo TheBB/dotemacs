@@ -30,3 +30,7 @@ $(ELCFILES): %.elc: %.el
 
 clean bootstrap:
 	@$(MAKE) -f lib/borg/borg.mk $@
+
+%: force
+	@$(MAKE) -f lib/borg/borg.mk $@
+force: ;
