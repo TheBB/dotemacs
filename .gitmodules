@@ -287,4 +287,4 @@
 	build-step = mkdir -p build
 	build-step = cd build && cmake ..
 	build-step = cd build && make
-	load-path = build/src
+	load-path = build
