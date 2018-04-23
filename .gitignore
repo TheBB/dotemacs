@@ -4,3 +4,4 @@
 /epkgs
 *.elc
 /local.el
+/.cask
