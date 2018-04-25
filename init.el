@@ -747,8 +747,7 @@
   :hook (prog-mode . highlight-numbers-mode))
 
 (use-package hl-todo
-  :config
-  (hl-todo-mode))
+  :hook (prog-mode . hl-todo-mode))
 
 (use-package lispy
   :diminish (lispy-mode . "L")
