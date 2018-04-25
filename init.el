@@ -753,6 +753,7 @@
   :diminish (lispy-mode . "L")
   :hook ((lisp-mode scheme-mode emacs-lisp-mode) . lispy-mode)
   :config
+  (lispy-define-key lispy-mode-map "o" 'lispy-different)
   (lispy-define-key lispy-mode-map ">" 'lispy-slurp-or-barf-right)
   (lispy-define-key lispy-mode-map "<" 'lispy-slurp-or-barf-left))
 
