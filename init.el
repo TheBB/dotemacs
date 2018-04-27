@@ -727,6 +727,11 @@
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 
+(use-package expand-region
+  :defer t
+  :init
+  (bb-leader "v" 'er/expand-region))
+
 (use-package eyebrowse
   :init
   (setq eyebrowse-new-workspace t
