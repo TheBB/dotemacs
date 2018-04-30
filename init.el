@@ -730,7 +730,7 @@
 (use-package expand-region
   :defer t
   :init
-  (bb-leader "v" 'er/expand-region))
+  (bb-leader "vv" 'er/expand-region))
 
 (use-package eyebrowse
   :init
