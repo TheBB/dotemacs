@@ -688,6 +688,9 @@
   :init
   (bb-mm-leader lisp-mode "l" 'hydra-structured-editing-lisp/body))
 
+(use-package powershell-mode
+  :mode "\\.ps1\\'")
+
 (use-package python
   :defer t
   :hook (python-mode . lsp-python-enable)

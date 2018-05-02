@@ -178,6 +178,14 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = git@github.com:abo-abo/swiper.git
+[submodule "libegit2"]
+	path = lib/libegit2
+	url = git@github.com:TheBB/libegit2.git
+	build-step = git submodule init
+	build-step = git submodule update
+	build-step = mkdir -p build
+	build-step = cd build && cmake ..
+	build-step = cd build && make
 [submodule "lispy"]
 	path = lib/lispy
 	url = git@github.com:abo-abo/lispy.git
@@ -239,6 +247,9 @@
 [submodule "powerline"]
 	path = lib/powerline
 	url = git@github.com:milkypostman/powerline.git
+[submodule "powershell-mode"]
+	path = lib/powershell-mode
+	url = git@github.com:fperrin/powershell-mode.git
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
@@ -281,11 +292,3 @@
 [submodule "zoutline"]
 	path = lib/zoutline
 	url = git@github.com:abo-abo/zoutline.git
-[submodule "libegit2"]
-	path = lib/libegit2
-	url = git@github.com:TheBB/libegit2.git
-	build-step = git submodule init
-	build-step = git submodule update
-	build-step = mkdir -p build
-	build-step = cd build && cmake ..
-	build-step = cd build && make
