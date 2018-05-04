@@ -36,14 +36,20 @@
       load-prefer-newer t
 
       ;; Enable Keyboardio Model 01 mode
-      keyboardiop (string= (system-name) "cauchy")
+      ;; Disable this for the moment on all computers
+      ;; keyboardiop (string= (system-name) "cauchy")
+      keyboardiop nil
+
+      ;; Computer ID
+      cauchyp (string= (system-name) "cauchy")
+
       bb-left (kbd (if keyboardiop "<left>" "C-h"))
       bb-down (kbd (if keyboardiop "<down>" "C-j"))
       bb-up (kbd (if keyboardiop "<up>" "C-k"))
       bb-right (kbd (if keyboardiop "<right>" "C-l"))
 
       ;; FIXME: Different fonts on different computers
-      bb-font (if keyboardiop
+      bb-font (if cauchyp
                   "Iosevka Expanded Bold"
                 "Source Code Pro Semibold"))
 
