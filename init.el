@@ -470,9 +470,9 @@
   (define-key helm-find-files-map bb-right 'helm-ff-RET)
   (define-key helm-find-files-map bb-left 'helm-find-files-up-one-level)
   (advice-add 'helm-ff-filter-candidate-one-by-one
-	      :around 'bb-helm-ff-filter-candidate-one-by-one)
+              :around 'bb-helm-ff-filter-candidate-one-by-one)
   (advice-add 'helm-find-files-up-one-level
-	      :around 'bb-helm-find-files-up-one-level))
+              :around 'bb-helm-find-files-up-one-level))
 
 (use-package helm-imenu
   :defer t
