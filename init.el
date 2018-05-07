@@ -139,7 +139,7 @@
      (erc-track :when active)
      (version-control :when active :priority 78))
     (which-function
-     (python-pyvenv :fallback python-pyenv)
+     python-env
      (purpose :priority 94)
      (selection-info :priority 95)
      input-method
