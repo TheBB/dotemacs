@@ -651,6 +651,42 @@
 
 
 
+;; Python and Co.
+
+(use-package bb-py-all-env
+  :commands (bb-py-all-env-activate bb-py-all-env-deactivate)
+  :init
+  (bb-mm-leader python-mode
+    "va" 'bb-py-all-env-activate
+    "vd" 'bb-py-all-env-deactivate))
+
+(use-package conda
+  :defer t
+  :init
+  (setq conda-anaconda-home (when cauchyp (expand-file-name "~/miniconda3/")))
+  (add-hook 'conda-postactivate-hook 'lsp-restart-workspace)
+  (add-hook 'conda-postdeactivate-hook 'lsp-restart-workspace))
+
+(use-package python
+  :defer t
+  :hook (python-mode . lsp-python-enable)
+  :init
+  ;; The "official" client wrongly considers __init__.py to be a project root
+  (lsp-define-stdio-client lsp-python "python"
+    (lsp-make-traverser (lambda (dir)
+                          (directory-files dir nil "\\`setup\\.py\\'")))
+    '("pyls"))
+  ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
+  (bb-advise-only-in-modes lsp-python-enable python-mode))
+
+(use-package pyvenv
+  :defer t
+  :init
+  (add-hook 'pyvenv-post-activate-hooks 'lsp-restart-workspace)
+  (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
+
+
+
 ;; Programming languages and other major modes
 
 (use-package cc-mode
@@ -696,28 +732,6 @@
 
 (use-package powershell-mode
   :mode "\\.ps1\\'")
-
-(use-package python
-  :defer t
-  :hook (python-mode . lsp-python-enable)
-  :init
-  ;; The "official" client wrongly considers __init__.py to be a project root
-  (lsp-define-stdio-client lsp-python "python"
-    (lsp-make-traverser (lambda (dir)
-                          (directory-files dir nil "\\`setup\\.py\\'")))
-    '("pyls"))
-  ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
-  (bb-advise-only-in-modes lsp-python-enable python-mode))
-
-(use-package pyvenv
-  :defer t
-  :init
-  (bb-mm-leader python-mode
-    "va" 'pyvenv-workon
-    "vc" 'pyvenv-create
-    "vd" 'pyvenv-deactivate)
-  (add-hook 'pyvenv-post-activate-hooks 'lsp-restart-workspace)
-  (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
 
 (use-package text-mode
   :hook (text-mode . auto-fill-mode))
