@@ -47,6 +47,9 @@
 [submodule "company-reftex"]
 	path = lib/company-reftex
 	url = git@github.com:TheBB/company-reftex.git
+[submodule "conda"]
+	path = lib/conda
+	url = git@github.com:necaris/conda.el.git
 [submodule "cquery"]
 	path = lib/cquery
 	url = git@github.com:cquery-project/emacs-cquery.git
@@ -124,6 +127,9 @@
 [submodule "eyebrowse"]
 	path = lib/eyebrowse
 	url = git@github.com:wasamasa/eyebrowse.git
+[submodule "f"]
+	path = lib/f
+	url = git@github.com:rejeep/f.el.git
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
@@ -253,6 +259,9 @@
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
+[submodule "pythonic"]
+	path = lib/pythonic
+	url = git@github.com:proofit404/pythonic.git
 [submodule "pyvenv"]
 	path = lib/pyvenv
 	url = git@github.com:jorgenschaefer/pyvenv.git
