@@ -186,7 +186,7 @@
 	url = git@github.com:abo-abo/swiper.git
 [submodule "libegit2"]
 	path = lib/libegit2
-	url = git@github.com:TheBB/libegit2.git
+	url = git@github.com:magit/libegit2.git
 	build-step = git submodule init
 	build-step = git submodule update
 	build-step = mkdir -p build
