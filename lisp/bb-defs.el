@@ -293,8 +293,8 @@ If done compiling, kill the auxiliary buffer."
   (interactive)
   (cond
    (compilation-in-progress (TeX-recenter-output-buffer nil))
-   ((-when-let* ((buf (TeX-active-buffer)))
-      (kill-buffer buf)))))
+   (t (-when-let* ((buf (TeX-active-buffer)))
+        (kill-buffer buf)))))
 
 (defun bb-toggle-debug-on-error ()
   "Toggle the value of `debug-on-error'."
