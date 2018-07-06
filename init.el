@@ -50,7 +50,7 @@
 
       ;; FIXME: Different fonts on different computers
       bb-font (if cauchyp
-                  "Iosevka Expanded Bold"
+                  "Iosevka Expanded Term Bold"
                 "Source Code Pro Semibold"))
 
 (push (concat user-emacs-directory "lisp") load-path)
