@@ -736,6 +736,14 @@
 (use-package text-mode
   :hook (text-mode . auto-fill-mode))
 
+(use-package web-mode
+  :mode ("\\.\\(dj\\)?html?\\'")
+  :init
+  (setq-default
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 4))
+
 
 
 ;; Miscellaneous
@@ -820,7 +828,7 @@
   (bb-leader "ts" 'smartparens-mode)
   :config
   (bb-advise-except-derived-modes smartparens-mode
-    lisp-mode scheme-mode emacs-lisp-mode)
+    lisp-mode scheme-mode emacs-lisp-mode web-mode)
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
   (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "("))
 
