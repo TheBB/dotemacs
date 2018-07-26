@@ -184,6 +184,9 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = git@github.com:abo-abo/swiper.git
+[submodule "julia-mode"]
+	path = lib/julia-mode
+	url = git@github.com:JuliaLang/julia-emacs.git
 [submodule "libegit2"]
 	path = lib/libegit2
 	url = git@github.com:magit/libegit2.git
@@ -286,6 +289,9 @@
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "web-mode"]
+	path = lib/web-mode
+	url = git@github.com:fxbois/web-mode.git
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = git@github.com:magit/with-editor.git
