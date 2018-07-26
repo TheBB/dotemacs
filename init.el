@@ -805,7 +805,7 @@
 (use-package page-break-lines
   :diminish page-break-lines-mode
   :config
-  (setq page-break-lines-mode '(prog-mode))
+  (setq page-break-lines-modes '(prog-mode julia-mode-prog-mode))
   (global-page-break-lines-mode))
 
 (use-package projectile
