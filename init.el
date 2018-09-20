@@ -814,6 +814,7 @@
   (bb-leader "ga" 'projectile-find-other-file)
   :config
   (projectile-mode)
+  (setq projectile-completion-system 'helm)
   (push '("C" . ("h")) projectile-other-file-alist))
 
 (use-package rainbow-delimiters
