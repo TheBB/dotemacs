@@ -813,7 +813,8 @@
   :init
   (bb-leader "ga" 'projectile-find-other-file)
   :config
-  (projectile-mode))
+  (projectile-mode)
+  (push '("C" . ("h")) projectile-other-file-alist))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
