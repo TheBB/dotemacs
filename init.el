@@ -737,7 +737,7 @@
   :hook (text-mode . auto-fill-mode))
 
 (use-package web-mode
-  :mode ("\\.\\(dj\\)?html?\\'")
+  :mode ("\\.\\(dj\\)?html?\\'" "\\.xinp\\'")
   :init
   (setq-default
    web-mode-markup-indent-offset 2
