@@ -663,7 +663,7 @@
 (use-package conda
   :defer t
   :init
-  (setq conda-anaconda-home (when cauchyp (expand-file-name "~/miniconda3/")))
+  (setq conda-anaconda-home (when (file-exists-p "~/miniconda3") (expand-file-name "~/miniconda3/")))
   (add-hook 'conda-postactivate-hook 'lsp-restart-workspace)
   (add-hook 'conda-postdeactivate-hook 'lsp-restart-workspace))
 
