@@ -310,3 +310,9 @@
 [submodule "zoutline"]
 	path = lib/zoutline
 	url = git@github.com:abo-abo/zoutline.git
+[submodule "vterm"]
+	path = lib/vterm
+	url = git@github.com:TheBB/emacs-libvterm
+	build-step = mkdir -p build
+	build-step = cd build && cmake ..
+	build-step = cd build && make
