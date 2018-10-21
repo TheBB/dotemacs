@@ -338,6 +338,7 @@
 (use-package evil-escape
   :diminish evil-escape-mode
   :config
+  (push 'emacs evil-escape-excluded-states)
   (unless keyboardiop
     (evil-escape-mode))
   (define-key minibuffer-local-map [escape] 'evil-escape)
