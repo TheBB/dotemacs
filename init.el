@@ -853,6 +853,8 @@
   (bb-add-hook vterm-mode-hook
     (setq-local global-hl-line-mode nil)
     (setq-local truncate-lines t))
+  (setq vterm-keymap-exceptions '("<f12>"))
+  (global-set-key (kbd "<f12>") 'bb-vterm)
   :config
   (set-face-attribute 'vterm-color-black nil :background monokai-comments :foreground monokai-comments)
   (set-face-attribute 'vterm-color-blue nil :background monokai-blue :foreground monokai-blue)

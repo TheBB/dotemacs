@@ -302,6 +302,15 @@ If done compiling, kill the auxiliary buffer."
   (setq debug-on-error (not debug-on-error))
   (message "Debug on error now: %S" debug-on-error))
 
+(defun bb-vterm ()
+  "Pop or hide a vterm."
+  (interactive)
+  (require 'vterm)
+  (if (derived-mode-p 'vterm-mode)
+      (previous-buffer)
+    (if-let* ((buffer (get-buffer "vterm")))
+        (switch-to-buffer buffer)
+      (vterm))))
 
 (provide 'bb-defs)
 
