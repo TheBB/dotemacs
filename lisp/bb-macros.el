@@ -26,8 +26,7 @@
 ;;; Code:
 
 
-
-;; Postpone code until after display is initialized
+;;; Postpone code until after display is initialized
 
 (defvar bb--after-display-functions nil
   "List of functions to be run (in reverse order) after the
@@ -51,8 +50,7 @@ display system is initialized.")
        (push (lambda () ,@body) bb--after-display-functions))))
 
 
-
-;; Convenience macro for hooks
+;;; Convenience macro for hooks
 
 (defmacro bb-add-hook (hook &rest body)
   "Run BODY in HOOK."
@@ -63,8 +61,7 @@ display system is initialized.")
        (add-hook ',hook ',funcname))))
 
 
-
-;; Convenience macro for advice
+;;; Convenience macro for advice
 
 (defmacro bb-advise (type func arglist &rest body)
   (declare (indent 3))
@@ -102,8 +99,7 @@ display system is initialized.")
        (advice-add ',func :around ',funcname))))
 
 
-
-;; Convenience functions for leader bindings
+;;; Convenience functions for leader bindings
 
 (declare-function 'general-define-key "general")
 
@@ -144,8 +140,7 @@ display system is initialized.")
                                  ,(intern (format "bb-dispatch-table-%s" (car binding))))))))
 
 
-
-;; Company
+;;; Company
 
 (defvar bb-company-global-backends nil
   "List of backends to enable everywhere.")
@@ -163,8 +158,7 @@ display system is initialized.")
        (add-hook ',hookname ',funcname))))
 
 
-
-;; Miscellaneous
+;;; Miscellaneous
 
 (defmacro bb-popwin (mode &rest args)
   "Push (MODE ARGS...) to `popwin:special-display-config'."

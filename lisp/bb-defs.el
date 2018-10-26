@@ -32,8 +32,7 @@
   (require 'hydra))
 
 
-
-;; Predefined window configurations
+;;; Predefined window configurations
 
 ;; (defvar bb--display-index 100
 ;;   "Internal counter used in `bb-define-display.'")
@@ -66,8 +65,7 @@
        (bb-leader ,leader ',funcname))))
 
 
-
-;; Buffer predicate function
+;;; Buffer predicate function
 
 (defvar bb-useful-buffers-regexp nil
   "Regular expressions to determine if a buffer is useful.")
@@ -88,8 +86,7 @@
                  never (string-match-p regexp name)))))
 
 
-
-;; Evil-numbers
+;;; Evil-numbers
 
 (defhydra hydra-numbers ()
   ("=" evil-numbers/inc-at-pt)
@@ -98,8 +95,7 @@
   ("_" evil-numbers/dec-at-pt))
 
 
-
-;; Evil-unimpaired
+;;; Evil-unimpaired
 
 (defun bb-insert-line-above (count)
   "Insert COUNT lines above point."
@@ -124,8 +120,7 @@
   (backward-char (1+ count)))
 
 
-
-;; Macrostep
+;;; Macrostep
 
 (defhydra hydra-macrostep (:foreign-keys run)
   ("e" macrostep-expand)
@@ -135,8 +130,7 @@
   ("q" macrostep-collapse-all :exit t))
 
 
-
-;; Smartparens
+;;; Smartparens
 
 (defun bb-sp-pair-newline-and-indent (&rest _)
   "Create an empty line between two delimiters."
@@ -153,8 +147,7 @@
                                         '(:add (bb-sp-pair-newline-and-indent "RET"))))))
 
 
-
-;; Structured editing
+;;; Structured editing
 
 (defun bb-wrap-paren ()
   "Wrap the symbol under point with parentheses."
@@ -181,8 +174,7 @@
   ("<right>" sp-forward-sexp))
 
 
-
-;; Window management
+;;; Window management
 
 (defun bb-shrink-window-horizontally (delta)
   "Shrink the current window horizontally by DELTA units."
@@ -235,8 +227,7 @@
   ("q" nil :exit t))
 
 
-
-;; Miscellaneous
+;;; Miscellaneous
 
 (defun bb-alternate-buffer ()
   "Switch to the previous buffer displayed in the current window."

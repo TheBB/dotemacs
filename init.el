@@ -26,8 +26,7 @@
 ;;; Code:
 
 
-
-;; Initialize borg and set up load path
+;;; Initialize borg and set up load path
 
 (setq user-init-file (or load-file-name buffer-file-name)
       user-emacs-directory (file-name-directory user-init-file)
@@ -59,23 +58,20 @@
 (borg-initialize)
 
 
-
-;; Local settings, if any
+;;; Local settings, if any
 
 (let ((filename (expand-file-name "local.el" user-emacs-directory)))
   (when (file-exists-p filename)
     (load-file filename)))
 
 
-
-;; Function, variable, and macro definitions
+;;; Function, variable, and macro definitions
 
 (require 'bb-defs)
 (require 'bb-macros)
 
 
-
-;; Packages that should be enabled early
+;;; Packages that should be enabled early
 
 (use-package general
   :config
@@ -90,8 +86,7 @@
   (popwin-mode))
 
 
-
-;; Theme
+;;; Theme
 
 (setq monokai-height-minus-1 1.0
       monokai-height-plus-1 1.0
@@ -118,8 +113,7 @@
   :box '(:color "#666666" :line-width 1 :style released-button))
 
 
-
-;; Modeline
+;;; Modeline
 
 (use-package spaceline-segments
   :init
@@ -172,8 +166,7 @@
     :box '(:color "#666666" :line-width 1 :style released-button)))
 
 
-
-;; General Emacs settings (built-ins, etc.)
+;;; General Emacs settings (built-ins, etc.)
 
 (setq user-init-file (or load-file-name buffer-file-name)
       user-emacs-directory (file-name-directory user-init-file)
@@ -274,8 +267,7 @@
   "w" 'hydra-windows/body)
 
 
-
-;; Evil and Co.
+;;; Evil and Co.
 
 (use-package evil
   :init
@@ -382,8 +374,7 @@
   (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
 
 
-
-;; Company and Co.
+;;; Company and Co.
 
 (use-package company
   :defer t
@@ -412,8 +403,7 @@
     :background monokai-comments))
 
 
-
-;; Flycheck and Co.
+;;; Flycheck and Co.
 
 (use-package flycheck
   :hook (lsp-mode . flycheck-mode)
@@ -430,8 +420,7 @@
   (aset flycheck-error-list-format 5 '("Message" 0 t)))
 
 
-
-;; Helm and Co.
+;;; Helm and Co.
 
 (use-package helm
   :diminish helm-mode
@@ -513,8 +502,7 @@
   (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
 
 
-
-;; IRC and Co.
+;;; IRC and Co.
 
 (use-package bb-erc
   :commands (bb-erc)
@@ -542,8 +530,7 @@
     (setq-local global-hl-line-mode nil)))
 
 
-
-;; LSP and Co.
+;;; LSP and Co.
 
 (use-package lsp-mode
   :commands (lsp-make-traverser)
@@ -585,8 +572,7 @@
   (define-key lsp-ui-peek-mode-map bb-up 'lsp-ui-peek--select-prev-file))
 
 
-
-;; Magit and Co.
+;;; Magit and Co.
 
 (use-package magit
   :defer t
@@ -611,8 +597,7 @@
   :diminish with-editor-mode)
 
 
-
-;; LaTeX and Co.
+;;; LaTeX and Co.
 
 (use-package auctex-latexmk
   :after latex
@@ -655,8 +640,7 @@
     "cv" 'bb-latex-check-compilation))
 
 
-
-;; Python and Co.
+;;; Python and Co.
 
 (use-package bb-py-all-env
   :commands (bb-py-all-env-activate bb-py-all-env-deactivate)
@@ -691,8 +675,6 @@
   (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
 
 
-
-;; Programming languages and other major modes
 
 (use-package cc-mode
   :defer t
@@ -717,6 +699,7 @@
   :defer t
   :init
   (bb-company cmake-mode company-cmake))
+;;; Programming languages and other major modes
 
 (use-package elisp-mode
   :defer t
@@ -750,8 +733,7 @@
    web-mode-code-indent-offset 4))
 
 
-
-;; Miscellaneous
+;;; Miscellaneous
 
 (use-package ace-window
   :defer t
@@ -883,8 +865,7 @@
   (yas-reload-all))
 
 
-
-;; Finally load customizations, if any
+;;; Load customizations, if any
 
 (load custom-file)
 

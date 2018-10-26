@@ -31,8 +31,7 @@
 (declare-function projectile-project-root "projectile")
 
 
-
-;; Functions to remove dotted entries from `helm-find-files'
+;;; Functions to remove dotted entries from `helm-find-files'
 
 (defun bb-helm-ff-filter-candidate-one-by-one (func file)
   "Filter out '.' and '..' from FILE.  Otherwise call FUNC."
@@ -60,8 +59,7 @@ For ARGS, see `helm-find-files'."
     res))
 
 
-
-;; Show the helm buffer in a child frame
+;;; Show the helm buffer in a child frame
 ;; Lifted with modifications from:
 ;;   https://gist.github.com/fuxialexander/5ad46671689d96a29f9865c1c0b42d10
 
@@ -127,8 +125,7 @@ Suitable for `helm-display-function'."
     (helm-log-run-hook 'helm-window-configuration-hook)))
 
 
-
-;; Helm helpers
+;;; Helm helpers
 
 (defun bb-helm-ag-project ()
   "Call `helm-do-ag' in the project root."
