@@ -222,6 +222,10 @@
   :config
   (global-hl-line-mode))
 
+(use-package outline
+  :defer t
+  :diminish outline-minor-mode)
+
 (use-package recentf
   :init
   (setq recentf-max-saved-items 10000)
