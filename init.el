@@ -597,6 +597,48 @@
   :diminish with-editor-mode)
 
 
+;;; C/C++ and Co.
+
+(use-package cc-mode
+  :defer t
+  :hook ((c-mode c++-mode) . lsp-cquery-enable))
+
+(use-package cc-styles
+  :defer t
+  :config
+  (c-add-style "personal"
+               '((indent-tabs-mode . nil)
+                 (c-basic-offset . 4)
+                 (c-offsets-alist
+                  (arglist-close . 0)
+                  (inextern-lang . 0)
+                  (inline-open . 0)
+                  (innamespace . 0)
+                  (statement-cont . c-lineup-assignments)
+                  (substatement-open . 0))))
+  (push '(other . "personal") c-default-style))
+
+(use-package cmake-mode
+  :defer t
+  :init
+  (bb-company cmake-mode company-cmake))
+
+
+;;; HTML and Co.
+
+(use-package lsp-html
+  :commands (lsp-html-enable))
+
+(use-package web-mode
+  :mode ("\\.\\(dj\\)?html?\\'" "\\.xinp\\'")
+  :init
+  (setq-default
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 4)
+  (add-hook 'web-mode-hook 'lsp-html-enable))
+
+
 ;;; LaTeX and Co.
 
 (use-package auctex-latexmk
@@ -675,30 +717,6 @@
   (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
 
 
-
-(use-package cc-mode
-  :defer t
-  :hook ((c-mode c++-mode) . lsp-cquery-enable))
-
-(use-package cc-styles
-  :defer t
-  :config
-  (c-add-style "personal"
-               '((indent-tabs-mode . nil)
-                 (c-basic-offset . 4)
-                 (c-offsets-alist
-                  (arglist-close . 0)
-                  (inextern-lang . 0)
-                  (inline-open . 0)
-                  (innamespace . 0)
-                  (statement-cont . c-lineup-assignments)
-                  (substatement-open . 0))))
-  (push '(other . "personal") c-default-style))
-
-(use-package cmake-mode
-  :defer t
-  :init
-  (bb-company cmake-mode company-cmake))
 ;;; Programming languages and other major modes
 
 (use-package elisp-mode
@@ -723,14 +741,6 @@
 
 (use-package text-mode
   :hook (text-mode . auto-fill-mode))
-
-(use-package web-mode
-  :mode ("\\.\\(dj\\)?html?\\'" "\\.xinp\\'")
-  :init
-  (setq-default
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 4))
 
 
 ;;; Miscellaneous
