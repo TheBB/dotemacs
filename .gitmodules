@@ -100,6 +100,9 @@
 [submodule "evil-escape"]
 	path = lib/evil-escape
 	url = git@github.com:syl20bnr/evil-escape.git
+[submodule "evil-indent-plus"]
+	path = lib/evil-indent-plus
+	url = git@github.com:TheBB/evil-indent-plus.git
 [submodule "evil-magit"]
 	path = lib/evil-magit
 	url = git@github.com:emacs-evil/evil-magit.git

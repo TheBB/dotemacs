@@ -343,6 +343,10 @@
   (define-key minibuffer-local-must-match-map [escape] 'evil-escape)
   (define-key minibuffer-local-isearch-map [escape] 'evil-escape))
 
+(use-package evil-indent-plus
+  :config
+  (evil-indent-plus-default-bindings))
+
 (use-package evil-little-word
   :after evil)
 
