@@ -226,6 +226,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
+[submodule "matlab-mode"]
+	path = lib/matlab-mode
+	url = https://git.code.sf.net/p/matlab-emacs/src
 [submodule "monokai-theme"]
 	path = lib/monokai-theme
 	url = git@github.com:oneKelvinSmith/monokai-emacs.git
@@ -289,6 +292,12 @@
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "vterm"]
+	path = lib/vterm
+	url = git@github.com:TheBB/emacs-libvterm
+	build-step = mkdir -p build
+	build-step = cd build && cmake ..
+	build-step = cd build && make
 [submodule "web-mode"]
 	path = lib/web-mode
 	url = git@github.com:fxbois/web-mode.git
@@ -310,9 +319,3 @@
 [submodule "zoutline"]
 	path = lib/zoutline
 	url = git@github.com:abo-abo/zoutline.git
-[submodule "vterm"]
-	path = lib/vterm
-	url = git@github.com:TheBB/emacs-libvterm
-	build-step = mkdir -p build
-	build-step = cd build && cmake ..
-	build-step = cd build && make
