@@ -728,6 +728,7 @@
     "cb" 'eval-buffer
     "l" 'hydra-structured-editing-lisp/body)
   (bb-company emacs-lisp-mode company-capf)
+  (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
   (bb-add-hook emacs-lisp-mode-hook
     (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression)))
 
