@@ -148,6 +148,9 @@
 [submodule "goto-chg"]
 	path = lib/goto-chg
 	url = git@github.com:emacs-evil/goto-chg.git
+[submodule "graphql"]
+	path = lib/graphql
+	url = git@github.com:vermiculus/graphql.el.git
 [submodule "helm"]
 	path = lib/helm
 	url = git@github.com:emacs-helm/helm.git
@@ -286,6 +289,9 @@
 [submodule "spaceline"]
 	path = lib/spaceline
 	url = git@github.com:TheBB/spaceline.git
+[submodule "treepy"]
+	path = lib/treepy
+	url = git@github.com:volrath/treepy.el.git
 [submodule "undo-tree"]
 	path = lib/undo-tree
 	url = http://www.dr-qubit.org/git/undo-tree.git

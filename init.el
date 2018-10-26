@@ -285,7 +285,8 @@
 	evil-replace-state-cursor '("chocolate" (hbar . 2))
 	evil-visual-state-cursor '("gray" (hbar . 2))
 	evil-motion-state-cursor '("plum3" box)
-	evil-want-integration nil
+	evil-want-integration t
+        evil-want-keybinding nil
 	evil-want-C-u-scroll t)
   :config
   (evil-mode)
@@ -321,13 +322,16 @@
   (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
   (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))
 
-(use-package evil-collection-integration
-  :after evil)
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-mode-list
+        '(elisp-mode))
+  (evil-collection-init))
 
 (use-package evil-collection-elisp-mode
-  :after elisp-mode
+  :defer t
   :config
-  (evil-collection-elisp-mode-setup)
   (advice-add 'eval-last-sexp :around 'evil-collection-elisp-mode-last-sexp))
 
 (use-package evil-embrace
