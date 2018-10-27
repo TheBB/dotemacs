@@ -272,6 +272,21 @@
   ("w" 'hydra-windows/body "Window management hydra"))
 
 
+;;; Description of major-mode leader bindings
+
+(bb-assign-leader "==" nil "Align defun/paragraph")
+(bb-assign-leader "cc" nil "Build project")
+(bb-assign-leader "cv" nil "Show build progress")
+(bb-assign-leader "cb" nil "Evaluate buffer")
+(bb-assign-leader "cf" nil "Evaluate defun")
+(bb-assign-leader "cm" nil "Evaluate macro")
+(bb-assign-leader "cs" nil "Evaluate expression")
+(bb-assign-leader "l"  nil "Structured editing hydra")
+(bb-assign-leader "qq" nil "Quit background connections")
+(bb-assign-leader "va" nil "Activate virtual environment")
+(bb-assign-leader "vd" nil "Dectivate virtual environment")
+
+
 ;;; Evil and Co.
 
 (use-package evil
@@ -533,7 +548,7 @@
   (bb-leader
     ("ai" 'bb-erc "Open IRC")
     ("bi" 'erc-track-switch-buffer "Switch to IRC buffer with unread messages"))
-  (bb-mm-leader erc-mode "qs" 'erc-quit-server)
+  (bb-mm-leader erc-mode "qq" 'erc-quit-server)
   (evil-set-initial-state 'erc-mode 'normal)
   (bb-add-hook erc-mode-hook
     (setq-local global-hl-line-mode nil)))

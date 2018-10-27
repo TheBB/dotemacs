@@ -111,7 +111,7 @@ display system is initialized.")
   "Hierarchy of leader bindings.")
 
 (defvar bb-leader-data
-  (make-hash-table)
+  (make-hash-table :test 'equal)
   "Data associated to leader bindings.")
 
 (defun bb--normalize-keys (keys)
@@ -123,9 +123,11 @@ display system is initialized.")
   (when (< 0 (seq-length keys))
     (seq-subseq keys 0 -1)))
 
-(defun bb-assign-leader (keys func doc)
+(defun bb-assign-leader (keys &optional func doc)
   "Associates data with a leader keybinding."
-  (let ((keys (bb--normalize-keys keys)))
+  (let* ((keys (bb--normalize-keys keys))
+         (doc (or doc (cadr (gethash keys bb-leader-data))))
+         (func (or func (car (gethash keys bb-leader-data)))))
     (hierarchy-add-tree bb-leader-hierarchy keys 'bb--leader-parentfn)
     (puthash keys `(,func ,doc) bb-leader-data)))
 
@@ -142,13 +144,14 @@ With two prefix arguments: show only global bindings."
       bb-leader-hierarchy
       (lambda (item _indent)
         (when-let ((data (gethash item bb-leader-data)))
-          (let* ((dispatch (and (not (functionp (car data))) (boundp (car data))))
-                 (binding (if dispatch (bb--get-dispatch (symbol-value (car data)) mode) (car data))))
-            (when (and binding (if dispatch show-dispatch show-global))
+          (let* ((binding (car data))
+                 (dispatchp (and (not (functionp binding)) (boundp binding)))
+                 (binding (if dispatchp (bb--get-dispatch (symbol-value binding) mode) binding)))
+            (when (and binding (if dispatchp show-dispatch show-global))
               (insert (propertize (key-description item) 'face
-                                  (if dispatch 'font-lock-type-face 'font-lock-keyword-face)))
+                                  (if dispatchp 'font-lock-type-face 'font-lock-keyword-face)))
               (insert (make-string (- 15 (current-column)) ? )
-                      (cadr data))
+                      (or (cadr data) "??"))
               (insert (make-string (- 65 (current-column)) ? )
                       (propertize (format "%S" binding) 'face 'font-lock-comment-face))))))
       (get-buffer-create "leaders"))))
@@ -185,7 +188,7 @@ With two prefix arguments: show only global bindings."
            (if-let ((dispatch (bb--get-dispatch ,varname major-mode)))
                (call-interactively dispatch)
              (user-error "No dispatch found for \"%s\" in %s" ,keys major-mode)))
-         (bb-assign-leader ,keys ',varname ,(format "Dispatch %S on major mode" keys))
+         (bb-assign-leader ,keys ',varname nil)
          (bb-leader (,keys ',funcname))))))
 
 (defmacro bb-mm-leader (mode &rest args)
