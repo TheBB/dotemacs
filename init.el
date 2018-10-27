@@ -118,7 +118,7 @@
 (use-package spaceline-segments
   :init
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
-	spaceline-minor-modes-separator ""
+        spaceline-minor-modes-separator ""
         spaceline-purpose-hide-if-not-dedicated t)
   :config
   (spaceline-generate
@@ -292,14 +292,14 @@
 (use-package evil
   :init
   (setq evil-normal-state-cursor '("DarkGoldenrod2" box)
-	evil-insert-state-cursor '("chartreuse3" (bar . 2))
-	evil-emacs-state-cursor '("SkyBlue2" box)
-	evil-replace-state-cursor '("chocolate" (hbar . 2))
-	evil-visual-state-cursor '("gray" (hbar . 2))
-	evil-motion-state-cursor '("plum3" box)
-	evil-want-integration t
+        evil-insert-state-cursor '("chartreuse3" (bar . 2))
+        evil-emacs-state-cursor '("SkyBlue2" box)
+        evil-replace-state-cursor '("chocolate" (hbar . 2))
+        evil-visual-state-cursor '("gray" (hbar . 2))
+        evil-motion-state-cursor '("plum3" box)
+        evil-want-integration t
         evil-want-keybinding nil
-	evil-want-C-u-scroll t)
+        evil-want-C-u-scroll t)
   :config
   (evil-mode)
   (bb-add-hook evil-insert-state-exit-hook
@@ -694,7 +694,7 @@
   ;; Not deferred, since tex-site.el is essentially an autoloads file.
   :init
   (setq tex-fontify-script nil
-	font-latex-fontify-script nil
+        font-latex-fontify-script nil
         TeX-parse-self nil)
   (add-hook 'latex-mode-hook 'TeX-PDF-mode)
   (bb-company LaTeX-mode
@@ -851,8 +851,8 @@
   :diminish (smartparens-mode . "s")
   :init
   (setq sp-highlight-pair-overlay nil
-	sp-highlight-wrap-overlay nil
-	sp-highlight-wrap-tag-overlay nil)
+        sp-highlight-wrap-overlay nil
+        sp-highlight-wrap-tag-overlay nil)
   (bb-leader ("ts" 'smartparens-mode "Toggle smartparens"))
   :config
   (bb-advise-except-derived-modes smartparens-mode
