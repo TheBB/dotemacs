@@ -250,25 +250,26 @@
   :defer t
   :diminish (whitespace-mode . "w")
   :init
-  (bb-leader "tw" 'whitespace-mode))
+  (bb-leader ("tw" 'whitespace-mode "Toggle whitespace mode")))
 
 (bb-leader
-  "<tab>" 'bb-alternate-buffer
-  ";" 'eval-expression
-  "bd" 'bb-kill-buffer
-  "fd" 'bb-kill-buffer-file
-  "fs" 'save-buffer
-  "fy" 'bb-show-and-copy-filename
-  "hdc" 'describe-char
-  "hdf" 'describe-function
-  "hdF" 'describe-face
-  "hdk" 'describe-key
-  "hdv" 'describe-variable
-  "hi" 'bb-find-init
-  "hs" 'bb-find-scratch
-  "td" 'bb-toggle-debug-on-error
-  "u" 'universal-argument
-  "w" 'hydra-windows/body)
+  ("<tab>" 'bb-alternate-buffer "Switch to previous buffer")
+  (";" 'eval-expression "Evaluate elisp expression in minibuffer")
+  ("bd" 'bb-kill-buffer "Kill buffer")
+  ("fd" 'bb-kill-buffer-file "Kill buffer and delete file")
+  ("fs" 'save-buffer "Save buffer")
+  ("fy" 'bb-show-and-copy-filename "Show and copy filename to clipboard")
+  ("hdc" 'describe-char "Describe character")
+  ("hdf" 'describe-function "Describe function")
+  ("hdF" 'describe-face "Describe face")
+  ("hdl" 'bb-display-leaders "Display leader bindings")
+  ("hdk" 'describe-key "Describe key")
+  ("hdv" 'describe-variable "Describe variable")
+  ("hi" 'bb-find-init "Go to init.el")
+  ("hs" 'bb-find-scratch "Go to scratch buffer")
+  ("td" 'bb-toggle-debug-on-error "Toggle debug-on-error")
+  ("u" 'universal-argument "Universal argument")
+  ("w" 'hydra-windows/body "Window management hydra"))
 
 
 ;;; Evil and Co.
@@ -358,9 +359,9 @@
   :defer t
   :init
   (bb-leader
-    "cl" 'evilnc-comment-or-uncomment-lines
-    "cp" 'evilnc-comment-or-uncomment-paragraphs
-    "cy" 'evilnc-copy-and-comment-lines))
+    ("cl" 'evilnc-comment-or-uncomment-lines "Comment lines")
+    ("cp" 'evilnc-comment-or-uncomment-paragraphs "Comment paragraphs")
+    ("cy" 'evilnc-copy-and-comment-lines "Copy and comment")))
 
 (use-package evil-numbers
   :defer t
@@ -393,7 +394,7 @@
         company-require-match nil
         company-tooltip-align-annotations t
         company-tooltip-minimum-width 60)
-  (bb-leader "tc" 'company-mode)
+  (bb-leader ("tc" 'company-mode "Toggle auto-completion"))
   :config
   (define-key company-active-map bb-right 'company-complete-selection)
   (define-key company-active-map bb-down 'company-select-next-or-abort)
@@ -419,10 +420,10 @@
   :init
   (setq-default flycheck-check-syntax-automatically nil)
   (bb-leader
-    "tf" 'flycheck-mode
-    "el" 'flycheck-list-errors
-    "eb" 'flycheck-buffer
-    "ec" 'flycheck-clear)
+    ("tf" 'flycheck-mode "Toggle flycheck")
+    ("el" 'flycheck-list-errors "List flycheck errors")
+    ("eb" 'flycheck-buffer "Run flycheck on buffer")
+    ("ec" 'flycheck-clear "Clear flycheck errors"))
   (bb-popwin flycheck-error-list-mode)
   :config
   (aset flycheck-error-list-format 5 '("Message" 0 t)))
@@ -439,12 +440,12 @@
         helm-display-buffer-height 25)
   (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
   (bb-leader
-    "SPC" 'helm-M-x
-    "bb" 'helm-mini
-    "ff" 'helm-find-files
-    "fl" 'helm-locate-library
-    "ji" 'helm-imenu
-    "rl" 'helm-resume)
+    ("SPC" 'helm-M-x "Run command")
+    ("bb" 'helm-mini "Switch to buffer")
+    ("ff" 'helm-find-files "Find file")
+    ("fl" 'helm-locate-library "Find elisp library")
+    ("ji" 'helm-imenu "Find location in file")
+    ("rl" 'helm-resume "Show last helm session"))
   (push "\\*helm.+\\*" bb-useless-buffers-regexp)
   :config
   (require 'bb-helm)
@@ -458,7 +459,7 @@
 (use-package helm-ag
   :defer t
   :init
-  (bb-leader "/" 'bb-helm-ag-project)
+  (bb-leader ("/" 'bb-helm-ag-project "Search in project"))
   :config
   (define-key helm-ag-map bb-right nil)
   (define-key helm-ag-map bb-left 'helm-ag--up-one-level)
@@ -490,11 +491,11 @@
   :init
   (setq projectile-switch-project-action 'helm-projectile)
   (bb-leader
-    "pb" 'helm-projectile-switch-to-buffer
-    "pd" 'helm-projectile-find-dir
-    "pf" 'helm-projectile-find-file
-    "ph" 'helm-projectile
-    "pp" 'helm-projectile-switch-project)
+    ("pb" 'helm-projectile-switch-to-buffer "Switch to project buffer")
+    ("pd" 'helm-projectile-find-dir "Find project directory")
+    ("pf" 'helm-projectile-find-file "Find project file")
+    ("ph" 'helm-projectile "Projectile helm session")
+    ("pp" 'helm-projectile-switch-project "Find project"))
   :config
   (define-key helm-projectile-find-file-map bb-right 'helm-maybe-exit-minibuffer))
 
@@ -502,7 +503,7 @@
   :init
   (setq helm-swoop-split-with-multiple-windows t
         helm-swoop-pre-input-function (lambda () ""))
-  (bb-leader "ss" 'bb-helm-swoop))
+  (bb-leader ("ss" 'bb-helm-swoop "Search in file")))
 
 (use-package helm-xref
   :after xref
@@ -530,8 +531,8 @@
         erc-track-use-faces nil
         erc-join-buffer 'bury)
   (bb-leader
-    "ai" 'bb-erc
-    "bi" 'erc-track-switch-buffer)
+    ("ai" 'bb-erc "Open IRC")
+    ("bi" 'erc-track-switch-buffer "Switch to IRC buffer with unread messages"))
   (bb-mm-leader erc-mode "qs" 'erc-quit-server)
   (evil-set-initial-state 'erc-mode 'normal)
   (bb-add-hook erc-mode-hook
@@ -550,7 +551,7 @@
   (put 'lsp-define-stdio-client 'lisp-indent-function 2)
 
   (setq lsp-highlight-symbol-at-point nil)
-  (bb-leader "tl" 'lsp-mode)
+  (bb-leader ("tl" 'lsp-mode "Toggle LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
   (bb-company lsp-mode company-lsp))
 
@@ -585,7 +586,7 @@
 (use-package magit
   :defer t
   :init
-  (bb-leader "gs" 'magit-status)
+  (bb-leader ("gs" 'magit-status "Open Magit status"))
   (push "magit.*" bb-useless-buffers-regexp))
 
 (use-package evil-magit
@@ -766,7 +767,7 @@
 (use-package expand-region
   :defer t
   :init
-  (bb-leader "vv" 'er/expand-region))
+  (bb-leader ("vv" 'er/expand-region "Run expand-region")))
 
 (use-package eyebrowse
   :init
@@ -774,6 +775,11 @@
         eyebrowse-wrap-around t)
   :config
   (eyebrowse-mode))
+
+(use-package hierarchy
+  :defer t
+  :config
+  (evil-set-initial-state 'hierarchy-tabulated-mode 'motion))
 
 (use-package highlight-operators
   :hook (prog-mode . highlight-operators-mode)
@@ -816,7 +822,7 @@
 (use-package projectile
   :diminish projectile-mode
   :init
-  (bb-leader "ga" 'projectile-find-other-file)
+  (bb-leader ("ga" 'projectile-find-other-file "Find alternate project file"))
   :config
   (projectile-mode)
   (setq projectile-completion-system 'helm)
@@ -832,7 +838,7 @@
   (setq sp-highlight-pair-overlay nil
 	sp-highlight-wrap-overlay nil
 	sp-highlight-wrap-tag-overlay nil)
-  (bb-leader "ts" 'smartparens-mode)
+  (bb-leader ("ts" 'smartparens-mode "Toggle smartparens"))
   :config
   (bb-advise-except-derived-modes smartparens-mode
     lisp-mode scheme-mode emacs-lisp-mode web-mode)
@@ -846,7 +852,7 @@
   :diminish undo-tree-mode
   :init
   (setq undo-tree-enable-undo-in-region nil)
-  (bb-leader "au" 'undo-tree-visualize)
+  (bb-leader ("au" 'undo-tree-visualize "Show undo history"))
   :config
   (global-undo-tree-mode))
 

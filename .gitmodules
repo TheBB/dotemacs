@@ -169,6 +169,9 @@
 [submodule "helm-xref"]
 	path = lib/helm-xref
 	url = git@github.com:brotzeit/helm-xref.git
+[submodule "hierarchy"]
+	path = lib/hierarchy
+	url = git@github.com:DamienCassou/hierarchy.git
 [submodule "highlight-numbers"]
 	path = lib/highlight-numbers
 	url = git@github.com:Fanael/highlight-numbers.git
