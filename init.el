@@ -640,10 +640,9 @@
 (use-package web-mode
   :mode ("\\.\\(dj\\)?html?\\'" "\\.xinp\\'")
   :init
-  (setq-default
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 4)
+  (setq-default web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 4)
   (add-hook 'web-mode-hook 'lsp-html-enable))
 
 
