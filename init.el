@@ -903,6 +903,11 @@
   :config
   (yas-reload-all))
 
+(use-package yeast
+  :defer t
+  :config
+  (evil-define-key 'normal yeast-mode-map (kbd "M-v") 'yeast-select-node-at-point))
+
 
 ;;; Load customizations, if any
 
