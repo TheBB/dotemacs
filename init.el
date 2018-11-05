@@ -601,6 +601,7 @@
 (use-package magit
   :defer t
   :init
+  (setq magit-bury-buffer-function 'magit-mode-quit-window)
   (bb-leader ("gs" 'magit-status "Open Magit status"))
   (push "magit.*" bb-useless-buffers-regexp))
 
