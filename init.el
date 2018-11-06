@@ -310,8 +310,6 @@
   (define-key evil-motion-state-map (kbd "<down>") 'windmove-down)
   (define-key evil-motion-state-map (kbd "<up>") 'windmove-up)
   (define-key evil-motion-state-map (kbd "<right>") 'windmove-right)
-  (define-key evil-motion-state-map (kbd "C-j") 'eyebrowse-next-window-config)
-  (define-key evil-motion-state-map (kbd "C-k") 'eyebrowse-prev-window-config)
 
   (define-key evil-motion-state-map (kbd "gd") 'xref-find-definitions)
   (define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
@@ -790,6 +788,8 @@
   (setq eyebrowse-new-workspace t
         eyebrowse-wrap-around t)
   :config
+  (define-key evil-motion-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
+  (define-key evil-motion-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
   (eyebrowse-mode))
 
 (use-package hierarchy
