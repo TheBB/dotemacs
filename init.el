@@ -283,6 +283,7 @@
 (bb-assign-leader "cs" nil "Evaluate expression")
 (bb-assign-leader "l"  nil "Structured editing hydra")
 (bb-assign-leader "qq" nil "Quit background connections")
+(bb-assign-leader "te" nil "Toggle engine")
 (bb-assign-leader "va" nil "Activate virtual environment")
 (bb-assign-leader "vd" nil "Dectivate virtual environment")
 
@@ -655,6 +656,7 @@
 (use-package web-mode
   :mode ("\\.\\(dj\\)?html?\\'" "\\.xinp\\'")
   :init
+  (bb-mm-leader web-mode "te" 'web-mode-set-engine)
   (setq-default web-mode-markup-indent-offset 2
                 web-mode-css-indent-offset 2
                 web-mode-code-indent-offset 4)
