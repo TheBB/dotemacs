@@ -325,7 +325,9 @@
   (define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after)
 
   ;; Other
-  (evil-set-command-property 'xref-find-definitions :jump t))
+  (evil-set-command-property 'xref-find-definitions :jump t)
+  (define-key evil-visual-state-map (kbd ">") 'bb-shift-right)
+  (define-key evil-visual-state-map (kbd "<") 'bb-shift-left))
 
 (use-package evil-args
   :defer t

@@ -120,6 +120,19 @@
   (backward-char (1+ count)))
 
 
+;;; Evil other
+
+(defun bb-shift-left ()
+  (interactive)
+  (call-interactively 'evil-shift-left)
+  (execute-kbd-macro "gv"))
+
+(defun bb-shift-right ()
+  (interactive)
+  (call-interactively 'evil-shift-right)
+  (execute-kbd-macro "gv"))
+
+
 ;;; Macrostep
 
 (defhydra hydra-macrostep (:foreign-keys run)
