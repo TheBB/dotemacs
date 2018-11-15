@@ -917,7 +917,12 @@
 (use-package yeast
   :defer t
   :config
-  (evil-define-key 'normal yeast-mode-map (kbd "M-v") 'yeast-select-node-at-point))
+  (evil-define-key 'normal yeast-mode-map (kbd "M-n") 'yeast-select-at-point)
+  (evil-define-key 'visual yeast-mode-map (kbd "M-j") 'yeast-select-next-at-point)
+  (evil-define-key 'visual yeast-mode-map (kbd "M-k") 'yeast-select-prev-at-point)
+  (evil-define-key 'visual yeast-mode-map (kbd "M-h") 'yeast-select-parent-at-point)
+  (evil-define-key 'visual yeast-mode-map (kbd "M-l") 'yeast-select-first-child-at-point)
+  (add-hook 'yeast-mode-hook 'evil-normalize-keymaps))
 
 
 ;;; Load customizations, if any
