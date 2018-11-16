@@ -240,6 +240,12 @@
   :defer t
   :diminish (smerge-mode . "[sm]"))
 
+(use-package tree-widget
+  :defer t
+  :config
+  (bb-after-display
+    (setq tree-widget-image-enable (display-images-p))))
+
 (use-package uniquify)
 
 (use-package winner
@@ -916,6 +922,7 @@
 
 (use-package yeast
   :defer t
+  :hook ((c-mode c++-mode python-mode) . yeast-mode)
   :config
   (evil-define-key 'normal yeast-mode-map (kbd "M-n") 'yeast-select-at-point)
   (evil-define-key 'visual yeast-mode-map (kbd "M-j") 'yeast-select-next-at-point)
