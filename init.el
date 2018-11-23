@@ -922,7 +922,7 @@
 
 (use-package yeast
   :defer t
-  :hook ((c-mode c++-mode python-mode) . yeast-mode)
+  ;; :hook ((c-mode c++-mode python-mode) . yeast-mode)
   :config
   (evil-define-key 'normal yeast-mode-map (kbd "M-n") 'yeast-select-at-point)
   (evil-define-key 'visual yeast-mode-map (kbd "M-j") 'yeast-select-next-at-point)
