@@ -234,6 +234,7 @@
 
   ("n" eyebrowse-create-window-config :exit t)
   ("w" eyebrowse-switch-to-window-config :exit t)
+  ("r" eyebrowse-rename-window-config :exit t)
   ("C-j" eyebrowse-next-window-config)
   ("C-k" eyebrowse-prev-window-config)
 
