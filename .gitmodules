@@ -232,9 +232,6 @@
 [submodule "magit-popup"]
 	path = lib/magit-popup
 	url = git@github.com:magit/magit-popup.git
-[submodule "magithub"]
-	path = lib/magithub
-	url = git@github.com:vermiculus/magithub.git
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
