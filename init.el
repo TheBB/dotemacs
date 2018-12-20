@@ -875,7 +875,9 @@
   (bb-advise-except-derived-modes smartparens-mode
     lisp-mode scheme-mode emacs-lisp-mode web-mode)
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
-  (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "("))
+  (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "(")
+  (bb-apply-newline-indent (css-mode scss-mode) "{")
+  (bb-apply-newline-indent (js-mode) "{"))
 
 (use-package smartparens-config
   :after smartparens)
