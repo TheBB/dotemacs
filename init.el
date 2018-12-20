@@ -568,20 +568,17 @@
   :diminish (lsp-mode . "l")
   :defer t
   :init
-  ;; We use `lsp-define-stdio-client' at compile-time
-  (eval-when-compile (require 'lsp-mode))
-  (put 'lsp-define-stdio-client 'lisp-indent-function 2)
-
   (setq lsp-highlight-symbol-at-point nil)
   (bb-leader ("tl" 'lsp-mode "Toggle LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
-  (bb-company lsp-mode company-lsp))
-
-(use-package lsp-methods
-  :defer t
   :config
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
+
+(use-package lsp
+  :defer t
+  :init
+  (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
@@ -649,9 +646,6 @@
 
 ;;; HTML and Co.
 
-(use-package lsp-html
-  :commands (lsp-html-enable))
-
 (use-package web-mode
   :mode ("\\.\\(dj\\)?html?\\'" "\\.xinp\\'")
   :init
@@ -659,7 +653,7 @@
   (setq-default web-mode-markup-indent-offset 2
                 web-mode-css-indent-offset 2
                 web-mode-code-indent-offset 4)
-  (add-hook 'web-mode-hook 'lsp-html-enable))
+  (add-hook 'web-mode-hook 'lsp))
 
 
 ;;; LaTeX and Co.
@@ -723,15 +717,8 @@
 
 (use-package python
   :defer t
-  :hook (python-mode . lsp-python-enable)
   :init
-  ;; The "official" client wrongly considers __init__.py to be a project root
-  (lsp-define-stdio-client lsp-python "python"
-    (lsp-make-traverser (lambda (dir)
-                          (directory-files dir nil "\\`setup\\.py\\'")))
-    '("pyls"))
-  ;; Don't enable LSP in derived modes, like cython-mode, which are not Python
-  (bb-advise-only-in-modes lsp-python-enable python-mode))
+  (add-hook 'python-mode-hook 'lsp))
 
 (use-package pyvenv
   :defer t

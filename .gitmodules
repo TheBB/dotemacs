@@ -136,6 +136,9 @@
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
+[submodule "forge"]
+	path = lib/forge
+	url = git@github.com:magit/forge.git
 [submodule "general"]
 	path = lib/general
 	url = git@github.com:noctuid/general.el.git
@@ -181,6 +184,9 @@
 [submodule "hl-todo"]
 	path = lib/hl-todo
 	url = git@github.com:tarsius/hl-todo.git
+[submodule "ht"]
+	path = lib/ht
+	url = git@github.com:Wilfred/ht.el.git
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
@@ -210,15 +216,9 @@
 [submodule "lispyville"]
 	path = lib/lispyville
 	url = git@github.com:noctuid/lispyville.git
-[submodule "lsp-html"]
-	path = lib/lsp-html
-	url = git@github.com:emacs-lsp/lsp-html.git
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = git@github.com:emacs-lsp/lsp-mode.git
-[submodule "lsp-python"]
-	path = lib/lsp-python
-	url = git@github.com:emacs-lsp/lsp-python.git
 [submodule "lsp-ui"]
 	path = lib/lsp-ui
 	url = git@github.com:emacs-lsp/lsp-ui.git
@@ -295,6 +295,9 @@
 [submodule "spaceline"]
 	path = lib/spaceline
 	url = git@github.com:TheBB/spaceline.git
+[submodule "spinner"]
+	path = lib/spinner
+	url = git@github.com:Malabarba/spinner.el.git
 [submodule "treepy"]
 	path = lib/treepy
 	url = git@github.com:volrath/treepy.el.git
@@ -328,9 +331,9 @@
 [submodule "yasnippet-snippets"]
 	path = lib/yasnippet-snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
-[submodule "zoutline"]
-	path = lib/zoutline
-	url = git@github.com:abo-abo/zoutline.git
 [submodule "yeast"]
 	path = lib/yeast
 	url = git@github.com:TheBB/yeast
+[submodule "zoutline"]
+	path = lib/zoutline
+	url = git@github.com:abo-abo/zoutline.git
