@@ -317,6 +317,11 @@ If done compiling, kill the auxiliary buffer."
         (switch-to-buffer buffer)
       (vterm))))
 
+(defun bb-maybe-auto-fill-mode ()
+  "Enable auto-fill mode except in certain major modes."
+  (unless (derived-mode-p 'forge-post-mode)
+    (auto-fill-mode)))
+
 (provide 'bb-defs)
 
 ;;; bb-defs.el ends here

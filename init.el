@@ -760,7 +760,7 @@
   :mode "\\.ps1\\'")
 
 (use-package text-mode
-  :hook (text-mode . auto-fill-mode))
+  :hook (text-mode . bb-maybe-auto-fill-mode))
 
 
 ;;; Miscellaneous
