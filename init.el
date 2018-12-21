@@ -612,6 +612,14 @@
 (use-package evil-magit
   :after magit)
 
+(use-package forge
+  :after magit
+  :config
+  (evil-define-key '(normal visual) magit-mode-map "," 'forge-dispatch)
+  (evil-define-key 'normal magit-commit-section-map (kbd "gb") 'forge-browse-dwim)
+  (evil-define-key 'normal magit-remote-section-map (kbd "gb") 'forge-browse-remote)
+  (evil-define-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch))
+
 (use-package with-editor
   :defer t
   :diminish with-editor-mode)
