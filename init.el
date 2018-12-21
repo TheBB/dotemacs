@@ -618,7 +618,8 @@
   (evil-define-key '(normal visual) magit-mode-map "," 'forge-dispatch)
   (evil-define-key 'normal magit-commit-section-map (kbd "gb") 'forge-browse-dwim)
   (evil-define-key 'normal magit-remote-section-map (kbd "gb") 'forge-browse-remote)
-  (evil-define-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch))
+  (evil-define-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch)
+  (evil-define-key 'normal forge-topic-mode-map (kbd "C-c C-c") 'forge-create-post))
 
 (use-package with-editor
   :defer t
