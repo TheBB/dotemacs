@@ -190,6 +190,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
+[submodule "ialign"]
+	path = lib/ialign
+	url = git@github.com:mkcms/interactive-align.git
 [submodule "iedit"]
 	path = lib/iedit
 	url = git@github.com:victorhge/iedit.git
