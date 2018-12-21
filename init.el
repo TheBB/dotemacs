@@ -630,7 +630,9 @@
 
 (use-package cc-mode
   :defer t
-  :hook ((c-mode c++-mode) . lsp-cquery-enable))
+  :init
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp))
 
 (use-package cc-styles
   :defer t
@@ -651,6 +653,9 @@
   :defer t
   :init
   (bb-company cmake-mode company-cmake))
+
+(use-package cquery
+  :after lsp-clients)
 
 
 ;;; HTML and Co.
