@@ -385,6 +385,10 @@
     ("cp" 'evilnc-comment-or-uncomment-paragraphs "Comment paragraphs")
     ("cy" 'evilnc-copy-and-comment-lines "Copy and comment")))
 
+(use-package evil-matchit
+  :config
+  (global-evil-matchit-mode))
+
 (use-package evil-numbers
   :defer t
   :init

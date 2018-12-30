@@ -106,6 +106,9 @@
 [submodule "evil-magit"]
 	path = lib/evil-magit
 	url = git@github.com:emacs-evil/evil-magit.git
+[submodule "evil-matchit"]
+	path = lib/evil-matchit
+	url = git@github.com:redguardtoo/evil-matchit.git
 [submodule "evil-nerd-commenter"]
 	path = lib/evil-nerd-commenter
 	url = git@github.com:redguardtoo/evil-nerd-commenter.git
