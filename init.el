@@ -347,7 +347,9 @@
   :after evil
   :config
   (setq evil-collection-mode-list
-        '(elisp-mode))
+        '(elisp-mode
+          magit
+          magit-todos))
   (evil-collection-init))
 
 (use-package evil-collection-elisp-mode
@@ -628,6 +630,11 @@
   (evil-define-key 'normal magit-remote-section-map (kbd "gb") 'forge-browse-remote)
   (evil-define-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch)
   (evil-define-key 'normal forge-topic-mode-map (kbd "C-c C-c") 'forge-create-post))
+
+(use-package magit-todos
+  :after magit
+  :config
+  (magit-todos-mode))
 
 (use-package with-editor
   :defer t
