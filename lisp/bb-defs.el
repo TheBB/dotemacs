@@ -34,35 +34,35 @@
 
 ;;; Predefined window configurations
 
-;; (defvar bb--display-index 100
-;;   "Internal counter used in `bb-define-display.'")
+(defvar bb-window-configs-file
+  (no-littering-expand-etc-file-name "window-configs.el"))
 
-(defmacro bb-define-display (name leader &rest kwargs)
-  (declare (indent 2))
-  (let ((funcname (intern (format "bb--display-%s" name)))
-        (flagname (intern (format "bb--display-%s-ready" name)))
-        ;; (index (cl-incf bb--display-index))
-        ;; (layout (plist-get kwargs :layout))
-        (startup (plist-get kwargs :startup))
-        ;; (buffers (plist-get kwargs :buffers))
-        )
-    `(progn
-       (defvar ,flagname nil)
-       (defun ,funcname ()
-         (interactive)
-           (unless ,flagname
-             ,startup
-             (setq ,flagname t))
-         ;; (let ((existsp (eyebrowse--window-config-present-p ,index)))
-         ;;   (eyebrowse-switch-to-window-config ,index)
-         ;;   (unless existsp
-         ;;     (eyebrowse-rename-window-config ,index ,name)
-         ;;     ,@(when layout `((purpose-load-window-layout ,layout))))
-         ;;   ,@(when buffers
-         ;;       `((dolist ((win (window-list)))
-         ;;           (set-window-buffer win ,(pop buffers))))))
-         )
-       (bb-leader ,leader ',funcname))))
+(defun bb-get-window-configs ()
+  (when (file-exists-p bb-window-configs-file)
+    (with-temp-buffer
+      (insert-file-contents bb-window-configs-file)
+      (read (current-buffer)))))
+
+(defun bb-put-window-configs (configs)
+  (with-temp-file bb-window-configs-file
+    (let (print-length print-level)
+      (prin1 configs (current-buffer)))))
+
+(defun bb-save-slot (slot)
+  (interactive (list (if (numberp current-prefix-arg)
+                         current-prefix-arg
+                       (eyebrowse--read-slot))))
+  (let* ((cfg (cdr (assoc slot (eyebrowse--get 'window-configs))))
+         (name (cadr cfg))
+         (stored (bb-get-window-configs))
+         (existing (assoc name stored)))
+    (unless (and (stringp name)
+                 (< 0 (length name)))
+      (user-error "Window configuration must be named"))
+    (if existing
+        (setcdr existing cfg)
+      (push (cons name cfg) stored))
+    (bb-put-window-configs stored)))
 
 
 ;;; Buffer predicate function
