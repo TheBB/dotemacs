@@ -592,7 +592,8 @@
   (setq lsp-ui-flycheck-live-reporting nil
         lsp-ui-doc-enable nil
         lsp-ui-sideline-enable nil)
-  (evil-define-key 'motion lsp-ui-mode-map "gr" 'lsp-ui-peek-find-references))
+  (evil-define-key 'motion lsp-ui-mode-map "gr" 'lsp-ui-peek-find-references)
+  (bb-leader ("tr" 'lsp-ui-sideline-mode "Toggle LSP sideline")))
 
 (use-package lsp-ui-peek
   :defer t
@@ -603,7 +604,8 @@
   (define-key lsp-ui-peek-mode-map (kbd "j") 'lsp-ui-peek--select-next)
   (define-key lsp-ui-peek-mode-map (kbd "k") 'lsp-ui-peek--select-prev)
   (define-key lsp-ui-peek-mode-map bb-down 'lsp-ui-peek--select-next-file)
-  (define-key lsp-ui-peek-mode-map bb-up 'lsp-ui-peek--select-prev-file))
+  (define-key lsp-ui-peek-mode-map bb-up 'lsp-ui-peek--select-prev-file)
+  (define-key lsp-ui-peek-mode-map bb-right 'lsp-ui-peek--goto-xref))
 
 
 ;;; Magit and Co.
