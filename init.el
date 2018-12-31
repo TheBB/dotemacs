@@ -200,6 +200,8 @@
 (push '(buffer-predicate . bb-useful-buffer-p) default-frame-alist)
 (bb-popwin special-mode)
 
+(blink-cursor-mode -1)
+
 (use-package abbrev
   :defer t
   :diminish abbrev-mode)
