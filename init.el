@@ -65,12 +65,6 @@
     (load-file filename)))
 
 
-;;; Function, variable, and macro definitions
-
-(require 'bb-defs)
-(require 'bb-macros)
-
-
 ;;; Packages that should be enabled early
 
 (use-package general
@@ -84,6 +78,12 @@
   :config
   (setq popwin:special-display-config nil)
   (popwin-mode))
+
+
+;;; Function, variable, and macro definitions
+
+(require 'bb-defs)
+(require 'bb-macros)
 
 
 ;;; Theme
