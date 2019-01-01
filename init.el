@@ -582,6 +582,9 @@
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
 
+(use-package lsp-julia
+  :after lsp)
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :init
@@ -764,6 +767,11 @@
   (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
   (bb-add-hook emacs-lisp-mode-hook
     (push '("Package" "\\(^\\s-*(use-package +\\)\\(\\_<[^ ]+\\_>\\)" 2) imenu-generic-expression)))
+
+(use-package julia-mode
+  :defer t
+  :init
+  (add-hook 'julia-mode-hook 'lsp))
 
 (use-package lisp-mode
   :defer t

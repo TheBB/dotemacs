@@ -222,6 +222,9 @@
 [submodule "lispyville"]
 	path = lib/lispyville
 	url = git@github.com:noctuid/lispyville.git
+[submodule "lsp-julia"]
+	path = lib/lsp-julia
+	url = git@github.com:gdkrmr/lsp-julia
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = git@github.com:emacs-lsp/lsp-mode.git
