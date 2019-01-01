@@ -571,22 +571,16 @@
 
 ;;; LSP and Co.
 
-(use-package lsp-mode
-  :commands (lsp-make-traverser)
+(use-package lsp
   :diminish (lsp-mode . "l")
   :defer t
   :init
-  (setq lsp-highlight-symbol-at-point nil)
+  (setq lsp-prefer-flymake nil)
   (bb-leader ("tl" 'lsp-mode "Toggle LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
   :config
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
-
-(use-package lsp
-  :defer t
-  :init
-  (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
