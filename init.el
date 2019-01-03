@@ -679,7 +679,9 @@
   (setq-default web-mode-markup-indent-offset 2
                 web-mode-css-indent-offset 2
                 web-mode-code-indent-offset 4)
-  (add-hook 'web-mode-hook 'lsp))
+  (add-hook 'web-mode-hook 'lsp)
+  :config
+  (set-face-attribute 'web-mode-comment-face nil :slant 'italic))
 
 
 ;;; LaTeX and Co.
@@ -886,7 +888,7 @@
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
   (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "(")
   (bb-apply-newline-indent (css-mode scss-mode) "{")
-  (bb-apply-newline-indent (js-mode) "{"))
+  (bb-apply-newline-indent (js-mode typescript-mode) "{"))
 
 (use-package smartparens-config
   :after smartparens)
