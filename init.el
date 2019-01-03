@@ -347,7 +347,8 @@
   :after evil
   :config
   (setq evil-collection-mode-list
-        '(elisp-mode
+        '(ediff
+          elisp-mode
           flycheck
           magit
           magit-todos))
