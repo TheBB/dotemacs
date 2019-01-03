@@ -348,6 +348,7 @@
   :config
   (setq evil-collection-mode-list
         '(elisp-mode
+          flycheck
           magit
           magit-todos))
   (evil-collection-init))
