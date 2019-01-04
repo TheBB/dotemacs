@@ -29,7 +29,8 @@
 
 (eval-when-compile
   (require 'cl-lib)
-  (require 'hydra))
+  (require 'hydra)
+  (require 'bb-macros))
 
 
 ;;; Buffer predicate function
@@ -98,6 +99,21 @@
   (interactive)
   (call-interactively 'evil-shift-right)
   (execute-kbd-macro "gv"))
+
+
+;; Incremental fill paragraph (modified from @alphapapa)
+
+(defvar bb--flex-fill-paragraph-column nil
+  "Last fill column used in command `unpackaged/flex-fill-paragraph'.")
+
+(bb-advise around fill-paragraph (&rest args)
+  (let ((fill-column
+         (setq bb-flex-fill-paragraph-column
+               (if (equal last-command this-command)
+                   (+ 5 (or bb-flex-fill-paragraph-column fill-column))
+                 fill-column))))
+    (apply orig-fn args)
+    (message "Fill column: %s" fill-column)))
 
 
 ;;; Macrostep

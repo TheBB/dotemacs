@@ -191,7 +191,7 @@
       vc-follow-symlinks t
       x-wait-for-event-timeout 0.05)
 
-(setq-default fill-column 100
+(setq-default fill-column 70
               indent-tabs-mode nil)
 
 (fset 'yes-or-no-p 'y-or-n-p)
