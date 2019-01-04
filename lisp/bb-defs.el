@@ -148,8 +148,7 @@
 
 ;; Incremental fill paragraph (modified from @alphapapa)
 
-(defvar bb--flex-fill-paragraph-column nil
-  "Last fill column used in command `unpackaged/flex-fill-paragraph'.")
+(defvar bb--flex-fill-paragraph-column nil)
 
 (bb-advise around fill-paragraph (&rest args)
   (let ((fill-column
