@@ -615,7 +615,9 @@
   :defer t
   :init
   (setq magit-bury-buffer-function 'magit-mode-quit-window)
-  (bb-leader ("gs" 'magit-status "Open Magit status"))
+  (bb-leader
+    ("gs" 'magit-status "Open Magit status")
+    ("gb" 'magit-blame "Git blame buffer"))
   (push "magit.*" bb-useless-buffers-regexp))
 
 (use-package evil-magit
