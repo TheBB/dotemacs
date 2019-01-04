@@ -810,12 +810,12 @@
   :defer t
   :init
   (setq aw-keys '(?s ?d ?f ?g ?h ?j ?k ?l))
-  (bb-leader ("gw" 'ace-window "goto window")))
+  (bb-leader ("jw" 'ace-window "goto window")))
 
 (use-package avy
   :defer t
   :init
-  (bb-leader ("gl" 'avy-goto-line "goto line")))
+  (bb-leader ("jl" 'avy-goto-line "goto line")))
 
 (use-package exec-path-from-shell
   :config
