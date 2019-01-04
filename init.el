@@ -585,6 +585,7 @@
     :background monokai-highlight-line))
 
 (use-package lsp-julia
+  :if (bb-has-executable-p 'lsp-julia)
   :after lsp)
 
 (use-package lsp-ui
@@ -670,8 +671,15 @@
   :init
   (bb-company cmake-mode company-cmake))
 
+(use-package ccls
+  :if (bb-has-executable-p 'lsp-cc-ccls)
+  :after lsp)
+
 (use-package cquery
-  :after lsp-clients)
+  ;; Use cquery if ccls is not available
+  :if (and (not (bb-has-executable-p 'lsp-cc-ccls))
+           (bb-has-executable-p 'lsp-cc-cquery))
+  :after lsp)
 
 
 ;;; HTML and Co.
@@ -683,7 +691,8 @@
   (setq-default web-mode-markup-indent-offset 2
                 web-mode-css-indent-offset 2
                 web-mode-code-indent-offset 4)
-  (add-hook 'web-mode-hook 'lsp)
+  (when (bb-has-executable-p 'lsp-html)
+    (add-hook 'web-mode-hook 'lsp))
   :config
   (set-face-attribute 'web-mode-comment-face nil :slant 'italic))
 

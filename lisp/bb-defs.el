@@ -33,6 +33,51 @@
   (require 'bb-macros))
 
 
+;;; Executables
+
+(setq bb-executables
+  '((lsp-cc-ccls
+     (executable . "ccls")
+     (version-cmd . "ccls --version")
+     (version-regexp . "ccls version \\([0-9\\.]*\\)"))
+    (lsp-cc-cquery
+     (executable . "cquery"))
+    (lsp-html
+     (executable . "html-languageserver")
+     (version-cmd . "npm list -g vscode-html-languageserver-bin")
+     (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
+    (lsp-julia
+     (command . "julia -e 'using LanguageServer'")
+     (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
+     (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
+
+(defun bb-check-executable (exec)
+  (let ((entry (assq exec bb-executables)))
+    (unless (assq 'found (cdr entry))
+      (let* ((executable (alist-get 'executable (cdr entry)))
+             (command (alist-get 'command (cdr entry)))
+             (version-cmd (alist-get 'version-cmd (cdr entry)))
+             (version-regexp (alist-get 'version-regexp (cdr entry)))
+             (found (or (and executable (executable-find executable))
+                        (and command (= 0 (call-process-shell-command command)))))
+             (version "?"))
+        (when (and found version-cmd version-regexp)
+          (let ((output (with-temp-buffer
+                          (call-process-shell-command version-cmd nil t)
+                          (buffer-string))))
+            (when (string-match version-regexp output)
+              (setq version (match-string 1 output)))))
+        (push `(found . ,found) (cdr entry))
+        (push `(version . ,version) (cdr entry))))
+    (cdr entry)))
+
+(defun bb-has-executable-p (exec)
+  (alist-get 'found (bb-check-executable exec)))
+
+(defun bb-executable-version (exec)
+  (alist-get 'version (bb-check-executable exec)))
+
+
 ;;; Buffer predicate function
 
 (defvar bb-useful-buffers-regexp nil
