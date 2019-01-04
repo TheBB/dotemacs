@@ -290,10 +290,15 @@ If done compiling, kill the auxiliary buffer."
   (setq debug-on-error (not debug-on-error))
   (message "Debug on error now: %S" debug-on-error))
 
-(defun bb-vterm ()
+(defun bb-vterm (&optional renew)
   "Pop or hide a vterm."
-  (interactive)
+  (interactive "P")
   (require 'vterm)
+  (when renew
+    (let ((kill-buffer-query-functions
+           (remove 'process-kill-buffer-query-function
+                   kill-buffer-query-functions))))
+    (ignore-errors (kill-buffer "vterm")))
   (if (derived-mode-p 'vterm-mode)
       (previous-buffer)
     (if-let* ((buffer (get-buffer "vterm")))
