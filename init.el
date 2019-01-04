@@ -802,6 +802,10 @@
 
 ;;; Miscellaneous
 
+(use-package ace-link
+  :config
+  (ace-link-setup-default))
+
 (use-package ace-window
   :defer t
   :init
