@@ -24,7 +24,8 @@ lisp: $(ELCFILES)
 
 $(ELCFILES): %.elc: %.el
 	@$(EMACS) $(EMACS_ARGUMENTS) \
-	--batch -L lib/borg --load borg $(SILENCIO) \
+	--batch -L lisp \
+	-L lib/borg --load borg $(SILENCIO) \
 	--funcall borg-initialize \
 	-f batch-byte-compile $<
 
