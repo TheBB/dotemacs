@@ -355,6 +355,9 @@
 [submodule "yeast"]
 	path = lib/yeast
 	url = git@github.com:TheBB/yeast
+	build-step = mkdir -p build
+	build-step = cd build && cmake ..
+	build-step = cd build && make
 [submodule "zoutline"]
 	path = lib/zoutline
 	url = git@github.com:abo-abo/zoutline.git
