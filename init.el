@@ -427,7 +427,7 @@
   (bb-leader ("tc" 'company-mode "Toggle auto-completion"))
   :config
   (define-key company-active-map bb-right 'company-complete-selection)
-  (define-key company-active-map bb-down 'company-complete-common-or-cycle)
+  (define-key company-active-map bb-down 'company-select-next-or-abort)
   (define-key company-active-map bb-up 'company-select-previous-or-abort)
   (define-key company-active-map (kbd "RET") nil)
   (define-key company-active-map (kbd "<return>") nil)
