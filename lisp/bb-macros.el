@@ -106,59 +106,6 @@ display system is initialized.")
 
 (declare-function 'general-define-key "general")
 
-(defvar bb-leader-hierarchy
-  (hierarchy-new)
-  "Hierarchy of leader bindings.")
-
-(defvar bb-leader-data
-  (make-hash-table :test 'equal)
-  "Data associated to leader bindings.")
-
-(defun bb--normalize-keys (keys)
-  "Normalize a key string to a vector."
-  `[,@(seq-map 'identity (kbd keys))])
-
-(defun bb--leader-parentfn (keys)
-  "Parent function of key binding hieararchy."
-  (when (< 0 (seq-length keys))
-    (seq-subseq keys 0 -1)))
-
-(defun bb-assign-leader (keys &optional func doc)
-  "Associates data with a leader keybinding."
-  (let* ((keys (bb--normalize-keys keys))
-         (doc (or doc (cadr (gethash keys bb-leader-data))))
-         (func (or func (car (gethash keys bb-leader-data)))))
-    (hierarchy-add-tree bb-leader-hierarchy keys 'bb--leader-parentfn)
-    (puthash keys `(,func ,doc) bb-leader-data)))
-
-(defun bb-display-leaders (&optional arg)
-  "Show a list of available leader bindings.
-With one prefix argument: show only major mode bindings.
-With two prefix arguments: show only global bindings."
-  (interactive "p")
-  (let ((mode major-mode)
-        (show-global (or (not arg) (= 1 arg) (= 16 arg)))
-        (show-dispatch (or (not arg) (= 1 arg) (= 4 arg))))
-    (switch-to-buffer
-     (hierarchy-tabulated-display
-      bb-leader-hierarchy
-      (lambda (item _indent)
-        (when-let ((data (gethash item bb-leader-data)))
-          (let* ((binding (car data))
-                 (dispatchp (and (not (functionp binding)) (boundp binding)))
-                 (binding (if dispatchp (bb--get-dispatch (symbol-value binding) mode) binding)))
-            (when (and binding (if dispatchp show-dispatch show-global))
-              (insert (propertize (key-description item) 'face
-                                  (if dispatchp 'font-lock-type-face 'font-lock-keyword-face)))
-              (insert (make-string (- 15 (current-column)) ? )
-                      (or (cadr data) "??"))
-              (insert (make-string (- 65 (current-column)) ? )
-                      (propertize (format "%S" binding) 'face 'font-lock-comment-face))))))
-      (get-buffer-create "leaders"))))
-  (let ((inhibit-read-only t))
-    (flush-lines "^$")
-    (sort-lines nil (point-min) (point-max))))
-
 (defmacro bb-leader (&rest args)
   "Bind ARGS as leader bindings."
   (declare (indent 0))
@@ -167,7 +114,8 @@ With two prefix arguments: show only global bindings."
      ,@(cl-loop for (key func doc) in args
                 collect
                 `(progn
-                   (when ,doc (bb-assign-leader ,key ,func ,doc))
+                   (when ,doc
+                     (which-key-add-key-based-replacements ,(concat "SPC " key) ,doc))
                    (general-define-key :prefix "SPC" :states '(normal motion) :keymaps 'override ,key ,func)))))
 
 (defun bb--get-dispatch (table mode)
@@ -188,7 +136,7 @@ With two prefix arguments: show only global bindings."
            (if-let ((dispatch (bb--get-dispatch ,varname major-mode)))
                (call-interactively dispatch)
              (user-error "No dispatch found for \"%s\" in %s" ,keys major-mode)))
-         (bb-assign-leader ,keys ',varname nil)
+         ;; (bb-assign-leader ,keys ',varname nil)
          (bb-leader (,keys ',funcname))))))
 
 (defmacro bb-mm-leader (mode &rest args)

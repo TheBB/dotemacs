@@ -77,6 +77,10 @@
   (setq popwin:special-display-config nil)
   (popwin-mode))
 
+(use-package which-key
+  :config
+  (which-key-mode))
+
 
 ;;; Function, variable, and macro definitions
 
@@ -258,40 +262,55 @@
   :init
   (bb-leader ("tw" 'whitespace-mode "Toggle whitespace mode")))
 
+
+;;; Leader bindings, categories and descriptions
+
 (bb-leader
-  ("<tab>" 'bb-alternate-buffer "Switch to previous buffer")
-  (";" 'eval-expression "Evaluate elisp expression in minibuffer")
-  ("bd" 'bb-kill-buffer "Kill buffer")
-  ("fd" 'bb-kill-buffer-file "Kill buffer and delete file")
-  ("fs" 'save-buffer "Save buffer")
-  ("fy" 'bb-show-and-copy-filename "Show and copy filename to clipboard")
-  ("hdc" 'describe-char "Describe character")
-  ("hdf" 'describe-function "Describe function")
-  ("hdF" 'describe-face "Describe face")
-  ("hdl" 'bb-display-leaders "Display leader bindings")
-  ("hdk" 'describe-key "Describe key")
-  ("hdv" 'describe-variable "Describe variable")
-  ("hi" 'bb-find-init "Go to init.el")
-  ("hs" 'bb-find-scratch "Go to scratch buffer")
+  ("<tab>" 'bb-alternate-buffer "Prev buf")
+  (";" 'eval-expression "Eval elisp")
+  ("bd" 'bb-kill-buffer "Kill buf")
+  ("fd" 'bb-kill-buffer-file "Kill buf, del file")
+  ("fs" 'save-buffer "Save buf")
+  ("fy" 'bb-show-and-copy-filename "Copy filename")
+  ("hdc" 'describe-char "Desc character")
+  ("hdf" 'describe-function "Desc function")
+  ("hdF" 'describe-face "Desc face")
+  ("hdk" 'describe-key "Desc key")
+  ("hdv" 'describe-variable "Desc var")
+  ("hi" 'bb-find-init "init.el")
+  ("hs" 'bb-find-scratch "Scratch buf")
   ("td" 'bb-toggle-debug-on-error "Toggle debug-on-error")
-  ("u" 'universal-argument "Universal argument")
-  ("w" 'hydra-windows/body "Window management hydra"))
+  ("u" 'universal-argument "Universal arg")
+  ("w" 'hydra-windows/body "Window mgmt"))
 
+(which-key-add-key-based-replacements
+  "SPC a" "Apps"
+  "SPC b" "Buffers"
+  "SPC c" "Compile"
+  "SPC e" "Errors"
+  "SPC f" "Files"
+  "SPC h" "Help"
+  "SPC hd" "Describe"
+  "SPC j" "Jump"
+  "SPC p" "Project"
+  "SPC q" "Quit"
+  "SPC s" "Search"
+  "SPC t" "Toggle"
+  "SPC v" "Venvs")
 
-;;; Description of major-mode leader bindings
-
-(bb-assign-leader "==" nil "Align defun/paragraph")
-(bb-assign-leader "cc" nil "Build project")
-(bb-assign-leader "cv" nil "Show build progress")
-(bb-assign-leader "cb" nil "Evaluate buffer")
-(bb-assign-leader "cf" nil "Evaluate defun")
-(bb-assign-leader "cm" nil "Evaluate macro")
-(bb-assign-leader "cs" nil "Evaluate expression")
-(bb-assign-leader "l"  nil "Structured editing hydra")
-(bb-assign-leader "qq" nil "Quit background connections")
-(bb-assign-leader "te" nil "Toggle engine")
-(bb-assign-leader "va" nil "Activate virtual environment")
-(bb-assign-leader "vd" nil "Dectivate virtual environment")
+(which-key-add-key-based-replacements
+  "SPC ==" "Align"
+  "SPC cc" "Build"
+  "SPC cv" "Show build"
+  "SPC cb" "Eval buf"
+  "SPC cf" "Eval fun"
+  "SPC cm" "Eval macro"
+  "SPC cs" "Eval expr"
+  "SPC l" "Struct-ed"
+  "SPC qq" "Quit connections"
+  "SPC te" "Engine"
+  "SPC va" "Activate"
+  "SPC vd" "Deactivate")
 
 
 ;;; Evil and Co.
@@ -933,6 +952,12 @@
 ;;   (set-face-attribute 'vterm-color-yellow nil :background monokai-yellow :foreground monokai-yellow)
 ;;   (set-face-attribute 'vterm-color-magenta nil :background monokai-magenta :foreground monokai-magenta)
 ;;   (set-face-attribute 'vterm-color-cyan nil :background monokai-cyan :foreground monokai-cyan))
+
+(use-package which-key-posframe
+  :init
+  (setq which-key-posframe-poshandler 'posframe-poshandler-point-bottom-left-corner)
+  :config
+  (which-key-posframe-enable))
 
 (use-package ws-butler
   :diminish ws-butler-mode
