@@ -152,9 +152,9 @@
 
 (bb-advise around fill-paragraph (&rest args)
   (let ((fill-column
-         (setq bb-flex-fill-paragraph-column
+         (setq bb--flex-fill-paragraph-column
                (if (equal last-command this-command)
-                   (+ 5 (or bb-flex-fill-paragraph-column fill-column))
+                   (+ 5 (or bb--flex-fill-paragraph-column fill-column))
                  fill-column))))
     (apply orig-fn args)
     (message "Fill column: %s" fill-column)))
