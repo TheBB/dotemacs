@@ -602,9 +602,9 @@
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
 
-(use-package lsp-julia
-  :if (bb-has-executable-p 'lsp-julia)
-  :after lsp)
+;; (use-package lsp-julia
+;;   :if (bb-has-executable-p 'lsp-julia)
+;;   :after lsp)
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
