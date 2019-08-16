@@ -599,6 +599,7 @@
   (bb-leader ("tl" 'lsp-mode "Toggle LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
   :config
+  (remove-hook 'lsp-eldoc-hook 'lsp-document-highlight)
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
 
