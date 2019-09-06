@@ -31,6 +31,7 @@
 (setq user-init-file (or load-file-name buffer-file-name)
       user-emacs-directory (file-name-directory user-init-file)
       custom-file (concat user-emacs-directory "custom.el")
+      custom-theme-directory user-emacs-directory
 
       load-prefer-newer t
 
