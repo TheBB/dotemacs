@@ -613,7 +613,8 @@
   :init
   (setq lsp-ui-flycheck-live-reporting nil
         lsp-ui-doc-enable nil
-        lsp-ui-sideline-enable nil)
+        lsp-ui-sideline-enable nil
+        lsp-enable-symbol-highlighting nil)
   (evil-define-key 'motion lsp-ui-mode-map "gr" 'lsp-ui-peek-find-references)
   (bb-leader ("tr" 'lsp-ui-sideline-mode "Toggle LSP sideline")))
 
