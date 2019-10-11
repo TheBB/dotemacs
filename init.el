@@ -840,6 +840,16 @@
   :init
   (bb-mm-leader lisp-mode "l" 'hydra-structured-editing-lisp/body))
 
+(use-package po-mode
+  :defer t
+  :config
+  (evil-set-initial-state 'po-mode 'motion)
+  (evil-define-key 'motion po-mode-map "j" 'po-next-entry)
+  (evil-define-key 'motion po-mode-map "k" 'po-previous-entry)
+  (evil-define-key 'motion po-mode-map "e" 'po-edit-msgstr)
+  (evil-define-key 'motion po-mode-map "u" 'po-undo)
+  (evil-define-key 'motion po-mode-map "u" 'po-undo))
+
 (use-package powershell-mode
   :mode "\\.ps1\\'")
 
