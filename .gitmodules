@@ -62,6 +62,9 @@
 [submodule "cython-mode"]
 	path = lib/cython-mode
 	url = git@github.com:emacsmirror/cython-mode.git
+[submodule "dart-mode"]
+	path = lib/dart-mode
+	url = git@github.com:bradyt/dart-mode.git
 [submodule "dash"]
 	path = lib/dash
 	url = git@github.com:magnars/dash.el.git
