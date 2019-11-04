@@ -373,11 +373,6 @@
           magit-todos))
   (evil-collection-init))
 
-(use-package evil-collection-elisp-mode
-  :defer t
-  :config
-  (advice-add 'eval-last-sexp :around 'evil-collection-elisp-mode-last-sexp))
-
 (use-package evil-embrace
   :after evil-surround
   :config
@@ -653,6 +648,12 @@
   (evil-define-key 'normal magit-remote-section-map (kbd "gb") 'forge-browse-remote)
   (evil-define-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch)
   (evil-define-key 'normal forge-topic-mode-map (kbd "C-c C-c") 'forge-create-post))
+
+(use-package forge-list
+  :defer t
+  :config
+  (evil-define-key 'normal forge-topic-list-mode-map (kbd "q") 'quit-window)
+  (evil-define-key 'normal forge-topic-list-mode-map (kbd "o") 'forge-browse-topic))
 
 (use-package magit-todos
   :after magit
