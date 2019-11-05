@@ -366,7 +366,8 @@
   :after evil
   :config
   (setq evil-collection-mode-list
-        '(ediff
+        '(compile
+          ediff
           elisp-mode
           flycheck
           magit
