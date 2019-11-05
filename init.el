@@ -969,7 +969,7 @@
   :init
   (setq which-key-posframe-poshandler 'posframe-poshandler-point-bottom-left-corner)
   :config
-  (which-key-posframe-enable))
+  (which-key-posframe-mode))
 
 (use-package ws-butler
   :diminish ws-butler-mode
