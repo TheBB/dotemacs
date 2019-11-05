@@ -947,23 +947,23 @@
   :config
   (global-undo-tree-mode))
 
-;; (use-package vterm
-;;   :commands (vterm)
-;;   :init
-;;   (evil-set-initial-state 'vterm-mode 'emacs)
-;;   (bb-add-hook vterm-mode-hook
-;;     (setq-local global-hl-line-mode nil)
-;;     (setq-local truncate-lines t))
-;;   (setq vterm-keymap-exceptions '("<f12>"))
-;;   (global-set-key (kbd "<f12>") 'bb-vterm)
-;;   :config
-;;   (set-face-attribute 'vterm-color-black nil :background monokai-comments :foreground monokai-comments)
-;;   (set-face-attribute 'vterm-color-blue nil :background monokai-blue :foreground monokai-blue)
-;;   (set-face-attribute 'vterm-color-green nil :background monokai-green :foreground monokai-green)
-;;   (set-face-attribute 'vterm-color-red nil :background monokai-red :foreground monokai-red)
-;;   (set-face-attribute 'vterm-color-yellow nil :background monokai-yellow :foreground monokai-yellow)
-;;   (set-face-attribute 'vterm-color-magenta nil :background monokai-magenta :foreground monokai-magenta)
-;;   (set-face-attribute 'vterm-color-cyan nil :background monokai-cyan :foreground monokai-cyan))
+(use-package vterm
+  :commands (vterm)
+  :init
+  (evil-set-initial-state 'vterm-mode 'emacs)
+  (bb-add-hook vterm-mode-hook
+    (setq-local global-hl-line-mode nil)
+    (setq-local truncate-lines t))
+  (setq vterm-keymap-exceptions '("<f12>"))
+  (global-set-key (kbd "<f12>") 'bb-vterm)
+  :config
+  (set-face-attribute 'vterm-color-black nil :background monokai-comments :foreground monokai-comments)
+  (set-face-attribute 'vterm-color-blue nil :background monokai-blue :foreground monokai-blue)
+  (set-face-attribute 'vterm-color-green nil :background monokai-green :foreground monokai-green)
+  (set-face-attribute 'vterm-color-red nil :background monokai-red :foreground monokai-red)
+  (set-face-attribute 'vterm-color-yellow nil :background monokai-yellow :foreground monokai-yellow)
+  (set-face-attribute 'vterm-color-magenta nil :background monokai-magenta :foreground monokai-magenta)
+  (set-face-attribute 'vterm-color-cyan nil :background monokai-cyan :foreground monokai-cyan))
 
 (use-package which-key-posframe
   :init
