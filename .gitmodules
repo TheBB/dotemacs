@@ -328,6 +328,10 @@
 [submodule "transient"]
 	path = lib/transient
 	url = git@github.com:magit/transient.git
+[submodule "tree-sitter"]
+	path = lib/tree-sitter
+	url = git@github.com:ubolonton/emacs-tree-sitter
+	build-step = make build
 [submodule "treepy"]
 	path = lib/treepy
 	url = git@github.com:volrath/treepy.el.git
