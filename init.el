@@ -782,6 +782,9 @@
   (add-hook 'conda-postactivate-hook 'lsp-restart-workspace)
   (add-hook 'conda-postdeactivate-hook 'lsp-restart-workspace))
 
+(use-package lsp-python-ms
+  :after python)
+
 (use-package python
   :defer t
   :init
