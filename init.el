@@ -539,10 +539,14 @@
   (setq projectile-switch-project-action 'helm-projectile)
   (bb-leader
     ("pb" 'helm-projectile-switch-to-buffer "Switch to project buffer")
+    ("pC" 'projectile-configure-project "Configure")
+    ("pc" 'projectile-compile-project "Compile")
     ("pd" 'helm-projectile-find-dir "Find project directory")
     ("pf" 'helm-projectile-find-file "Find project file")
     ("ph" 'helm-projectile "Projectile helm session")
-    ("pp" 'helm-projectile-switch-project "Find project"))
+    ("pp" 'helm-projectile-switch-project "Find project")
+    ("pr" 'projectile-run-project "Run")
+    ("pt" 'projectile-test-project "Test"))
   :config
   (define-key helm-projectile-find-file-map bb-right 'helm-maybe-exit-minibuffer))
 
