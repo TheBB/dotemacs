@@ -959,7 +959,8 @@
   (bb-add-hook vterm-mode-hook
     (setq-local global-hl-line-mode nil)
     (setq-local truncate-lines t))
-  (setq vterm-keymap-exceptions '("<f12>"))
+  ;; Default value plus F12
+  (setq vterm-keymap-exceptions '("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-v" "M-v" "C-y" "M-y" "<f12>"))
   (global-set-key (kbd "<f12>") 'bb-vterm)
   :config
   (set-face-attribute 'vterm-color-black nil :background monokai-comments :foreground monokai-comments)

@@ -346,7 +346,7 @@
 	url = git@github.com:jwiegley/use-package.git
 [submodule "vterm"]
 	path = lib/vterm
-	url = git@github.com:TheBB/emacs-libvterm
+	url = git@github.com:akermu/emacs-libvterm
 	build-step = mkdir -p build
 	build-step = cd build && cmake ..
 	build-step = cd build && make
