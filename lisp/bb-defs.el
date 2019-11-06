@@ -354,6 +354,12 @@ If done compiling, kill the auxiliary buffer."
   (unless (derived-mode-p 'forge-post-mode)
     (auto-fill-mode)))
 
+(defun bb-compilation-filter ()
+  "Filter and apply ANSI sequences in compilation output."
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+
 (provide 'bb-defs)
 
 ;;; bb-defs.el ends here

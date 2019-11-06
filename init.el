@@ -215,11 +215,14 @@
   :config
   (global-auto-revert-mode))
 
-(use-package compilation-mode
+(use-package compile
   :defer t
   :init
   (bb-popwin compilation-mode)
-  (setq compilation-scroll-output 'first-error))
+  (setq compilation-scroll-output 'first-error)
+  :config
+  (require 'ansi-color)
+  (add-hook 'compilation-filter-hook 'bb-compilation-filter))
 
 (use-package eldoc
   :defer t
