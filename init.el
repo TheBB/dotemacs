@@ -215,6 +215,12 @@
   :config
   (global-auto-revert-mode))
 
+(use-package compilation-mode
+  :defer t
+  :init
+  (bb-popwin compilation-mode)
+  (setq compilation-scroll-output 'first-error))
+
 (use-package eldoc
   :defer t
   :diminish eldoc-mode)
