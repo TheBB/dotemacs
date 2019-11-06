@@ -4,7 +4,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((projectile-project-test-cmd . "julia --project=. --eval 'using Pkg; Pkg.test(\"Aroma\")'")
+   '((projectile-project-compilation-cmd . "make build")
+     (projectile-project-test-cmd . "julia --project=. --eval 'using Pkg; Pkg.test(\"Aroma\")'")
      (projectile-project-test-cmd . "julia --project=. --color=yes --eval 'using Pkg; Pkg.test(\"Aroma\")'")
      (projectile-project-run-cmd . "julia --project=. run.jl")
      (projectile-project-run-cmd . "emacs")

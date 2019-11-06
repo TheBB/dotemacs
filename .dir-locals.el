@@ -1,5 +1,5 @@
 ;;; Directory Local Variables
 ;;; For more information see (info "(emacs) Directory Variables")
 
-((nil . ((projectile-project-compilaton-cmd . "make")
+((nil . ((projectile-project-compilation-cmd . "make build")
          (projectile-project-run-cmd . "emacs"))))
