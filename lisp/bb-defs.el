@@ -32,6 +32,8 @@
   (require 'hydra)
   (require 'bb-macros))
 
+(require 'ht)
+
 
 ;;; Executables
 
@@ -268,6 +270,32 @@
   ("q" nil :exit t))
 
 
+;;; VTerm
+
+(defvar bb--vterms (make-hash-table))
+
+(defun bb--get-or-create-vterm ()
+  (let* ((root (projectile-project-root))
+         (buffer (ht-get bb--vterms root)))
+    (when (and buffer (not (buffer-live-p buffer)))
+      (ht-remove bb--vterms root)
+      (setq buffer nil))
+    (if buffer
+        (switch-to-buffer buffer)
+      (require 'vterm)
+      (let ((default-directory root))
+        (vterm))
+      (rename-buffer (format "vterm: ~/%s" (file-relative-name root (getenv "HOME"))))
+      (ht-set bb--vterms root (current-buffer)))))
+
+(defun bb-vterm (&optional renew)
+  "Pop or hide a vterm."
+  (interactive "P")
+  (if (derived-mode-p 'vterm-mode)
+      (previous-buffer)
+    (bb--get-or-create-vterm)))
+
+
 ;;; Miscellaneous
 
 (defun bb-alternate-buffer ()
@@ -333,21 +361,6 @@ If done compiling, kill the auxiliary buffer."
   (interactive)
   (setq debug-on-error (not debug-on-error))
   (message "Debug on error now: %S" debug-on-error))
-
-(defun bb-vterm (&optional renew)
-  "Pop or hide a vterm."
-  (interactive "P")
-  (require 'vterm)
-  (when renew
-    (let ((kill-buffer-query-functions
-           (remove 'process-kill-buffer-query-function
-                   kill-buffer-query-functions))))
-    (ignore-errors (kill-buffer "vterm")))
-  (if (derived-mode-p 'vterm-mode)
-      (previous-buffer)
-    (if-let* ((buffer (get-buffer "vterm")))
-        (switch-to-buffer buffer)
-      (vterm))))
 
 (defun bb-maybe-auto-fill-mode ()
   "Enable auto-fill mode except in certain major modes."
