@@ -38,20 +38,20 @@
 ;;; Executables
 
 (setq bb-executables
-  '((lsp-cc-ccls
-     (executable . "ccls")
-     (version-cmd . "ccls --version")
-     (version-regexp . "ccls version \\([0-9\\.]*\\)"))
-    (lsp-cc-cquery
-     (executable . "cquery"))
-    (lsp-html
-     (executable . "html-languageserver")
-     (version-cmd . "npm list -g vscode-html-languageserver-bin")
-     (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
-    (lsp-julia
-     (command . "julia -e 'using LanguageServer'")
-     (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
-     (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
+      '((lsp-cc-ccls
+         (executable . "ccls")
+         (version-cmd . "ccls --version")
+         (version-regexp . "ccls version \\([0-9\\.]*\\)"))
+        (lsp-cc-cquery
+         (executable . "cquery"))
+        (lsp-html
+         (executable . "html-languageserver")
+         (version-cmd . "npm list -g vscode-html-languageserver-bin")
+         (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
+        (lsp-julia
+         (command . "julia -e 'using LanguageServer'")
+         (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
+         (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
 
 (defun bb-check-executable (exec)
   (let ((entry (assq exec bb-executables)))
