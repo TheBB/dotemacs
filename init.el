@@ -57,6 +57,10 @@
 (borg-initialize)
 
 
+(eval-when-compile
+  (require 'lsp-clients))
+
+
 ;;; Local settings, if any
 
 (let ((filename (expand-file-name "local.el" user-emacs-directory)))
@@ -613,6 +617,11 @@
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
 
+(use-package lsp-clients
+  :config
+  ;; I have some problems with the analysis server
+  (setf (lsp--client-priority (gethash 'dart_analysis_server lsp-clients)) -10))
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :init
@@ -821,6 +830,11 @@
 
 
 ;;; Programming languages and other major modes
+
+(use-package dart-mode
+  :defer t
+  :init
+  (add-hook 'dart-mode-hook 'lsp))
 
 (use-package elisp-mode
   :defer t
