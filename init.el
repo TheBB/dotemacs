@@ -120,6 +120,14 @@
 (set-face-attribute 'mode-line-inactive nil
   :box '(:color "#666666" :line-width 1 :style released-button))
 
+(set-face-attribute 'helm-selection nil :extend t)
+(set-face-attribute 'hl-line nil :extend t)
+(set-face-attribute 'magit-diff-hunk-heading-highlight nil :extend t)
+(set-face-attribute 'magit-diff-added-highlight nil :extend t)
+(set-face-attribute 'magit-diff-context-highlight nil :extend t)
+(set-face-attribute 'magit-diff-removed-highlight nil :extend t)
+(set-face-attribute 'magit-section-highlight nil :extend t)
+
 
 ;;; Modeline
 
