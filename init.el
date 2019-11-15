@@ -123,7 +123,8 @@
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :extend t))
 (with-eval-after-load 'helm
-  (set-face-attribute 'helm-selection nil :extend t))
+  (set-face-attribute 'helm-selection nil :extend t)
+  (set-face-attribute 'helm-source-header nil :extend t))
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading-highlight nil :extend t)
   (set-face-attribute 'magit-diff-added-highlight nil :extend t)
