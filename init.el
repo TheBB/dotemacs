@@ -668,6 +668,7 @@
   :init
   (setq magit-bury-buffer-function 'magit-mode-quit-window)
   (bb-leader
+    ("gf" 'magit-file-dispatch "Git file actions")
     ("gs" 'magit-status "Open Magit status")
     ("gb" 'magit-blame "Git blame buffer"))
   (push "magit.*" bb-useless-buffers-regexp))
