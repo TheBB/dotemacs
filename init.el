@@ -126,6 +126,7 @@
   (set-face-attribute 'helm-selection nil :extend t)
   (set-face-attribute 'helm-source-header nil :extend t))
 (with-eval-after-load 'magit
+  (set-face-attribute 'magit-diff-hunk-heading nil :extend t)
   (set-face-attribute 'magit-diff-hunk-heading-highlight nil :extend t)
   (set-face-attribute 'magit-diff-added-highlight nil :extend t)
   (set-face-attribute 'magit-diff-context-highlight nil :extend t)
