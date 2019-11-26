@@ -803,14 +803,16 @@
         font-latex-fontify-script nil
         TeX-parse-self nil)
   (add-hook 'latex-mode-hook 'TeX-PDF-mode)
-  (bb-apply-newline-indent (latex-mode) "{" "\\[")
   (bb-company LaTeX-mode
     company-reftex-labels company-reftex-citations
     company-auctex-macros company-auctex-environments)
   (bb-mm-leader latex-mode
     "cc" 'bb-latex-build
     "cv" 'bb-latex-check-compilation
-    "ie" 'LaTeX-environment))
+    "ie" 'LaTeX-environment)
+  :config
+  (with-eval-after-load 'smartparens
+    (bb-apply-newline-indent (latex-mode) "{" "\\[")))
 
 
 ;;; Python and Co.
