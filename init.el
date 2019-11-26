@@ -808,7 +808,8 @@
     company-auctex-macros company-auctex-environments)
   (bb-mm-leader latex-mode
     "cc" 'bb-latex-build
-    "cv" 'bb-latex-check-compilation))
+    "cv" 'bb-latex-check-compilation
+    "ie" 'LaTeX-environment))
 
 
 ;;; Python and Co.
