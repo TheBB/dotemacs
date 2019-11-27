@@ -185,8 +185,10 @@
   "Apply newline and indent behaviour for all PAIRS in all MODES."
   `(progn
      ,@(cl-loop for pair in pairs
-                collect `(sp-local-pair ',modes ,pair nil :post-handlers
-                                        '(:add (bb-sp-pair-newline-and-indent "RET"))))))
+                collect `(sp-local-pair
+                          ',modes
+                          ,@(if (stringp pair) (list pair nil) pair) :post-handlers
+                          '(:add (bb-sp-pair-newline-and-indent "RET"))))))
 
 
 ;;; Structured editing

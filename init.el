@@ -800,7 +800,7 @@
   :defer t
   :config
   (with-eval-after-load 'smartparens
-    (bb-apply-newline-indent (latex-mode) "{")))
+    (bb-apply-newline-indent (latex-mode) "{" ("\\[" "\\]"))))
 
 (use-package tex-site
   ;; Not deferred, since tex-site.el is essentially an autoloads file.
