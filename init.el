@@ -796,6 +796,12 @@
   :defer t
   :diminish (compilation-in-progress . "[c]"))
 
+(use-package tex-mode
+  :defer t
+  :config
+  (with-eval-after-load 'smartparens
+    (bb-apply-newline-indent (latex-mode) "{")))
+
 (use-package tex-site
   ;; Not deferred, since tex-site.el is essentially an autoloads file.
   :init
@@ -809,10 +815,7 @@
   (bb-mm-leader latex-mode
     "cc" 'bb-latex-build
     "cv" 'bb-latex-check-compilation
-    "ie" 'LaTeX-environment)
-  :config
-  (with-eval-after-load 'smartparens
-    (bb-apply-newline-indent (latex-mode) "{" "\\[")))
+    "ie" 'LaTeX-environment))
 
 
 ;;; Python and Co.
