@@ -288,9 +288,9 @@
       (rename-buffer (format "vterm: ~/%s" (file-relative-name root (getenv "HOME"))))
       (ht-set bb--vterms root (current-buffer)))))
 
-(defun bb-vterm (&optional renew)
+(defun bb-vterm ()
   "Pop or hide a vterm."
-  (interactive "P")
+  (interactive)
   (if (derived-mode-p 'vterm-mode)
       (previous-buffer)
     (bb--get-or-create-vterm)))
