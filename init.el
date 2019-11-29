@@ -765,7 +765,8 @@
 (use-package lsp-julia
   :after lsp
   :init
-  (setq lsp-julia-package-dir (no-littering-expand-var-file-name "lsp-julia/")))
+  (setq lsp-julia-package-dir (no-littering-expand-var-file-name "lsp-julia/")
+        lsp-julia-default-environment "~/.julia/environments/v1.3"))
 
 
 ;;; LaTeX and Co.
