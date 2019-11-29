@@ -1001,7 +1001,10 @@
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
   (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "(")
   (bb-apply-newline-indent (css-mode scss-mode) "{")
-  (bb-apply-newline-indent (js-mode typescript-mode) "{"))
+  (bb-apply-newline-indent (js-mode typescript-mode) "{")
+  ;; Workaround smartparens #963
+  (push 'c-electric-brace sp--special-self-insert-commands)
+  (push 'c-electric-paren sp--special-self-insert-commands))
 
 (use-package smartparens-config
   :after smartparens)
