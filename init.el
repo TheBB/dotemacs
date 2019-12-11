@@ -133,6 +133,7 @@
   (set-face-attribute 'magit-diff-removed-highlight nil :extend t)
   (set-face-attribute 'magit-section-highlight nil :extend t))
 (with-eval-after-load 'org
+  (set-face-attribute 'org-block nil :extend t)
   (set-face-attribute 'org-block-begin-line nil :extend t)
   (set-face-attribute 'org-block-end-line nil :extend t))
 
@@ -701,6 +702,22 @@
   :diminish with-editor-mode)
 
 
+;;; Org and Co.
+
+(use-package org
+  :defer t
+  :init
+  (setq org-src-window-setup 'current-window
+        org-adapt-indentation nil)
+
+  ;; Use C-c C-c as a 'commit' binding when editing org source blocks
+  (evil-define-key 'normal org-src-mode-map (kbd "C-c C-c") 'org-edit-src-exit)
+  (add-hook 'org-src-mode-hook 'evil-normalize-keymaps 'end))
+
+(use-package evil-org
+  :hook (org-mode . evil-org-mode))
+
+
 ;;; C/C++ and Co.
 
 (use-package cc-mode
@@ -1008,6 +1025,9 @@
 
 (use-package smartparens-config
   :after smartparens)
+
+(use-package typo-mode
+  :hook (org-mode . typo-mode))
 
 (use-package undo-tree
   :diminish undo-tree-mode

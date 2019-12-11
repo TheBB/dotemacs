@@ -125,6 +125,9 @@
 [submodule "evil-numbers"]
 	path = lib/evil-numbers
 	url = git@github.com:cofi/evil-numbers.git
+[submodule "evil-org"]
+	path = lib/evil-org
+	url = git@github.com:Somelauw/evil-org-mode.git
 [submodule "evil-plugins"]
 	path = lib/evil-plugins
 	url = git@github.com:tarao/evil-plugins
@@ -349,6 +352,9 @@
 [submodule "typescript-mode"]
 	path = lib/typescript-mode
 	url = git@github.com:ananthakumaran/typescript.el.git
+[submodule "typoel"]
+	path = lib/typoel
+	url = git@github.com:jorgenschaefer/typoel.git
 [submodule "undo-tree"]
 	path = lib/undo-tree
 	url = http://www.dr-qubit.org/git/undo-tree.git
