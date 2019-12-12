@@ -279,6 +279,9 @@
 [submodule "ox-reveal"]
 	path = lib/ox-reveal
 	url = git@github.com:yjwen/org-reveal.git
+[submodule "ox-texinfo-plus"]
+	path = lib/ox-texinfo-plus
+	url = https://github.com/tarsius/ox-texinfo-plus.git
 [submodule "package-lint"]
 	path = lib/package-lint
 	url = git@github.com:purcell/package-lint.git
