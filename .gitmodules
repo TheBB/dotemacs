@@ -358,6 +358,9 @@
 [submodule "typoel"]
 	path = lib/typoel
 	url = git@github.com:jorgenschaefer/typoel.git
+[submodule "undo-fu"]
+	path = lib/undo-fu
+	url = git@gitlab.com:ideasman42/emacs-undo-fu.git
 [submodule "undo-tree"]
 	path = lib/undo-tree
 	url = http://www.dr-qubit.org/git/undo-tree.git
