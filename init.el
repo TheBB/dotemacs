@@ -1026,7 +1026,7 @@
 (use-package smartparens-config
   :after smartparens)
 
-(use-package typo-mode
+(use-package typo
   :hook (org-mode . typo-mode))
 
 (use-package undo-tree
