@@ -947,6 +947,8 @@
   :config
   (define-key evil-motion-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
   (define-key evil-motion-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
+  (define-key evil-emacs-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
+  (define-key evil-emacs-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
   (eyebrowse-mode))
 
 (use-package hierarchy
