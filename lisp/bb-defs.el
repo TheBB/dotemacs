@@ -277,7 +277,7 @@
 (defvar bb--vterms (make-hash-table))
 
 (defun bb--get-or-create-vterm ()
-  (let* ((root (projectile-project-root))
+  (let* ((root (or (projectile-project-root) "~/"))
          (buffer (ht-get bb--vterms root)))
     (when (and buffer (not (buffer-live-p buffer)))
       (ht-remove bb--vterms root)
