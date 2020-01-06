@@ -355,6 +355,7 @@
         evil-replace-state-cursor '("chocolate" (hbar . 2))
         evil-visual-state-cursor '("gray" (hbar . 2))
         evil-motion-state-cursor '("plum3" box)
+        evil-undo-provider 'undo-tree
         evil-want-integration t
         evil-want-keybinding nil
         evil-want-C-u-scroll t)
@@ -1032,6 +1033,7 @@
   :hook (org-mode . typo-mode))
 
 (use-package undo-tree
+  :if (eq 'undo-tree evil-undo-provider)
   :diminish undo-tree-mode
   :init
   (setq undo-tree-enable-undo-in-region nil)
