@@ -455,7 +455,10 @@
   :diminish evil-smartparens-mode
   :config
   (bb-advise after evil-sp--add-bindings ()
-    (evil-define-key 'visual evil-smartparens-mode-map (kbd "o") nil)))
+    (evil-define-key 'visual evil-smartparens-mode-map (kbd "o") nil))
+  (bb-advise before evil-delete-backward-char-and-join (count &rest args)
+    (save-match-data
+      (sp-delete-pair count))))
 
 (use-package evil-surround
   :after evil
