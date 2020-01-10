@@ -298,6 +298,19 @@
     (bb--get-or-create-vterm)))
 
 
+;;; Evil shift width
+
+(defvar bb-indent-vars
+  '((latex-mode . LaTeX-indent-level))
+  "Alist associating major modes to indent level variables.")
+
+(defun bb-set-evil-shift-width ()
+  (catch 'done
+    (dolist (elt bb-indent-vars)
+      (when (derived-mode-p (car elt))
+        (setq-local evil-shift-width (symbol-value (cdr elt)))
+        (throw 'done nil)))))
+
 ;;; Miscellaneous
 
 (defun bb-alternate-buffer ()

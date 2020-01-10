@@ -385,7 +385,10 @@
   ;; Other
   (evil-set-command-property 'xref-find-definitions :jump t)
   (define-key evil-visual-state-map (kbd ">") 'bb-shift-right)
-  (define-key evil-visual-state-map (kbd "<") 'bb-shift-left))
+  (define-key evil-visual-state-map (kbd "<") 'bb-shift-left)
+
+  (add-hook 'after-change-major-mode-hook 'bb-set-evil-shift-width)
+  (add-hook 'hack-local-variables-hook 'bb-set-evil-shift-width))
 
 (use-package evil-args
   :defer t
