@@ -1043,7 +1043,8 @@
   :hook (org-mode . typo-mode))
 
 (use-package undo-tree
-  :if (eq 'undo-tree (bound-and-true-p evil-undo-provider))
+  :if (or (not (boundp 'evil-undo-provider))
+          (eq 'undo-tree (bound-and-true-p evil-undo-provider)))
   :diminish undo-tree-mode
   :init
   (setq undo-tree-enable-undo-in-region nil)
