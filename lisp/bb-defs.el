@@ -30,6 +30,7 @@
 (eval-when-compile
   (require 'cl-lib)
   (require 'hydra)
+  (require 'lsp)
   (require 'bb-macros))
 
 (require 'ht)
@@ -346,6 +347,9 @@
       (when (y-or-n-p "Are you sure you want to delete this file? ")
         (delete-file filename 'trash)
         (kill-buffer buffer)))))
+
+(defun bb-lsp-set-priority (server priority)
+  (setf (lsp--client-priority (gethash server lsp-clients)) priority))
 
 (defun bb-show-and-copy-filename ()
   "Show and copy the full path to the current file in the minibuffer."

@@ -641,19 +641,24 @@
 (use-package lsp
   :diminish (lsp-mode . "l")
   :defer t
+
   :init
-  (setq lsp-prefer-flymake nil)
+  (setq lsp-prefer-flymake nil
+        lsp-log-io nil)
   (bb-leader ("tl" 'lsp-mode "Toggle LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
+
   :config
   (remove-hook 'lsp-eldoc-hook 'lsp-document-highlight)
   (set-face-attribute 'lsp-face-highlight-textual nil
-    :background monokai-highlight-line))
+    :background monokai-highlight-line)
+  (when (executable-find "clangd-9")
+    (setq lsp-clients-clangd-executable "clangd-9")))
 
 (use-package lsp-clients
   :config
-  ;; I have some problems with the analysis server
-  (setf (lsp--client-priority (gethash 'dart_analysis_server lsp-clients)) -10))
+  (bb-lsp-set-priority 'dart_analysis_server -10)
+  (bb-lsp-set-priority 'clangd 1))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
