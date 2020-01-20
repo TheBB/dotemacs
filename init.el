@@ -70,6 +70,11 @@
 
 ;;; Packages that should be enabled early
 
+(use-package exec-path-from-shell
+  :config
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-initialize))
+
 (use-package general
   :config
   (setq general-override-states '(normal visual motion))
@@ -940,11 +945,6 @@
   :defer t
   :init
   (bb-leader ("jl" 'avy-goto-line "goto line")))
-
-(use-package exec-path-from-shell
-  :config
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-initialize))
 
 (use-package expand-region
   :defer t
