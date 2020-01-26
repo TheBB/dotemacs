@@ -247,6 +247,9 @@
 [submodule "lsp-ui"]
 	path = lib/lsp-ui
 	url = git@github.com:emacs-lsp/lsp-ui.git
+[submodule "lua-mode"]
+	path = lib/lua-mode
+	url = git@github.com:immerrr/lua-mode.git
 [submodule "macrostep"]
 	path = lib/macrostep
 	url = git@github.com:joddie/macrostep.git
