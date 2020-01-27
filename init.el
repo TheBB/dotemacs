@@ -917,6 +917,11 @@
   :init
   (bb-mm-leader lisp-mode "l" 'hydra-structured-editing-lisp/body))
 
+(use-package lua-mode
+  :defer t
+  :init
+  (setq lua-indent-level 2))
+
 (use-package po-mode
   :defer t
   :config
@@ -1034,7 +1039,7 @@
   (bb-advise-except-derived-modes smartparens-mode
     lisp-mode scheme-mode emacs-lisp-mode web-mode)
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
-  (bb-apply-newline-indent (c-mode c++-mode python-mode) "{" "[" "(")
+  (bb-apply-newline-indent (c-mode c++-mode lua-mode python-mode) "{" "[" "(")
   (bb-apply-newline-indent (css-mode scss-mode) "{")
   (bb-apply-newline-indent (js-mode typescript-mode) "{")
   ;; Workaround smartparens #963
