@@ -365,6 +365,12 @@
         evil-want-C-u-scroll t)
   :config
 
+  (unless (fboundp 'evil-bind-key)
+    (defun evil-bind-key (state keymap &rest body)
+     (if (and (symbolp keymap) (not (memq keymap '(local global))))
+         (apply #'evil-define-minor-mode-key state keymap body)
+       (apply #'evil-define-key* state keymap body))))
+
   ;; Use undo-fu as undo provider if we have the right evil branch
   (when (boundp 'evil-undo-provider)
     (setq evil-undo-list-pointer 'undo-fu))
@@ -464,7 +470,7 @@
   :diminish evil-smartparens-mode
   :config
   (bb-advise after evil-sp--add-bindings ()
-    (evil-define-key 'visual evil-smartparens-mode-map (kbd "o") nil))
+    (evil-bind-key 'visual evil-smartparens-mode-map (kbd "o") nil))
   (bb-advise before evil-delete-backward-char-and-join (count &rest args)
     (save-match-data
       (sp-delete-pair count))))
@@ -473,7 +479,8 @@
   :after evil
   :config
   (global-evil-surround-mode)
-  (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
+  :config
+  (evil-bind-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
 
 
 ;;; Company and Co.
@@ -667,8 +674,9 @@
         lsp-ui-doc-enable nil
         lsp-ui-sideline-enable nil
         lsp-enable-symbol-highlighting nil)
-  (evil-define-key 'motion lsp-ui-mode-map "gr" 'lsp-ui-peek-find-references)
-  (bb-leader ("tr" 'lsp-ui-sideline-mode "Toggle LSP sideline")))
+  (bb-leader ("tr" 'lsp-ui-sideline-mode "Toggle LSP sideline"))
+  :config
+  (evil-bind-key 'motion lsp-ui-mode-map "gr" 'lsp-ui-peek-find-references))
 
 (use-package lsp-ui-peek
   :defer t
@@ -701,17 +709,17 @@
 (use-package forge
   :after magit
   :config
-  (evil-define-key '(normal visual) magit-mode-map "," 'forge-dispatch)
-  (evil-define-key 'normal magit-commit-section-map (kbd "gb") 'forge-browse-dwim)
-  (evil-define-key 'normal magit-remote-section-map (kbd "gb") 'forge-browse-remote)
-  (evil-define-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch)
-  (evil-define-key 'normal forge-topic-mode-map (kbd "C-c C-c") 'forge-create-post))
+  (evil-bind-key '(normal visual) magit-mode-map "," 'forge-dispatch)
+  (evil-bind-key 'normal magit-commit-section-map (kbd "gb") 'forge-browse-dwim)
+  (evil-bind-key 'normal magit-remote-section-map (kbd "gb") 'forge-browse-remote)
+  (evil-bind-key 'normal magit-branch-section-map (kbd "gb") 'forge-browse-branch)
+  (evil-bind-key 'normal forge-topic-mode-map (kbd "C-c C-c") 'forge-create-post))
 
 (use-package forge-list
   :defer t
   :config
-  (evil-define-key 'normal forge-topic-list-mode-map (kbd "q") 'quit-window)
-  (evil-define-key 'normal forge-topic-list-mode-map (kbd "o") 'forge-browse-topic))
+  (evil-bind-key 'normal forge-topic-list-mode-map (kbd "q") 'quit-window)
+  (evil-bind-key 'normal forge-topic-list-mode-map (kbd "o") 'forge-browse-topic))
 
 (use-package magit-todos
   :after magit
@@ -730,10 +738,10 @@
   :init
   (setq org-src-window-setup 'current-window
         org-adapt-indentation nil)
-
+  (add-hook 'org-src-mode-hook 'evil-normalize-keymaps 'end)
+  :config
   ;; Use C-c C-c as a 'commit' binding when editing org source blocks
-  (evil-define-key 'normal org-src-mode-map (kbd "C-c C-c") 'org-edit-src-exit)
-  (add-hook 'org-src-mode-hook 'evil-normalize-keymaps 'end))
+  (evil-bind-key 'normal org-src-mode-map (kbd "C-c C-c") 'org-edit-src-exit))
 
 (use-package evil-org
   :hook (org-mode . evil-org-mode))
@@ -926,11 +934,11 @@
   :defer t
   :config
   (evil-set-initial-state 'po-mode 'motion)
-  (evil-define-key 'motion po-mode-map "j" 'po-next-entry)
-  (evil-define-key 'motion po-mode-map "k" 'po-previous-entry)
-  (evil-define-key 'motion po-mode-map "e" 'po-edit-msgstr)
-  (evil-define-key 'motion po-mode-map "u" 'po-undo)
-  (evil-define-key 'motion po-mode-map "u" 'po-undo))
+  (evil-bind-key 'motion po-mode-map "j" 'po-next-entry)
+  (evil-bind-key 'motion po-mode-map "k" 'po-previous-entry)
+  (evil-bind-key 'motion po-mode-map "e" 'po-edit-msgstr)
+  (evil-bind-key 'motion po-mode-map "u" 'po-undo)
+  (evil-bind-key 'motion po-mode-map "u" 'po-undo))
 
 (use-package powershell-mode
   :mode "\\.ps1\\'")
