@@ -58,7 +58,8 @@
 
 
 (eval-when-compile
-  (require 'lsp-clients))
+  (require 'lsp-clients)
+  (setq evil-want-keybinding nil))
 
 
 ;;; Local settings, if any
@@ -361,7 +362,6 @@
         evil-visual-state-cursor '("gray" (hbar . 2))
         evil-motion-state-cursor '("plum3" box)
         evil-want-integration t
-        evil-want-keybinding nil
         evil-want-C-u-scroll t)
   :config
 
@@ -471,7 +471,7 @@
   :config
   (bb-advise after evil-sp--add-bindings ()
     (evil-bind-key 'visual evil-smartparens-mode-map (kbd "o") nil))
-  (bb-advise before evil-delete-backward-char-and-join (count &rest args)
+  (bb-advise before evil-delete-backward-char-and-join (count &rest _args)
     (save-match-data
       (sp-delete-pair count))))
 
