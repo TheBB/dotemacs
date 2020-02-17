@@ -373,7 +373,7 @@
 
   ;; Use undo-fu as undo provider if we have the right evil branch
   (when (boundp 'evil-undo-provider)
-    (setq evil-undo-list-pointer 'undo-fu))
+    (setq evil-undo-provider 'undo-fu))
 
   (evil-mode)
   (bb-add-hook evil-insert-state-exit-hook
