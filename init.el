@@ -496,7 +496,8 @@
         company-tooltip-minimum-width 60)
   (bb-leader ("tc" 'company-mode "Toggle auto-completion"))
   :config
-  (define-key company-active-map bb-right 'company-complete-selection)
+  (define-key company-active-map bb-right 'bb-company-complete-selection-no-snippets)
+  (define-key company-active-map (kbd "C-S-l") 'bb-company-complete-selection-with-snippets)
   (define-key company-active-map bb-down 'company-select-next-or-abort)
   (define-key company-active-map bb-up 'company-select-previous-or-abort)
   (define-key company-active-map (kbd "RET") nil)
