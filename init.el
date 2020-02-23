@@ -620,7 +620,8 @@
   :init
   (setq lsp-prefer-flymake nil
         lsp-log-io nil)
-  (bb-leader ("tl" 'lsp-mode "Toggle LSP"))
+  (bb-leader ("tl" 'lsp-mode "Toggle LSP")
+             ("vr" 'lsp-restart-workspace "Restart LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
 
   :config
