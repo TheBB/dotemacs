@@ -130,7 +130,8 @@
   (set-face-attribute 'doom-modeline-evil-operator-state nil :foreground "DarkGoldenrod2")
   (set-face-attribute 'doom-modeline-evil-replace-state nil :foreground "chocolate")
   (set-face-attribute 'doom-modeline-evil-visual-state nil :foreground "gray")
-  (set-face-attribute 'doom-modeline-evil-motion-state nil :foreground "plum3"))
+  (set-face-attribute 'doom-modeline-evil-motion-state nil :foreground "plum3")
+  (set-face-attribute 'doom-modeline-project-dir nil :italic nil))
 
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :extend t))
