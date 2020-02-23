@@ -244,9 +244,8 @@
   (recentf-mode))
 
 (use-package simple
-  :diminish auto-fill-function
-  :config
-  (column-number-mode))
+  :defer t
+  :diminish auto-fill-function)
 
 (use-package smerge-mode
   :defer t
