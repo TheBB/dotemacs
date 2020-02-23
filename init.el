@@ -865,7 +865,8 @@
 (use-package python
   :defer t
   :init
-  (add-hook 'python-mode-hook 'lsp))
+  (add-hook 'python-mode-hook 'lsp)
+  (setq-default python-shell-interpreter "python3"))
 
 (use-package pyvenv
   :defer t
