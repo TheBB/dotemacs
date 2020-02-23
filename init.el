@@ -158,7 +158,8 @@
   (bb-after-display
     (setq doom-modeline-icon t))
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project
-        doom-modeline-column-zero-based nil)
+        doom-modeline-column-zero-based nil
+        doom-modeline-buffer-encoding nil)
   (setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
   :config
   (doom-modeline-mode))
