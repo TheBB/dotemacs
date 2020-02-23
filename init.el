@@ -119,7 +119,17 @@
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
 (set-face-attribute 'font-lock-keyword-face nil :weight 'bold)
 (set-face-attribute 'font-lock-builtin-face nil :foreground "#ffabd6" :weight 'bold)
+(set-face-attribute 'mode-line nil :background monokai-background)
 (set-face-attribute 'mode-line-emphasis nil :foreground "#ffabd6" :weight 'ultra-bold)
+
+(with-eval-after-load 'doom-modeline
+  (set-face-attribute 'doom-modeline-evil-emacs-state nil :foreground "SkyBlue2")
+  (set-face-attribute 'doom-modeline-evil-insert-state nil :foreground "chartreuse3")
+  (set-face-attribute 'doom-modeline-evil-normal-state nil :foreground "DarkGoldenrod2")
+  (set-face-attribute 'doom-modeline-evil-operator-state nil :foreground "DarkGoldenrod2")
+  (set-face-attribute 'doom-modeline-evil-replace-state nil :foreground "chocolate")
+  (set-face-attribute 'doom-modeline-evil-visual-state nil :foreground "gray")
+  (set-face-attribute 'doom-modeline-evil-motion-state nil :foreground "plum3"))
 
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :extend t))
@@ -142,6 +152,10 @@
 ;;; Modeline
 
 (use-package doom-modeline
+  :init
+  (bb-after-display
+    (setq doom-modeline-icon t))
+  (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
   :config
   (doom-modeline-mode))
 
