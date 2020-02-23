@@ -618,7 +618,6 @@
 (use-package lsp
   :diminish lsp-mode
   :defer t
-
   :init
   (setq lsp-prefer-flymake nil
         lsp-log-io nil
@@ -1049,7 +1048,9 @@
           python-mode
           rust-mode
           typescript-mode)
-         . tree-sitter-mode))
+         . tree-sitter-mode)
+  :init
+  (bb-leader ("tT" 'tree-sitter-mode "Toggle tree-sitter")))
 
 (use-package undo-tree
   :if (or (not (boundp 'evil-undo-provider))
@@ -1097,6 +1098,7 @@
   :init
   (push 'company-yasnippet bb-company-global-backends)
   (define-key evil-insert-state-map (kbd "C-SPC") 'yas-expand)
+  (bb-leader ("ty" 'yas-minor-mode "Toggle yasnippet"))
   :config
   (yas-reload-all))
 
