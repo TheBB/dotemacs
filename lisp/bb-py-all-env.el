@@ -28,6 +28,8 @@
 (require 'pyvenv nil t)
 (require 'conda nil t)
 
+(declare-function pyenv-mode-version "ext:pyenv-mode")
+
 (defmacro bb-py-all-env-annotate (name func list)
   (declare (indent 2))
   `(mapcar (lambda (c)
@@ -55,6 +57,22 @@
     (pyvenv-deactivate))
    ((bound-and-true-p conda-env-current-name)
     (conda-env-deactivate))))
+
+(defun bb-py-all-env-parse (line)
+  "Return version and venv info.
+Useful as parsing function for `doom-modeline-env'."
+  (let (name source (version (cadr (split-string line))))
+    (cond
+     ((bound-and-true-p pyvenv-virtual-env-name)
+      (setq name pyvenv-virtual-env-name source "pyvenv"))
+     ((bound-and-true-p conda-env-current-name)
+      (setq name conda-env-current-name source "conda"))
+     ((and (fboundp 'pyenv-mode) (setq name (pyenv-mode-version)))
+      (setq source "pyenv")))
+    (if name
+        (format "%s %s" version
+                (propertize name 'help-echo (format "Virtual environment (via %s)" source)))
+      version)))
 
 
 (provide 'bb-py-all-env)

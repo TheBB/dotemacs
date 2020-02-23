@@ -155,7 +155,9 @@
   :init
   (bb-after-display
     (setq doom-modeline-icon t))
-  (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
+  (setq doom-modeline-buffer-file-name-style 'truncate-with-project
+        doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
+  (setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
   :config
   (doom-modeline-mode))
 
@@ -833,7 +835,7 @@
 ;;; Python and Co.
 
 (use-package bb-py-all-env
-  :commands (bb-py-all-env-activate bb-py-all-env-deactivate)
+  :commands (bb-py-all-env-activate bb-py-all-env-deactivate bb-py-all-env-parse)
   :init
   (bb-mm-leader python-mode
     "va" 'bb-py-all-env-activate
@@ -848,7 +850,9 @@
           (when (file-exists-p "~/miniconda3")
             (expand-file-name "~/miniconda3"))))
   (add-hook 'conda-postactivate-hook 'lsp-restart-workspace)
-  (add-hook 'conda-postdeactivate-hook 'lsp-restart-workspace))
+  (add-hook 'conda-postdeactivate-hook 'lsp-restart-workspace)
+  (add-hook 'conda-postactivate-hook 'doom-modeline-env-update-python)
+  (add-hook 'conda-postdeactivate-hook 'doom-modeline-env-update-python))
 
 ;; (use-package lsp-python-ms
 ;;   :after python)
@@ -862,7 +866,9 @@
   :defer t
   :init
   (add-hook 'pyvenv-post-activate-hooks 'lsp-restart-workspace)
-  (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace))
+  (add-hook 'pyvenv-post-deactivate-hooks 'lsp-restart-workspace)
+  (add-hook 'conda-postactivate-hook 'doom-modeline-env-update-python)
+  (add-hook 'conda-postdeactivate-hook 'doom-modeline-env-update-python))
 
 
 ;;; Programming languages and other major modes
