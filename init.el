@@ -156,7 +156,7 @@
   (bb-after-display
     (setq doom-modeline-icon t))
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project
-        doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
+        doom-modeline-column-zero-based nil)
   (setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
   :config
   (doom-modeline-mode))
@@ -240,8 +240,9 @@
   (recentf-mode))
 
 (use-package simple
-  :defer t
-  :diminish auto-fill-function)
+  :diminish auto-fill-function
+  :config
+  (column-number-mode))
 
 (use-package smerge-mode
   :defer t
