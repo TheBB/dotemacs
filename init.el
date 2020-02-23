@@ -121,6 +121,7 @@
 (set-face-attribute 'font-lock-builtin-face nil :foreground "#ffabd6" :weight 'bold)
 (set-face-attribute 'mode-line nil :background monokai-background)
 (set-face-attribute 'mode-line-emphasis nil :foreground "#ffabd6" :weight 'ultra-bold)
+(set-face-attribute 'region nil :background (color-lighten-name monokai-highlight 8))
 
 (with-eval-after-load 'doom-modeline
   (set-face-attribute 'doom-modeline-evil-emacs-state nil :foreground "SkyBlue2")
