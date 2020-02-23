@@ -1061,6 +1061,19 @@
 (use-package typo
   :hook (org-mode . typo-mode))
 
+(use-package tree-sitter
+  :hook ((c-mode
+          c++-mode
+          css-mode
+          web-mode
+          js-mode
+          json-mode
+          julia-mode
+          python-mode
+          rust-mode
+          typescript-mode)
+         . tree-sitter-mode))
+
 (use-package undo-tree
   :if (or (not (boundp 'evil-undo-provider))
           (eq 'undo-tree (bound-and-true-p evil-undo-provider)))
