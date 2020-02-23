@@ -159,7 +159,8 @@
     (setq doom-modeline-icon t))
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project
         doom-modeline-column-zero-based nil
-        doom-modeline-buffer-encoding nil)
+        doom-modeline-buffer-encoding nil
+        doom-modeline-minor-modes t)
   (setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
   :config
   (doom-modeline-mode))
@@ -616,7 +617,7 @@
 ;;; LSP and Co.
 
 (use-package lsp
-  :diminish (lsp-mode . "l")
+  :diminish lsp-mode
   :defer t
 
   :init
@@ -1038,6 +1039,7 @@
   :hook (org-mode . typo-mode))
 
 (use-package tree-sitter
+  :diminish (tree-sitter-mode . "T")
   :hook ((c-mode
           c++-mode
           css-mode
