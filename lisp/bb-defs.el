@@ -322,20 +322,6 @@
      (cl-find-if (lambda (b) (not (eq b buf)))
                  (mapcar 'car (window-prev-buffers))))))
 
-(defun bb-company-complete-selection-no-snippets ()
-  "Complete the currently selected candidate, but suppress snippet
-expansion."
-  (interactive)
-  (let ((company-lsp-enable-snippet nil))
-    (call-interactively 'company-complete-selection)))
-
-(defun bb-company-complete-selection-with-snippets ()
-  "Complete the currently selected candidate, but enforce snippet
-expansion."
-  (interactive)
-  (let ((company-lsp-enable-snippet t))
-    (call-interactively 'company-complete-selection)))
-
 (defun bb-find-init ()
   "Open `user-init-file'."
   (interactive)
