@@ -81,6 +81,9 @@
 [submodule "diminish"]
 	path = lib/diminish
 	url = git@github.com:myrjola/diminish.el.git
+[submodule "doom-modeline"]
+	path = lib/doom-modeline
+	url = git@github.com:seagle0128/doom-modeline.git
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = git@github.com:skeeto/emacsql.git
@@ -342,6 +345,9 @@
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
+[submodule "shrink-path"]
+	path = lib/shrink-path
+	url = git@gitlab.com:bennya/shrink-path.el.git
 [submodule "smartparens"]
 	path = lib/smartparens
 	url = git@github.com:Fuco1/smartparens.git

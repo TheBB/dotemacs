@@ -1,5 +1,6 @@
 ;;; init.el --- Personal configuration. -*- lexical-binding: t -*-
 
+
 ;; Copyright (C) 2018 Eivind Fonn
 
 ;; This file is not part of GNU Emacs.
@@ -106,25 +107,19 @@
       monokai-height-plus-1 1.0
       monokai-height-plus-2 1.0
       monokai-height-plus-3 1.0
-      monokai-height-plus-4 1.0)
-
+      monokai-height-plus-4 1.0
+      monokai-red "#ff4185"
+      monokai-doc-face-as-comment t)
 (load-theme 'monokai 'noconfirm)
 (require 'color)
 
 (bb-after-display
-  (set-face-attribute 'default nil :font bb-font :height 100)
-  (set-face-attribute 'region nil :background (color-lighten-name monokai-gray 10)))
+  (set-face-attribute 'default nil :font bb-font :height 100))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
-(set-face-attribute 'font-lock-doc-face nil :slant 'italic :foreground "#75715e")
-(set-face-attribute 'font-lock-keyword-face nil :foreground "#ff4185" :weight 'bold)
+(set-face-attribute 'font-lock-keyword-face nil :weight 'bold)
 (set-face-attribute 'font-lock-builtin-face nil :foreground "#ffabd6" :weight 'bold)
-
-(set-face-attribute 'header-line nil :box '(:color "#555555"))
-(set-face-attribute 'mode-line nil
-  :box '(:color "#999999" :line-width 1 :style released-button))
-(set-face-attribute 'mode-line-inactive nil
-  :box '(:color "#666666" :line-width 1 :style released-button))
+(set-face-attribute 'mode-line-emphasis nil :foreground "#ffabd6" :weight 'ultra-bold)
 
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :extend t))
@@ -146,55 +141,9 @@
 
 ;;; Modeline
 
-(use-package spaceline-segments
-  :init
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
-        spaceline-minor-modes-separator ""
-        spaceline-purpose-hide-if-not-dedicated t)
+(use-package doom-modeline
   :config
-  (spaceline-generate
-    (((evil-state workspace-number window-number) :face highlight-face :priority 100)
-     (anzu :priority 95)
-     (auto-compile)
-     ((buffer-modified buffer-size buffer-id remote-host) :priority 98)
-     (major-mode :priority 79)
-     (process :when active)
-     ((flycheck-error flycheck-warning flycheck-info) :when active :priority 89)
-     (minor-modes :when active :priority 9)
-     (erc-track :when active)
-     (version-control :when active :priority 78))
-    (which-function
-     python-env
-     (purpose :priority 94)
-     (selection-info :priority 95)
-     input-method
-     ((buffer-encoding-abbrev
-       point-position
-       line-column)
-      :separator " | "
-      :priority 96)
-     (global :when active)
-     (buffer-position :priority 99)
-     (hud :priority 99)))
-  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
-
-(use-package spaceline-config
-  :after helm
-  :config
-  (spaceline-helm-mode))
-
-(use-package powerline
-  :defer t
-  :config
-  (set-face-attribute 'powerline-active1 nil
-    :box '(:color "#999999" :line-width 1 :style released-button)
-    :background "#5a5a5a")
-  (set-face-attribute 'powerline-active2 nil
-    :box '(:color "#999999" :line-width 1 :style released-button))
-  (set-face-attribute 'powerline-inactive1 nil
-    :box '(:color "#666666" :line-width 1 :style released-button))
-  (set-face-attribute 'powerline-inactive2 nil
-    :box '(:color "#666666" :line-width 1 :style released-button)))
+  (doom-modeline-mode))
 
 
 ;;; General Emacs settings (built-ins, etc.)
