@@ -4,6 +4,9 @@
 [submodule "ace-window"]
 	path = lib/ace-window
 	url = git@github.com:abo-abo/ace-window.git
+[submodule "all-the-icons"]
+	path = lib/all-the-icons
+	url = git@github.com:domtronn/all-the-icons.el.git
 [submodule "annalist"]
 	path = lib/annalist
 	url = git@github.com:noctuid/annalist.el.git
@@ -269,6 +272,9 @@
 [submodule "matlab-mode"]
 	path = lib/matlab-mode
 	url = https://git.code.sf.net/p/matlab-emacs/src
+[submodule "memoize"]
+	path = lib/memoize
+	url = git@github.com:skeeto/emacs-memoize.git
 [submodule "monokai-theme"]
 	path = lib/monokai-theme
 	url = git@github.com:oneKelvinSmith/monokai-emacs.git
