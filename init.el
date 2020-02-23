@@ -160,7 +160,8 @@
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project
         doom-modeline-column-zero-based nil
         doom-modeline-buffer-encoding nil
-        doom-modeline-minor-modes t)
+        doom-modeline-minor-modes t
+        doom-modeline-project-detection 'projectile)
   (setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
   :config
   (doom-modeline-mode))
