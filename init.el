@@ -489,6 +489,7 @@
   (setq company-box-icons-alist 'company-box-icons-all-the-icons)
   :config
   (require 'all-the-icons)
+  (setf (alist-get 'min-height company-box-frame-parameters) 6)
   (setq company-box-icons-alist 'company-box-icons-all-the-icons
         company-box-backends-colors nil
 
