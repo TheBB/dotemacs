@@ -50,6 +50,9 @@
 [submodule "company-auctex"]
 	path = lib/company-auctex
 	url = git@github.com:alexeyr/company-auctex.git
+[submodule "company-box"]
+	path = lib/company-box
+	url = git@github.com:TheBB/company-box.git
 [submodule "company-lsp"]
 	path = lib/company-lsp
 	url = git@github.com:tigersoldier/company-lsp.git
