@@ -61,6 +61,7 @@
 (eval-when-compile
   (require 'lsp-clients)
   (setq evil-want-keybinding nil))
+(setq evil-want-keybinding nil)
 
 
 ;;; Local settings, if any
@@ -331,7 +332,6 @@
         evil-replace-state-cursor '("chocolate" (hbar . 2))
         evil-visual-state-cursor '("gray" (hbar . 2))
         evil-motion-state-cursor '("plum3" box)
-        evil-want-keybinding nil
         evil-want-integration t
         evil-want-C-u-scroll t)
   :config
