@@ -484,6 +484,7 @@
     :background monokai-comments))
 
 (use-package company-box
+  :diminish company-box-mode
   :hook (company-mode . company-box-mode)
   :init
   (setq company-box-icons-alist 'company-box-icons-all-the-icons)
