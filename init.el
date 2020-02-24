@@ -1073,8 +1073,9 @@
   (bb-apply-newline-indent (css-mode scss-mode) "{")
   (bb-apply-newline-indent (js-mode typescript-mode) "{")
   ;; Workaround smartparens #963
-  (push 'c-electric-brace sp--special-self-insert-commands)
-  (push 'c-electric-paren sp--special-self-insert-commands))
+  ;; (push 'c-electric-brace sp--special-self-insert-commands)
+  ;; (push 'c-electric-paren sp--special-self-insert-commands)
+  )
 
 (use-package smartparens-config
   :after smartparens)
