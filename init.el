@@ -521,7 +521,10 @@
           (Event         . ,(all-the-icons-material "event"                    :face 'all-the-icons-red))
           (Operator      . ,(all-the-icons-material "control_point"            :face 'all-the-icons-red))
           (TypeParameter . ,(all-the-icons-material "class"                    :face 'all-the-icons-red))
-          (Template      . ,(all-the-icons-material "short_text"               :face 'all-the-icons-green)))))
+          (Template      . ,(all-the-icons-material "short_text"               :face 'all-the-icons-green))))
+
+  ;; Add a space after the icon
+  (mapcar (lambda (x) (setcdr x (concat (cdr x) " "))) company-box-icons-all-the-icons))
 
 
 ;;; Flycheck and Co.
