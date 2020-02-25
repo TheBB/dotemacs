@@ -35,6 +35,8 @@
 
       load-prefer-newer t
 
+      evil-want-keybinding nil
+
       ;; Enable Keyboardio Model 01 mode
       ;; Disable this for the moment on all computers
       ;; keyboardiop (string= (system-name) "cauchy")
@@ -58,9 +60,7 @@
 
 
 (eval-when-compile
-  (require 'lsp-clients)
-  (setq evil-want-keybinding nil))
-(setq evil-want-keybinding nil)
+  (require 'lsp-clients))
 
 
 ;;; Local settings, if any
