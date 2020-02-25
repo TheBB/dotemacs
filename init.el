@@ -1,6 +1,5 @@
 ;;; init.el --- Personal configuration. -*- lexical-binding: t -*-
 
-
 ;; Copyright (C) 2018 Eivind Fonn
 
 ;; This file is not part of GNU Emacs.
