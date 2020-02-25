@@ -1087,7 +1087,6 @@
   :hook ((c-mode
           c++-mode
           css-mode
-          web-mode
           js-mode
           json-mode
           julia-mode
