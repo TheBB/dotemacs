@@ -532,7 +532,8 @@
           (Template      . ,(all-the-icons-material "short_text"               :face 'all-the-icons-green))))
 
   ;; Add a space after the icon
-  (mapcar (lambda (x) (setcdr x (concat (cdr x) " "))) company-box-icons-all-the-icons))
+  (dolist (elt company-box-icons-all-the-icons)
+    (setcdr elt (concat (cdr elt) " "))))
 
 
 ;;; Flycheck and Co.
