@@ -151,6 +151,14 @@
   (set-face-attribute 'org-block-begin-line nil :extend t)
   (set-face-attribute 'org-block-end-line nil :extend t))
 
+;; (use-package dimmer
+;;   :init
+;;   (setq dimmer-fraction 0.25)
+;;   :config
+;;   (dimmer-configure-which-key)
+;;   (dimmer-configure-helm)
+;;   (dimmer-mode))
+
 
 ;;; Modeline
 

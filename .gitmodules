@@ -84,6 +84,9 @@
 [submodule "diminish"]
 	path = lib/diminish
 	url = git@github.com:myrjola/diminish.el.git
+[submodule "dimmer"]
+	path = lib/dimmer
+	url = git@github.com:gonewest818/dimmer.el.git
 [submodule "doom-modeline"]
 	path = lib/doom-modeline
 	url = git@github.com:seagle0128/doom-modeline.git
