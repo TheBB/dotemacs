@@ -155,6 +155,7 @@
 ;;   :init
 ;;   (setq dimmer-fraction 0.25)
 ;;   :config
+;;   (push 'bb-dimmer-predicate dimmer-prevent-dimming-predicates)
 ;;   (dimmer-configure-which-key)
 ;;   (dimmer-configure-helm)
 ;;   (dimmer-mode))

@@ -322,6 +322,9 @@
      (cl-find-if (lambda (b) (not (eq b buf)))
                  (mapcar 'car (window-prev-buffers))))))
 
+(defun bb-dimmer-predicate ()
+  (string-prefix-p " *company-box-" (buffer-name)))
+
 (defun bb-find-init ()
   "Open `user-init-file'."
   (interactive)
