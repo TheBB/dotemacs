@@ -366,7 +366,8 @@
 [submodule "tree-sitter"]
 	path = lib/tree-sitter
 	url = git@github.com:ubolonton/emacs-tree-sitter
-	build-step = make build
+	load-path = lisp
+	load-path = langs
 [submodule "treepy"]
 	path = lib/treepy
 	url = git@github.com:volrath/treepy.el.git

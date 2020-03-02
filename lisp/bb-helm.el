@@ -128,9 +128,12 @@ Suitable for `helm-display-function'."
 ;;; Helm helpers
 
 (defun bb-helm-ag-project ()
-  "Call `helm-do-ag' in the project root."
+  "Call `helm-do-ag' in the project root, or the current directory."
   (interactive)
-  (helm-do-ag (projectile-project-root)))
+  (let ((root (projectile-project-root)))
+    (if root
+        (helm-do-ag root)
+      (helm-do-ag default-directory))))
 
 (defun bb-helm-swoop ()
   "Call `helm-swoop' with `helm-echo-input-in-header-line' set to true."

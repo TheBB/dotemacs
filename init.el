@@ -590,7 +590,9 @@
   (define-key helm-ag-map bb-left 'helm-ag--up-one-level)
   (when keyboardiop
     (define-key helm-ag-map (kbd "C-j") 'helm-ag--next-file)
-    (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file)))
+    (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file)
+    (define-key helm-ag-map bb-right 'helm-maybe-exit-minibuffer)
+    (define-key helm-ag-map bb-left 'helm-ag--up-one-level)))
 
 (use-package helm-files
   :defer t
@@ -674,7 +676,8 @@
   :diminish lsp-mode
   :defer t
   :init
-  (setq lsp-prefer-flymake nil
+  (setq lsp-diagnostic-package :flycheck
+        lsp-flycheck-live-reporting nil
         lsp-log-io nil
         lsp-enable-snippet nil)
   (bb-leader ("tl" 'lsp-mode "Toggle LSP")
@@ -688,16 +691,20 @@
   (when (executable-find "clangd-9")
     (setq lsp-clients-clangd-executable "clangd-9")))
 
-(use-package lsp-clients
+(use-package lsp-dart
+  :defer t
   :config
-  (bb-lsp-set-priority 'dart_analysis_server -10)
+  (bb-lsp-set-priority 'dart_analysis_server -10))
+
+(use-package lsp-clients
+  :defer t
+  :config
   (bb-lsp-set-priority 'clangd 1))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :init
-  (setq lsp-ui-flycheck-live-reporting nil
-        lsp-ui-doc-enable nil
+  (setq lsp-ui-doc-enable nil
         lsp-ui-sideline-enable nil
         lsp-enable-symbol-highlighting nil)
   (bb-leader ("tr" 'lsp-ui-sideline-mode "Toggle LSP sideline"))
