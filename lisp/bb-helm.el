@@ -130,10 +130,7 @@ Suitable for `helm-display-function'."
 (defun bb-helm-ag-project ()
   "Call `helm-do-ag' in the project root, or the current directory."
   (interactive)
-  (let ((root (projectile-project-root)))
-    (if root
-        (helm-do-ag root)
-      (helm-do-ag default-directory))))
+  (helm-do-ag (or (projectile-project-root) default-directory)))
 
 (defun bb-helm-swoop ()
   "Call `helm-swoop' with `helm-echo-input-in-header-line' set to true."
