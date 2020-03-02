@@ -586,13 +586,12 @@
   :init
   (bb-leader ("/" 'bb-helm-ag-project "Search in project"))
   :config
-  (define-key helm-ag-map bb-right nil)
-  (define-key helm-ag-map bb-left 'helm-ag--up-one-level)
+  (dolist (map (list helm-ag-map helm-do-ag-map))
+    (define-key map bb-right 'helm-maybe-exit-minibuffer)
+    (define-key map bb-left 'helm-ag--up-one-level))
   (when keyboardiop
     (define-key helm-ag-map (kbd "C-j") 'helm-ag--next-file)
-    (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file)
-    (define-key helm-ag-map bb-right 'helm-maybe-exit-minibuffer)
-    (define-key helm-ag-map bb-left 'helm-ag--up-one-level)))
+    (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file)))
 
 (use-package helm-files
   :defer t
