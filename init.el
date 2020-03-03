@@ -366,6 +366,7 @@
   (define-key evil-motion-state-map (kbd "<right>") 'windmove-right)
 
   (define-key evil-motion-state-map (kbd "gd") 'xref-find-definitions)
+  (define-key evil-motion-state-map (kbd "gD") 'xref-find-definitions-other-window)
   (define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
   (define-key evil-visual-state-map (kbd "K") (concat ":m '<-2" (kbd "RET") "gv=gv"))
 
