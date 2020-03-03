@@ -1112,7 +1112,9 @@
           typescript-mode)
          . tree-sitter-mode)
   :init
-  (bb-leader ("tT" 'tree-sitter-mode "Toggle tree-sitter")))
+  (bb-leader ("tT" 'tree-sitter-mode "Toggle tree-sitter"))
+  :config
+  (require 'tree-sitter-langs))
 
 (use-package undo-tree
   :if (or (not (boundp 'evil-undo-provider))
