@@ -675,7 +675,8 @@
   :diminish lsp-mode
   :defer t
   :init
-  (setq lsp-diagnostic-package :flycheck
+  (setq lsp-auto-guess-root t
+        lsp-diagnostic-package :flycheck
         lsp-flycheck-live-reporting nil
         lsp-log-io nil
         lsp-enable-snippet nil)
