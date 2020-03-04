@@ -1046,7 +1046,9 @@
   :config
   (lispy-define-key lispy-mode-map "o" 'lispy-different)
   (lispy-define-key lispy-mode-map ">" 'lispy-slurp-or-barf-right)
-  (lispy-define-key lispy-mode-map "<" 'lispy-slurp-or-barf-left))
+  (lispy-define-key lispy-mode-map "<" 'lispy-slurp-or-barf-left)
+  (define-key lispy-mode-map (kbd "C-j") 'lispy-split)
+  (define-key lispy-mode-map (kbd "M-j") 'lispy-newline-and-indent))
 
 (use-package lispyville
   :diminish lispyville-mode
