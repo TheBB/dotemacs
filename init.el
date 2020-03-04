@@ -678,9 +678,10 @@
   :init
   (setq lsp-auto-guess-root t
         lsp-diagnostic-package :flycheck
+        lsp-enable-snippet nil
         lsp-flycheck-live-reporting nil
         lsp-log-io nil
-        lsp-enable-snippet nil)
+        lsp-signature-auto-activate nil)
   (bb-leader ("tl" 'lsp-mode "Toggle LSP")
              ("vr" 'lsp-restart-workspace "Restart LSP"))
   (define-key evil-insert-state-map (kbd "C-l") 'company-complete)
