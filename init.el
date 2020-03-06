@@ -136,9 +136,6 @@
   (set-face-attribute 'company-tooltip-selection nil :extend t))
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :extend t))
-(with-eval-after-load 'helm
-  (set-face-attribute 'helm-selection nil :extend t)
-  (set-face-attribute 'helm-source-header nil :extend t))
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading nil :extend t)
   (set-face-attribute 'magit-diff-hunk-heading-highlight nil :extend t)
@@ -157,7 +154,6 @@
 ;;   :config
 ;;   (push 'bb-dimmer-predicate dimmer-prevent-dimming-predicates)
 ;;   (dimmer-configure-which-key)
-;;   (dimmer-configure-helm)
 ;;   (dimmer-mode))
 
 
@@ -555,91 +551,63 @@
   (aset flycheck-error-list-format 5 '("Message" 0 t)))
 
 
-;;; Helm and Co.
+;;; Ivy and Co.
 
-(use-package helm
-  :diminish helm-mode
+(use-package ivy
+  :config
+  (ivy-mode)
+  (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
+  (define-key ivy-minibuffer-map (kbd "C-d") 'ivy-scroll-down-command)
+  (define-key ivy-minibuffer-map (kbd "C-u") 'ivy-scroll-up-command)
+  (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-done)
+  (define-key ivy-minibuffer-map (kbd "M-l") 'ivy-dispatching-done)
+  (define-key ivy-minibuffer-map (kbd "C-M-l") 'ivy-immediate-done))
+
+(use-package ivy-posframe
+  :diminish ivy-posframe-mode
+  :after ivy
   :init
-  (setq helm-display-function 'bb-helm-display-child-frame
-        helm-display-buffer-reuse-frame t
-        helm-display-buffer-width 120
-        helm-display-buffer-height 25)
-  (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
+  (setq ivy-posframe-display-functions-alist
+        '((t . bb-ivy-posframe-display-frame-top-center)))
+  :config
+  (ivy-posframe-mode))
+
+(use-package counsel
+  :defer t
+  :init
   (bb-leader
-    ("SPC" 'helm-M-x "Run command")
-    ("bb" 'helm-mini "Switch to buffer")
-    ("ff" 'helm-find-files "Find file")
-    ("fl" 'helm-locate-library "Find elisp library")
-    ("ji" 'helm-imenu "Find location in file")
-    ("rl" 'helm-resume "Show last helm session"))
-  (push "\\*helm.+\\*" bb-useless-buffers-regexp)
+    ("SPC" 'counsel-M-x "Run command")
+    ("/" 'counsel-ag "Search in project")
+    ("bb" 'counsel-ibuffer "Switch buffer")
+    ("ff" 'counsel-find-file "Find file")
+    ("fl" 'counsel-find-library "Find library")
+    ("fr" 'counsel-recentf "Recent files")
+    ("ji" 'counsel-imenu "Find location in file"))
   :config
-  (require 'bb-helm)
-  (helm-mode)
-  (helm-autoresize-mode)
-  (define-key helm-map bb-right 'helm-maybe-exit-minibuffer)
-  (define-key helm-map bb-down 'helm-next-line)
-  (define-key helm-map bb-up 'helm-previous-line)
-  (set-face-attribute 'helm-prefarg nil :foreground "PaleGreen"))
+  (define-key counsel-ag-map (kbd "M-l") 'ivy-call-and-recenter)
+  (define-key counsel-ag-map (kbd "C-l") 'ivy-done)
+  (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
+  (define-key counsel-find-file-map (kbd "C-l") 'ivy-alt-done)
+  (define-key counsel-imenu-map (kbd "M-l") 'ivy-call-and-recenter)
+  (define-key counsel-imenu-map (kbd "C-l") 'ivy-done))
 
-(use-package helm-ag
+(use-package counsel-projectile
   :defer t
   :init
-  (bb-leader ("/" 'bb-helm-ag-project "Search in project"))
-  :config
-  (dolist (map (list helm-ag-map helm-do-ag-map))
-    (define-key map bb-right 'helm-maybe-exit-minibuffer)
-    (define-key map bb-left 'helm-ag--up-one-level))
-  (when keyboardiop
-    (define-key helm-ag-map (kbd "C-j") 'helm-ag--next-file)
-    (define-key helm-ag-map (kbd "C-k") 'helm-ag--previous-file)))
-
-(use-package helm-files
-  :defer t
-  :config
-  (define-key helm-find-files-map bb-right 'helm-ff-RET)
-  (define-key helm-find-files-map bb-left 'helm-find-files-up-one-level)
-  (advice-add 'helm-ff-filter-candidate-one-by-one
-              :around 'bb-helm-ff-filter-candidate-one-by-one)
-  (advice-add 'helm-find-files-up-one-level
-              :around 'bb-helm-find-files-up-one-level))
-
-(use-package helm-imenu
-  :defer t
-  :config
-  (define-key helm-imenu-map bb-right 'helm-maybe-exit-minibuffer))
-
-(use-package helm-projectile
-  :commands (helm-projectile
-             helm-projectile-find-dir
-             helm-projectile-find-file
-             helm-projectile-switch-project
-             helm-projectile-switch-to-buffer)
-  :init
-  (setq projectile-switch-project-action 'helm-projectile)
   (bb-leader
-    ("pb" 'helm-projectile-switch-to-buffer "Switch to project buffer")
-    ("pC" 'projectile-configure-project "Configure")
-    ("pc" 'projectile-compile-project "Compile")
-    ("pd" 'helm-projectile-find-dir "Find project directory")
-    ("pf" 'helm-projectile-find-file "Find project file")
-    ("ph" 'helm-projectile "Projectile helm session")
-    ("pp" 'helm-projectile-switch-project "Find project")
-    ("pr" 'projectile-run-project "Run")
-    ("pt" 'projectile-test-project "Test"))
-  :config
-  (define-key helm-projectile-find-file-map bb-right 'helm-maybe-exit-minibuffer))
+    ("pb" 'counsel-projectile-switch-to-buffer "Switch to project buffer")
+    ("pd" 'counsel-projectile-find-dir "Find project directory")
+    ("pf" 'counsel-projectile-find-file "Find project file")
+    ("ph" 'counsel-projectile "Projectile")
+    ("pp" 'counsel-projectile-switch-project "Find project")))
 
-(use-package helm-swoop
+(use-package swiper
+  :defer t
   :init
-  (setq helm-swoop-split-with-multiple-windows t
-        helm-swoop-pre-input-function (lambda () ""))
-  (bb-leader ("ss" 'bb-helm-swoop "Search in file")))
-
-(use-package helm-xref
-  :after xref
+  (bb-leader ("ss" 'swiper "Search in buffer"))
   :config
-  (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
+  (define-key swiper-map (kbd "C-l") 'ivy-done))
 
 
 ;;; IRC and Co.
@@ -1068,10 +1036,15 @@
 (use-package projectile
   :diminish projectile-mode
   :init
-  (bb-leader ("ga" 'projectile-find-other-file "Find alternate project file"))
+  (bb-leader
+    ("ga" 'projectile-find-other-file "Find alternate project file")
+    ("pC" 'projectile-configure-project "Configure")
+    ("pc" 'projectile-compile-project "Compile")
+    ("pr" 'projectile-run-project "Run")
+    ("pt" 'projectile-test-project "Test"))
   :config
   (projectile-mode)
-  (setq projectile-completion-system 'helm)
+  (setq projectile-completion-system 'ivy)
   (push '("C" . ("h")) projectile-other-file-alist))
 
 (use-package rainbow-delimiters

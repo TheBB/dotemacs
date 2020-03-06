@@ -395,6 +395,9 @@ If done compiling, kill the auxiliary buffer."
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
 
+(defun bb-ivy-posframe-display-frame-top-center (str)
+  (ivy-posframe--display str #'posframe-poshandler-frame-top-center))
+
 (provide 'bb-defs)
 
 ;;; bb-defs.el ends here

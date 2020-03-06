@@ -62,6 +62,9 @@
 [submodule "conda"]
 	path = lib/conda
 	url = git@github.com:necaris/conda.el.git
+[submodule "counsel-projectile"]
+	path = lib/counsel-projectile
+	url = git@github.com:ericdanan/counsel-projectile.git
 [submodule "cquery"]
 	path = lib/cquery
 	url = git@github.com:cquery-project/emacs-cquery.git
