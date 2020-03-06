@@ -188,21 +188,6 @@
 [submodule "graphql"]
 	path = lib/graphql
 	url = git@github.com:vermiculus/graphql.el.git
-[submodule "helm"]
-	path = lib/helm
-	url = git@github.com:emacs-helm/helm.git
-[submodule "helm-ag"]
-	path = lib/helm-ag
-	url = git@github.com:syohex/emacs-helm-ag.git
-[submodule "helm-projectile"]
-	path = lib/helm-projectile
-	url = git@github.com:bbatsov/helm-projectile.git
-[submodule "helm-swoop"]
-	path = lib/helm-swoop
-	url = git@github.com:ShingoFukuyama/helm-swoop.git
-[submodule "helm-xref"]
-	path = lib/helm-xref
-	url = git@github.com:brotzeit/helm-xref.git
 [submodule "hierarchy"]
 	path = lib/hierarchy
 	url = git@github.com:DamienCassou/hierarchy.git
