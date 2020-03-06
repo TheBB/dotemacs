@@ -564,7 +564,7 @@
   (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
   (define-key ivy-minibuffer-map (kbd "C-d") 'ivy-scroll-down-command)
   (define-key ivy-minibuffer-map (kbd "C-u") 'ivy-scroll-up-command)
-  (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-done)
+  (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
   (define-key ivy-minibuffer-map (kbd "M-l") 'ivy-dispatching-done)
   (define-key ivy-minibuffer-map (kbd "C-M-l") 'ivy-immediate-done))
 
