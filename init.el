@@ -554,6 +554,7 @@
 ;;; Ivy and Co.
 
 (use-package ivy
+  :diminish ivy-mode
   :init
   (setq ivy-format-functions-alist
         '((t . ivy-format-function-line)))
