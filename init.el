@@ -554,6 +554,9 @@
 ;;; Ivy and Co.
 
 (use-package ivy
+  :init
+  (setq ivy-format-functions-alist
+        '((t . ivy-format-function-line)))
   :config
   (ivy-mode)
   (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
