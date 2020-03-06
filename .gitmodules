@@ -230,6 +230,9 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = git@github.com:abo-abo/swiper.git
+[submodule "ivy-posframe"]
+	path = lib/ivy-posframe
+	url = git@github.com:tumashu/ivy-posframe.git
 [submodule "julia-mode"]
 	path = lib/julia-mode
 	url = git@github.com:JuliaLang/julia-emacs.git
