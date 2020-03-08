@@ -427,6 +427,7 @@
 (use-package evil-nerd-commenter
   :defer t
   :init
+  (define-key evil-normal-state-map (kbd "gc") 'evilnc-comment-operator)
   (bb-leader
     ("cl" 'evilnc-comment-or-uncomment-lines "Comment lines")
     ("cp" 'evilnc-comment-or-uncomment-paragraphs "Comment paragraphs")
