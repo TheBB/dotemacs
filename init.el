@@ -557,6 +557,7 @@
 (use-package ivy
   :diminish ivy-mode
   :init
+  (bb-leader ("rl" 'ivy-resume "Resume ivy"))
   (setq ivy-format-functions-alist
         '((t . ivy-format-function-line)))
   :config
