@@ -560,6 +560,10 @@
   (bb-leader ("rl" 'ivy-resume "Resume ivy"))
   (setq ivy-format-functions-alist
         '((t . ivy-format-function-line)))
+  (setq ivy-re-builders-alist
+        '((swiper . ivy--regex-plus)
+          (counsel-ag . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
   :config
   (ivy-mode)
   (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
@@ -614,6 +618,15 @@
   (bb-leader ("ss" 'swiper "Search in buffer"))
   :config
   (define-key swiper-map (kbd "C-l") 'ivy-done))
+
+(use-package ivy-prescient
+  :after counsel
+  :init
+  (setq ivy-prescient-enable-filtering nil
+        ivy-prescient-retain-classic-highlighting t)
+  :config
+  ;; (ivy-prescient-mode)
+  )
 
 
 ;;; IRC and Co.

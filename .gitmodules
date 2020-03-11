@@ -327,6 +327,9 @@
 [submodule "powershell-mode"]
 	path = lib/powershell-mode
 	url = git@github.com:fperrin/powershell-mode.git
+[submodule "prescient"]
+	path = lib/prescient
+	url = git@github.com:raxod502/prescient.el.git
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
@@ -342,6 +345,9 @@
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
+[submodule "selectrum"]
+	path = lib/selectrum
+	url = git@github.com:raxod502/selectrum
 [submodule "shrink-path"]
 	path = lib/shrink-path
 	url = git@gitlab.com:bennya/shrink-path.el.git
