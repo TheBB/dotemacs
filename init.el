@@ -633,8 +633,7 @@
   (setq ivy-prescient-enable-filtering nil
         ivy-prescient-retain-classic-highlighting t)
   :config
-  ;; (ivy-prescient-mode)
-  )
+  (ivy-prescient-mode))
 
 
 ;;; IRC and Co.
