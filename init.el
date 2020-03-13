@@ -1150,7 +1150,7 @@
 
 (use-package which-key-posframe
   :init
-  (setq which-key-posframe-poshandler 'posframe-poshandler-point-bottom-left-corner)
+  (setq which-key-posframe-poshandler 'posframe-poshandler-frame-bottom-center)
   :config
   (which-key-posframe-mode))
 
