@@ -235,6 +235,10 @@
   :defer t
   :diminish eldoc-mode)
 
+(use-package face-remap
+  :defer t
+  :diminish text-scale-mode)
+
 (use-package help-mode
   :defer t
   :init
