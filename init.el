@@ -549,7 +549,7 @@
   :hook (lsp-mode . flycheck-mode)
   :diminish (flycheck-mode . "f")
   :init
-  (setq-default flycheck-check-syntax-automatically nil)
+  (setq-default flycheck-check-syntax-automatically '(save mode-enabled))
   (bb-leader
     ("tf" 'flycheck-mode "Toggle flycheck")
     ("el" 'flycheck-list-errors "List flycheck errors")
