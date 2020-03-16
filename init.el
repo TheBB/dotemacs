@@ -773,6 +773,7 @@
   (evil-bind-key 'normal org-src-mode-map (kbd "C-c C-c") 'org-edit-src-exit))
 
 (use-package evil-org
+  :diminish evil-org-mode
   :hook (org-mode . evil-org-mode))
 
 
