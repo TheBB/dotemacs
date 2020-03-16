@@ -35,6 +35,9 @@
 [submodule "borg"]
 	path = lib/borg
 	url = git@github.com:emacscollective/borg.git
+[submodule "bufler"]
+	path = lib/bufler
+	url = git@github.com:alphapapa/bufler.el
 [submodule "ccls"]
 	path = lib/ccls
 	url = git@github.com:MaskRay/emacs-ccls.git
@@ -266,6 +269,9 @@
 [submodule "magit-todos"]
 	path = lib/magit-todos
 	url = git@github.com:alphapapa/magit-todos.git
+[submodule "major-mode-hydra"]
+	path = lib/major-mode-hydra
+	url = git@github.com:jerrypnz/major-mode-hydra.el.git
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
