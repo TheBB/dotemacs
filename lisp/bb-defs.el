@@ -312,6 +312,67 @@
         (setq-local evil-shift-width (symbol-value (cdr elt)))
         (throw 'done nil)))))
 
+
+;;; Counsel, projectile, eyebrowse and bufler
+
+(defvar bb-eyebrowse-plists
+  (make-hash-table)
+  "Hash table for storing extra data about eyebrowse workspaces.")
+
+(defun bb-eyebrowse-plist-get (key &optional slot)
+  "Get a property for an eyebrowse workspace."
+  (unless slot (setq slot (eyebrowse--get 'current-slot)))
+  (plist-get (ht-get bb-eyebrowse-plists slot) key))
+
+(defun bb-eyebrowse-plist-set (key val &optional slot)
+  "Set a property for an eyebrowse workspace."
+  (unless slot (setq slot (eyebrowse--get 'current-slot)))
+  (ht-set bb-eyebrowse-plists slot
+          (plist-put (ht-get bb-eyebrowse-plists slot)
+                     key val)))
+
+(defun bb-bufler-eyebrowse-pre-switch ()
+  "Before switching eyebrowse workspace, store the bufler path."
+  (bb-eyebrowse-plist-set :bufler-path (frame-parameter nil 'bufler-workspace-path)))
+
+(defun bb-bufler-eyebrowse-post-switch ()
+  "After switching eyebrowse workspace, restore the bufler path."
+  (bufler-workspace-frame-set (bb-eyebrowse-plist-get :bufler-path)))
+
+(defun bb-bufler-workspace-frame-set-hook (path)
+  "When the bufler path changes, set an eyebrowse workspace name."
+  (when-let* ((project
+               (catch 'done
+                 (dolist (entry (reverse path))
+                   (save-match-data
+                     (when (and (stringp entry)
+                                (or (string-match "\\`Projectile: \\(.*\\)\\'" entry)
+                                    (string-match "\\`Dir: \\(.*\\)\\'" entry)))
+                       (throw 'done (match-string 1 entry))))))))
+    (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) project)))
+
+(defun bb-bufler-workspace-frame-set ()
+  "Set a bufler path based on best guess principles."
+  (bufler-workspace-frame-set
+   (butlast (bufler-group-tree-leaf-path (bufler-buffers) (current-buffer)))))
+
+(defun bb-counsel-find-file-new-workspace-action (arg)
+  "Action for `counsel-find-file' to open in a new workspace."
+  (let ((eyebrowse-new-workspace t))
+    (eyebrowse-create-window-config)
+    (with-current-buffer (counsel-find-file-action arg)
+      (bb-bufler-workspace-frame-set))))
+
+(defun bb-counsel-projectile-new-workspace-action (arg)
+  "Action for `counsel-projectile' to open in a new workspace."
+  (let ((eyebrowse-new-workspace t)
+        (prev-default-directory default-directory))
+    (eyebrowse-create-window-config)
+    (let ((default-directory prev-default-directory))
+      (counsel-projectile-action arg))
+    (bb-bufler-workspace-frame-set)))
+
+
 ;;; Miscellaneous
 
 (defun bb-alternate-buffer ()
