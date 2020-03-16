@@ -1100,6 +1100,7 @@
   :after smartparens)
 
 (use-package typo
+  :diminish typo-mode
   :hook (org-mode . typo-mode))
 
 (use-package tree-sitter
