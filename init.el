@@ -163,7 +163,7 @@
   :init
   (bb-after-display
     (setq doom-modeline-icon t))
-  (setq doom-modeline-buffer-file-name-style 'truncate-with-project
+  (setq doom-modeline-buffer-file-name-style 'relative-to-project
         doom-modeline-column-zero-based nil
         doom-modeline-buffer-encoding nil
         doom-modeline-minor-modes t
@@ -469,6 +469,31 @@
   (evil-bind-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
 
 
+;;; Bufler and eyebrowse
+
+(use-package bufler
+  :init
+  (bb-leader
+    ("bb" 'bb-counsel-ibuffer "switch buffer"))
+  :config
+  (bufler-mode)
+  (add-hook 'bufler-workspace-set-hook 'bb-bufler-workspace-frame-set-hook)
+  (bb-advise around bufler-workspace-mode-lighter ()))
+
+(use-package eyebrowse
+  :init
+  (setq eyebrowse-new-workspace t
+        eyebrowse-wrap-around t)
+  :config
+  (add-hook 'eyebrowse-pre-window-switch-hook 'bb-bufler-eyebrowse-pre-switch)
+  (add-hook 'eyebrowse-post-window-switch-hook 'bb-bufler-eyebrowse-post-switch)
+  (define-key evil-motion-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
+  (define-key evil-motion-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
+  (define-key evil-emacs-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
+  (define-key evil-emacs-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
+  (eyebrowse-mode))
+
+
 ;;; Company and Co.
 
 (use-package company
@@ -597,12 +622,13 @@
   (bb-leader
     ("SPC" 'counsel-M-x "Run command")
     ("/" 'counsel-ag "Search in project")
-    ("bb" 'counsel-ibuffer "Switch buffer")
     ("ff" 'counsel-find-file "Find file")
     ("fl" 'counsel-find-library "Find library")
     ("fr" 'counsel-recentf "Recent files")
     ("ji" 'counsel-imenu "Find location in file"))
   :config
+  (ivy-add-actions 'counsel-find-file '(("w" bb-counsel-find-file-new-workspace-action "new workspace")))
+  (ivy-add-actions 'counsel-recentf '(("w" bb-counsel-recentf-new-workspace-action "new workspace")))
   (define-key counsel-ag-map (kbd "M-l") 'ivy-call-and-recenter)
   (define-key counsel-ag-map (kbd "C-l") 'ivy-done)
   (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
@@ -618,7 +644,9 @@
     ("pd" 'counsel-projectile-find-dir "Find project directory")
     ("pf" 'counsel-projectile-find-file "Find project file")
     ("ph" 'counsel-projectile "Projectile")
-    ("pp" 'counsel-projectile-switch-project "Find project")))
+    ("pp" 'counsel-projectile-switch-project "Find project"))
+  :config
+  (ivy-add-actions 'counsel-projectile '(("w" bb-counsel-projectile-new-workspace-action "new workspace"))))
 
 (use-package swiper
   :defer t
@@ -723,7 +751,6 @@
 ;;; Magit and Co.
 
 (use-package magit
-  :defer t
   :init
   (setq magit-bury-buffer-function 'magit-mode-quit-window)
   (bb-leader
@@ -1004,17 +1031,6 @@
   :init
   (bb-leader ("vv" 'er/expand-region "Run expand-region")))
 
-(use-package eyebrowse
-  :init
-  (setq eyebrowse-new-workspace t
-        eyebrowse-wrap-around t)
-  :config
-  (define-key evil-motion-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
-  (define-key evil-motion-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
-  (define-key evil-emacs-state-map (kbd "<C-next>") 'eyebrowse-next-window-config)
-  (define-key evil-emacs-state-map (kbd "<C-prior>") 'eyebrowse-prev-window-config)
-  (eyebrowse-mode))
-
 (use-package hierarchy
   :defer t
   :config
@@ -1069,6 +1085,7 @@
     ("pc" 'projectile-compile-project "Compile")
     ("pr" 'projectile-run-project "Run")
     ("pt" 'projectile-test-project "Test"))
+  (put 'projectile-project-name 'safe-local-variable 'stringp)
   :config
   (projectile-mode)
   (setq projectile-completion-system 'ivy)

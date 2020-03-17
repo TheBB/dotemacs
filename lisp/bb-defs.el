@@ -30,29 +30,87 @@
 (eval-when-compile
   (require 'cl-lib)
   (require 'hydra)
+  (require 'ivy)
   (require 'lsp)
   (require 'bb-macros))
 
 (require 'ht)
 
 
+(declare-function ansi-color-apply-on-region "ansi-color")
+(declare-function bufler-group-tree-leaf-path "ext:bufler-group-tree")
+(declare-function bufler-buffers "ext:bufler")
+(declare-function bufler-buffer-alist-at "ext:bufler")
+(declare-function bufler-workspace-buffers "ext:bufler-workspace")
+(declare-function counsel-find-file-action "ext:counsel")
+(declare-function counsel-ibuffer--get-buffers "ext:counsel")
+(declare-function counsel-ibuffer-visit-buffer "ext:counsel")
+(declare-function counsel-projectile-action "ext:counsel-projectile")
+(declare-function hydra-default-pre "ext:hydra")
+(declare-function hydra-keyboard-quit "ext:hydra")
+(declare-function hydra-set-transient-map "ext:hydra")
+(declare-function hydra-show-hint "ext:hydra")
+(declare-function hydra--call-interactively-remap-maybe "ext:hydra")
+(declare-function evil-insert-newline-above "ext:evil-common")
+(declare-function evil-insert-newline-below "ext:evil-common")
+(declare-function evil-window-split "ext:evil-commands")
+(declare-function evil-window-vsplit "ext:evil-commands")
+(declare-function eyebrowse-create-window-config "ext:eyebrowse")
+(declare-function eyebrowse-switch-to-window-config "ext:eyebrowse")
+(declare-function eyebrowse-rename-window-config "ext:eyebrowse")
+(declare-function eyebrowse-next-window-config "ext:eyebrowse")
+(declare-function eyebrowse-prev-window-config "ext:eyebrowse")
+(declare-function eyebrowse--get "ext:eyebrowse")
+(declare-function ivy--get-window "ext:ivy")
+(declare-function ivy-posframe--display "ext:ivy-posframe")
+(declare-function macrostep-collapse "ext:macrostep")
+(declare-function macrostep-next-macro "ext:macrostep")
+(declare-function macrostep-prev-macro "ext:macrostep")
+(declare-function macrostep-collapse-all "ext:macrostep")
+(declare-function posframe-poshandler-frame-top-center "ext:posframe")
+(declare-function projectile-project-root "ext:projectile")
+(declare-function sp-wrap-with-pair "ext:smartparens")
+(declare-function sp-forward-barf-sexp "ext:smartparens")
+(declare-function sp-backward-barf-sexp "ext:smartparens")
+(declare-function sp-forward-slurp-sexp "ext:smartparens")
+(declare-function sp-backward-slurp-sexp "ext:smartparens")
+(declare-function sp-forward-sexp "ext:smartparens")
+(declare-function sp-backward-sexp "ext:smartparens")
+(declare-function sp-forward-symbol "ext:smartparens")
+(declare-function sp-backward-symbol "ext:smartparens")
+(declare-function sp-kill-sexp "ext:smartparens")
+(declare-function sp-kill-symbol "ext:smartparens")
+(declare-function sp-kill-word "ext:smartparens")
+(declare-function TeX-active-buffer "ext:tex-buf")
+(declare-function TeX-command-master "ext:tex-buf")
+(declare-function TeX-command "ext:tex-buf")
+(declare-function TeX-recenter-output-buffer "ext:tex-buf")
+(declare-function undo-tree-undo "ext:undo-tree")
+(declare-function vterm "ext:vterm")
+(declare-function winner-undo "winner")
+
+(defvar counsel-ibuffer--buffer-name)
+(defvar evil-shift-width)
+(defvar eyebrowse-new-workspace)
+
+
 ;;; Executables
 
-(setq bb-executables
-      '((lsp-cc-ccls
-         (executable . "ccls")
-         (version-cmd . "ccls --version")
-         (version-regexp . "ccls version \\([0-9\\.]*\\)"))
-        (lsp-cc-cquery
-         (executable . "cquery"))
-        (lsp-html
-         (executable . "html-languageserver")
-         (version-cmd . "npm list -g vscode-html-languageserver-bin")
-         (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
-        (lsp-julia
-         (command . "julia -e 'using LanguageServer'")
-         (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
-         (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
+(defvar bb-executables
+  '((lsp-cc-ccls
+     (executable . "ccls")
+     (version-cmd . "ccls --version")
+     (version-regexp . "ccls version \\([0-9\\.]*\\)"))
+    (lsp-cc-cquery
+     (executable . "cquery"))
+    (lsp-html
+     (executable . "html-languageserver")
+     (version-cmd . "npm list -g vscode-html-languageserver-bin")
+     (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
+    (lsp-julia
+     (command . "julia -e 'using LanguageServer'")
+     (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
+     (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
 
 (defun bb-check-executable (exec)
   (let ((entry (assq exec bb-executables)))
@@ -116,23 +174,23 @@
 (defun bb-insert-line-above (count)
   "Insert COUNT lines above point."
   (interactive "p")
-  (dotimes (- count) (save-excursion (evil-insert-newline-above))))
+  (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
 
 (defun bb-insert-line-below (count)
   "Insert COUNT lines below point."
   (interactive "p")
-  (dotimes (- count) (save-excursion (evil-insert-newline-below))))
+  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
 (defun bb-insert-spaces-before (count)
   "Insert COUNT spaces before point."
   (interactive "p")
-  (dotimes (- count) (insert " ")))
+  (dotimes (_ count) (insert " ")))
 
 (defun bb-insert-spaces-after (count)
   "Insert COUNT spaces after point."
   (interactive "p")
   (forward-char)
-  (dotimes (- count) (insert " "))
+  (dotimes (_ count) (insert " "))
   (backward-char (1+ count)))
 
 
@@ -312,6 +370,93 @@
         (setq-local evil-shift-width (symbol-value (cdr elt)))
         (throw 'done nil)))))
 
+
+;;; Counsel, projectile, eyebrowse and bufler
+
+(defvar bb-eyebrowse-plists
+  (make-hash-table)
+  "Hash table for storing extra data about eyebrowse workspaces.")
+
+(defun bb-eyebrowse-plist-get (key &optional slot)
+  "Get a property for an eyebrowse workspace."
+  (unless slot (setq slot (eyebrowse--get 'current-slot)))
+  (plist-get (ht-get bb-eyebrowse-plists slot) key))
+
+(defun bb-eyebrowse-plist-set (key val &optional slot)
+  "Set a property for an eyebrowse workspace."
+  (unless slot (setq slot (eyebrowse--get 'current-slot)))
+  (ht-set bb-eyebrowse-plists slot
+          (plist-put (ht-get bb-eyebrowse-plists slot)
+                     key val)))
+
+(defun bb-bufler-eyebrowse-pre-switch ()
+  "Before switching eyebrowse workspace, store the bufler path."
+  (bb-eyebrowse-plist-set :bufler-path (frame-parameter nil 'bufler-workspace-path)))
+
+(defun bb-bufler-eyebrowse-post-switch ()
+  "After switching eyebrowse workspace, restore the bufler path."
+  (bufler-workspace-frame-set (bb-eyebrowse-plist-get :bufler-path)))
+
+(defun bb-bufler-workspace-frame-set-hook (path)
+  "When the bufler path changes, set an eyebrowse workspace name."
+  (when-let* ((project
+               (catch 'done
+                 (dolist (entry (reverse path))
+                   (save-match-data
+                     (when (and (stringp entry)
+                                (or (string-match "\\`Projectile: \\(.*\\)\\'" entry)
+                                    (string-match "\\`Dir: \\(.*\\)\\'" entry)))
+                       (throw 'done (match-string 1 entry))))))))
+    (eyebrowse-rename-window-config (eyebrowse--get 'current-slot) project)))
+
+(defun bb-bufler-workspace-frame-set ()
+  "Set a bufler path based on best guess principles."
+  (bufler-workspace-frame-set
+   (butlast (bufler-group-tree-leaf-path (bufler-buffers) (current-buffer)))))
+
+(defun bb-counsel-find-file-new-workspace-action (arg)
+  "Action for `counsel-find-file' to open in a new workspace."
+  (let ((eyebrowse-new-workspace t))
+    (eyebrowse-create-window-config)
+    (with-current-buffer (counsel-find-file-action arg)
+      (bb-bufler-workspace-frame-set))))
+
+(defun bb-counsel-projectile-new-workspace-action (arg)
+  "Action for `counsel-projectile' to open in a new workspace."
+  (let ((eyebrowse-new-workspace t)
+        (prev-default-directory default-directory))
+    (eyebrowse-create-window-config)
+    (let ((default-directory prev-default-directory))
+      (counsel-projectile-action arg))
+    (bb-bufler-workspace-frame-set)))
+
+(defun bb-counsel-recentf-new-workspace-action (arg)
+  "Action for `counsel-recentf' to open in a new workspace."
+  (let ((eyebrowse-new-workspace t))
+    (eyebrowse-create-window-config)
+    (with-current-buffer
+        (with-ivy-window
+          (find-file arg))
+      (bb-bufler-workspace-frame-set))))
+
+(defun bb-filter-bufler-workspace (candidates)
+  "Filter candidates for `counsel-ibuffer' according to
+`bufler-workspace-buffers'."
+  (let ((active-buffers (bufler-workspace-buffers)))
+    (cl-remove-if (lambda (c) (not (member (cdr c) active-buffers))) candidates)))
+
+(defun bb-counsel-ibuffer (&optional all-p name)
+  (interactive "P")
+  (require 'counsel)
+  (setq counsel-ibuffer--buffer-name (or name "*Ibuffer*"))
+  (let ((candidates (if (or all-p (not (frame-parameter nil 'bufler-workspace-path)))
+                        (bufler-buffer-alist-at nil)
+                      (bb-filter-bufler-workspace (counsel-ibuffer--get-buffers)))))
+    (ivy-read "Switch to buffer: " candidates
+              :history 'counsel-ibuffer-history
+              :action 'counsel-ibuffer-visit-buffer
+              :caller 'counsel-ibuffer)))
+
 ;;; Miscellaneous
 
 (defun bb-alternate-buffer ()
@@ -391,9 +536,10 @@ If done compiling, kill the auxiliary buffer."
 
 (defun bb-compilation-filter ()
   "Filter and apply ANSI sequences in compilation output."
-  (toggle-read-only)
+  (read-only-mode 'toggle)
   (ansi-color-apply-on-region compilation-filter-start (point))
-  (toggle-read-only))
+  (read-only-mode 'toggle)
+  )
 
 (defun bb-ivy-posframe-display-frame-top-center (str)
   (ivy-posframe--display str #'posframe-poshandler-frame-top-center))
