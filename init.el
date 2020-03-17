@@ -163,7 +163,7 @@
   :init
   (bb-after-display
     (setq doom-modeline-icon t))
-  (setq doom-modeline-buffer-file-name-style 'truncate-with-project
+  (setq doom-modeline-buffer-file-name-style 'relative-to-project
         doom-modeline-column-zero-based nil
         doom-modeline-buffer-encoding nil
         doom-modeline-minor-modes t
