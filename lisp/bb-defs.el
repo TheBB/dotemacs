@@ -30,6 +30,7 @@
 (eval-when-compile
   (require 'cl-lib)
   (require 'hydra)
+  (require 'ivy)
   (require 'lsp)
   (require 'bb-macros))
 
@@ -422,6 +423,14 @@
     (let ((default-directory prev-default-directory))
       (counsel-projectile-action arg))
     (bb-bufler-workspace-frame-set)))
+
+(defun bb-counsel-recentf-new-workspace-action (arg)
+  (let ((eyebrowse-new-workspace t))
+    (eyebrowse-create-window-config)
+    (with-current-buffer
+        (with-ivy-window
+          (find-file arg))
+      (bb-bufler-workspace-frame-set))))
 
 
 ;;; Miscellaneous

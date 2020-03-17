@@ -628,6 +628,7 @@
     ("ji" 'counsel-imenu "Find location in file"))
   :config
   (ivy-add-actions 'counsel-find-file '(("w" bb-counsel-find-file-new-workspace-action "new workspace")))
+  (ivy-add-actions 'counsel-recentf '(("w" bb-counsel-recentf-new-workspace-action "new workspace")))
   (define-key counsel-ag-map (kbd "M-l") 'ivy-call-and-recenter)
   (define-key counsel-ag-map (kbd "C-l") 'ivy-done)
   (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
