@@ -751,7 +751,6 @@
 ;;; Magit and Co.
 
 (use-package magit
-  :defer t
   :init
   (setq magit-bury-buffer-function 'magit-mode-quit-window)
   (bb-leader
