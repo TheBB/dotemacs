@@ -474,7 +474,7 @@
 (use-package bufler
   :init
   (bb-leader
-    ("bb" 'bufler-workspace-switch-buffer "switch buffer"))
+    ("bb" 'bb-counsel-ibuffer "switch buffer"))
   :config
   (bufler-mode)
   (add-hook 'bufler-workspace-set-hook 'bb-bufler-workspace-frame-set-hook)

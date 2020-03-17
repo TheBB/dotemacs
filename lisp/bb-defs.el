@@ -40,7 +40,11 @@
 (declare-function ansi-color-apply-on-region "ansi-color")
 (declare-function bufler-group-tree-leaf-path "ext:bufler-group-tree")
 (declare-function bufler-buffers "ext:bufler")
+(declare-function bufler-buffer-alist-at "ext:bufler")
+(declare-function bufler-workspace-buffers "ext:bufler-workspace")
 (declare-function counsel-find-file-action "ext:counsel")
+(declare-function counsel-ibuffer--get-buffers "ext:counsel")
+(declare-function counsel-ibuffer-visit-buffer "ext:counsel")
 (declare-function counsel-projectile-action "ext:counsel-projectile")
 (declare-function hydra-default-pre "ext:hydra")
 (declare-function hydra-keyboard-quit "ext:hydra")
@@ -57,6 +61,7 @@
 (declare-function eyebrowse-next-window-config "ext:eyebrowse")
 (declare-function eyebrowse-prev-window-config "ext:eyebrowse")
 (declare-function eyebrowse--get "ext:eyebrowse")
+(declare-function ivy--get-window "ext:ivy")
 (declare-function ivy-posframe--display "ext:ivy-posframe")
 (declare-function macrostep-collapse "ext:macrostep")
 (declare-function macrostep-next-macro "ext:macrostep")
@@ -84,6 +89,7 @@
 (declare-function vterm "ext:vterm")
 (declare-function winner-undo "winner")
 
+(defvar counsel-ibuffer--buffer-name)
 (defvar evil-shift-width)
 (defvar eyebrowse-new-workspace)
 
@@ -425,6 +431,7 @@
     (bb-bufler-workspace-frame-set)))
 
 (defun bb-counsel-recentf-new-workspace-action (arg)
+  "Action for `counsel-recentf' to open in a new workspace."
   (let ((eyebrowse-new-workspace t))
     (eyebrowse-create-window-config)
     (with-current-buffer
@@ -432,6 +439,23 @@
           (find-file arg))
       (bb-bufler-workspace-frame-set))))
 
+(defun bb-filter-bufler-workspace (candidates)
+  "Filter candidates for `counsel-ibuffer' according to
+`bufler-workspace-buffers'."
+  (let ((active-buffers (bufler-workspace-buffers)))
+    (cl-remove-if (lambda (c) (not (member (cdr c) active-buffers))) candidates)))
+
+(defun bb-counsel-ibuffer (&optional all-p name)
+  (interactive "P")
+  (require 'counsel)
+  (setq counsel-ibuffer--buffer-name (or name "*Ibuffer*"))
+  (let ((candidates (if (or all-p (not (frame-parameter nil 'bufler-workspace-path)))
+                        (bufler-buffer-alist-at nil)
+                      (bb-filter-bufler-workspace (counsel-ibuffer--get-buffers)))))
+    (ivy-read "Switch to buffer: " candidates
+              :history 'counsel-ibuffer-history
+              :action 'counsel-ibuffer-visit-buffer
+              :caller 'counsel-ibuffer)))
 
 ;;; Miscellaneous
 
