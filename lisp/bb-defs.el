@@ -36,23 +36,74 @@
 (require 'ht)
 
 
+(declare-function ansi-color-apply-on-region "ansi-color")
+(declare-function bufler-group-tree-leaf-path "ext:bufler-group-tree")
+(declare-function bufler-buffers "ext:bufler")
+(declare-function counsel-find-file-action "ext:counsel")
+(declare-function counsel-projectile-action "ext:counsel-projectile")
+(declare-function hydra-default-pre "ext:hydra")
+(declare-function hydra-keyboard-quit "ext:hydra")
+(declare-function hydra-set-transient-map "ext:hydra")
+(declare-function hydra-show-hint "ext:hydra")
+(declare-function hydra--call-interactively-remap-maybe "ext:hydra")
+(declare-function evil-insert-newline-above "ext:evil-common")
+(declare-function evil-insert-newline-below "ext:evil-common")
+(declare-function evil-window-split "ext:evil-commands")
+(declare-function evil-window-vsplit "ext:evil-commands")
+(declare-function eyebrowse-create-window-config "ext:eyebrowse")
+(declare-function eyebrowse-switch-to-window-config "ext:eyebrowse")
+(declare-function eyebrowse-rename-window-config "ext:eyebrowse")
+(declare-function eyebrowse-next-window-config "ext:eyebrowse")
+(declare-function eyebrowse-prev-window-config "ext:eyebrowse")
+(declare-function eyebrowse--get "ext:eyebrowse")
+(declare-function ivy-posframe--display "ext:ivy-posframe")
+(declare-function macrostep-collapse "ext:macrostep")
+(declare-function macrostep-next-macro "ext:macrostep")
+(declare-function macrostep-prev-macro "ext:macrostep")
+(declare-function macrostep-collapse-all "ext:macrostep")
+(declare-function posframe-poshandler-frame-top-center "ext:posframe")
+(declare-function projectile-project-root "ext:projectile")
+(declare-function sp-wrap-with-pair "ext:smartparens")
+(declare-function sp-forward-barf-sexp "ext:smartparens")
+(declare-function sp-backward-barf-sexp "ext:smartparens")
+(declare-function sp-forward-slurp-sexp "ext:smartparens")
+(declare-function sp-backward-slurp-sexp "ext:smartparens")
+(declare-function sp-forward-sexp "ext:smartparens")
+(declare-function sp-backward-sexp "ext:smartparens")
+(declare-function sp-forward-symbol "ext:smartparens")
+(declare-function sp-backward-symbol "ext:smartparens")
+(declare-function sp-kill-sexp "ext:smartparens")
+(declare-function sp-kill-symbol "ext:smartparens")
+(declare-function sp-kill-word "ext:smartparens")
+(declare-function TeX-active-buffer "ext:tex-buf")
+(declare-function TeX-command-master "ext:tex-buf")
+(declare-function TeX-command "ext:tex-buf")
+(declare-function TeX-recenter-output-buffer "ext:tex-buf")
+(declare-function undo-tree-undo "ext:undo-tree")
+(declare-function vterm "ext:vterm")
+(declare-function winner-undo "winner")
+
+(defvar evil-shift-width)
+(defvar eyebrowse-new-workspace)
+
+
 ;;; Executables
 
-(setq bb-executables
-      '((lsp-cc-ccls
-         (executable . "ccls")
-         (version-cmd . "ccls --version")
-         (version-regexp . "ccls version \\([0-9\\.]*\\)"))
-        (lsp-cc-cquery
-         (executable . "cquery"))
-        (lsp-html
-         (executable . "html-languageserver")
-         (version-cmd . "npm list -g vscode-html-languageserver-bin")
-         (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
-        (lsp-julia
-         (command . "julia -e 'using LanguageServer'")
-         (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
-         (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
+(defvar bb-executables
+  '((lsp-cc-ccls
+     (executable . "ccls")
+     (version-cmd . "ccls --version")
+     (version-regexp . "ccls version \\([0-9\\.]*\\)"))
+    (lsp-cc-cquery
+     (executable . "cquery"))
+    (lsp-html
+     (executable . "html-languageserver")
+     (version-cmd . "npm list -g vscode-html-languageserver-bin")
+     (version-regexp . "vscode-html-languageserver-bin@\\([0-9\\.]*\\)"))
+    (lsp-julia
+     (command . "julia -e 'using LanguageServer'")
+     (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
+     (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
 
 (defun bb-check-executable (exec)
   (let ((entry (assq exec bb-executables)))
@@ -116,23 +167,23 @@
 (defun bb-insert-line-above (count)
   "Insert COUNT lines above point."
   (interactive "p")
-  (dotimes (- count) (save-excursion (evil-insert-newline-above))))
+  (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
 
 (defun bb-insert-line-below (count)
   "Insert COUNT lines below point."
   (interactive "p")
-  (dotimes (- count) (save-excursion (evil-insert-newline-below))))
+  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
 (defun bb-insert-spaces-before (count)
   "Insert COUNT spaces before point."
   (interactive "p")
-  (dotimes (- count) (insert " ")))
+  (dotimes (_ count) (insert " ")))
 
 (defun bb-insert-spaces-after (count)
   "Insert COUNT spaces after point."
   (interactive "p")
   (forward-char)
-  (dotimes (- count) (insert " "))
+  (dotimes (_ count) (insert " "))
   (backward-char (1+ count)))
 
 
@@ -452,9 +503,10 @@ If done compiling, kill the auxiliary buffer."
 
 (defun bb-compilation-filter ()
   "Filter and apply ANSI sequences in compilation output."
-  (toggle-read-only)
+  (read-only-mode 'toggle)
   (ansi-color-apply-on-region compilation-filter-start (point))
-  (toggle-read-only))
+  (read-only-mode 'toggle)
+  )
 
 (defun bb-ivy-posframe-display-frame-top-center (str)
   (ivy-posframe--display str #'posframe-poshandler-frame-top-center))
