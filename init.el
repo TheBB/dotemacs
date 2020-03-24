@@ -944,8 +944,12 @@
   (add-hook 'conda-postactivate-hook 'doom-modeline-env-update-python)
   (add-hook 'conda-postdeactivate-hook 'doom-modeline-env-update-python))
 
-;; (use-package lsp-python-ms
-;;   :after python)
+(use-package lsp-python-ms
+  :after python
+  :init
+  (setq lsp-python-ms-python-executable-cmd "python3")
+  :config
+  (bb-lsp-set-priority 'mspyls 0))
 
 (use-package python
   :defer t
