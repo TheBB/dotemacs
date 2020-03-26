@@ -333,7 +333,7 @@
 
 ;;; VTerm
 
-(defvar bb--vterms (make-hash-table))
+(defvar bb--vterms (make-hash-table :test 'equal))
 
 (defun bb--get-or-create-vterm ()
   (let* ((root (or (projectile-project-root) "~/"))
