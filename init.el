@@ -399,11 +399,13 @@
 (use-package evil-collection
   :after evil
   :config
-  (setq evil-collection-mode-list
+  (setq evil-collection-setup-minibuffer nil
+        evil-collection-mode-list
         '(compile
           ediff
           elisp-mode
           flycheck
+          ivy
           magit
           magit-todos))
   (evil-collection-init))
@@ -1170,6 +1172,12 @@
   (set-face-attribute 'vterm-color-yellow nil :background monokai-yellow :foreground monokai-yellow)
   (set-face-attribute 'vterm-color-magenta nil :background monokai-magenta :foreground monokai-magenta)
   (set-face-attribute 'vterm-color-cyan nil :background monokai-cyan :foreground monokai-cyan))
+
+(use-package wgrep
+  :init
+  (setq wgrep-auto-save-buffer t)
+  :config
+  (evil-define-key 'normal wgrep-mode-map (kbd "C-c C-c") 'wgrep-finish-edit))
 
 (use-package which-key-posframe
   :init
