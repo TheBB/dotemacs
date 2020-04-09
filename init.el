@@ -949,9 +949,7 @@
 (use-package lsp-python-ms
   :after python
   :init
-  (setq lsp-python-ms-python-executable-cmd "python3")
-  :config
-  (bb-lsp-set-priority 'mspyls 0))
+  (setq lsp-python-ms-python-executable-cmd "python3"))
 
 (use-package python
   :defer t
