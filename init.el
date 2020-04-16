@@ -1009,6 +1009,12 @@
 (use-package powershell-mode
   :mode "\\.ps1\\'")
 
+(use-package rust-mode
+  :defer t
+  :init
+  (when (bb-has-executable-p 'lsp-rust-rls)
+    (add-hook 'rust-mode-hook 'lsp)))
+
 (use-package text-mode
   :hook (text-mode . bb-maybe-auto-fill-mode))
 

@@ -110,7 +110,11 @@
     (lsp-julia
      (command . "julia -e 'using LanguageServer'")
      (version-cmd . "julia -e 'import Pkg; Pkg.status()'")
-     (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))))
+     (version-regexp . "LanguageServer v\\([0-9\\.+]*\\)"))
+    (lsp-rust-rls
+     (executable . "rls")
+     (version-cmd . "rls --version")
+     (version-regexp . "rls \\([0-9\\.]*\\)"))))
 
 (defun bb-check-executable (exec)
   (let ((entry (assq exec bb-executables)))
