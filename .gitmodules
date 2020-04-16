@@ -38,6 +38,7 @@
 [submodule "bufler"]
 	path = lib/bufler
 	url = git@github.com:alphapapa/bufler.el
+	no-byte-compile = helm-bufler.el
 [submodule "ccls"]
 	path = lib/ccls
 	url = git@github.com:MaskRay/emacs-ccls.git

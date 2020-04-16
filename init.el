@@ -717,11 +717,6 @@
   (when (executable-find "clangd-9")
     (setq lsp-clients-clangd-executable "clangd-9")))
 
-(use-package lsp-dart
-  :defer t
-  :config
-  (bb-lsp-set-priority 'dart_analysis_server -10))
-
 (use-package lsp-clients
   :defer t
   :config
@@ -967,11 +962,6 @@
 
 
 ;;; Programming languages and other major modes
-
-(use-package dart-mode
-  :defer t
-  :init
-  (add-hook 'dart-mode-hook 'lsp))
 
 (use-package elisp-mode
   :defer t
