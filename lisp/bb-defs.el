@@ -114,7 +114,9 @@
     (lsp-rust-rls
      (executable . "rls")
      (version-cmd . "rls --version")
-     (version-regexp . "rls \\([0-9\\.]*\\)"))))
+     (version-regexp . "rls \\([0-9\\.]*\\)"))
+    (lsp-rust-analyzer
+     (executable . "rust-analyzer"))))
 
 (defun bb-check-executable (exec)
   (let ((entry (assq exec bb-executables)))
