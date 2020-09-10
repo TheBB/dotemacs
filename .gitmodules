@@ -168,6 +168,9 @@
 [submodule "f"]
 	path = lib/f
 	url = git@github.com:rejeep/f.el.git
+[submodule "fish-mode"]
+	path = lib/fish-mode
+	url = git@github.com:wwwjfy/emacs-fish.git
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
