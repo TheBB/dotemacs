@@ -148,6 +148,17 @@
   (set-face-attribute 'org-block-begin-line nil :extend t)
   (set-face-attribute 'org-block-end-line nil :extend t))
 
+(let ((alist `((?- . ,(rx (: (+ "-") (? ">"))))
+               (?= . ,(rx (: (+ "=") (? ">"))))
+               (?< . ,(rx (: "<" (| (: (+ "=") (? ">")) (+ "~") (: "!--" (* "-")) (: "|" (? ">"))))))
+               (?> . ,(rx ">="))
+               (?! . ,(rx "!" (** 1 2 "=")))
+               (?: . ,(rx ":" (| "+" "-" "=" (** 1 2 ":"))))
+               (?+ . ,(rx "++")))))
+  (dolist (char-regexp alist)
+    (set-char-table-range composition-function-table (car char-regexp)
+                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
 ;; (use-package dimmer
 ;;   :init
 ;;   (setq dimmer-fraction 0.25)
