@@ -51,7 +51,8 @@
       bb-right (kbd (if keyboardiop "<right>" "C-l"))
 
       ;; FIXME: Different fonts on different computers
-      bb-font "Iosevka Semibold Extended")
+      bb-font "Iosevka Semibold Extended"
+      bb-font-size 100)
 
 (push (concat user-emacs-directory "lisp") load-path)
 (push (concat user-emacs-directory "lib/borg") load-path)
@@ -113,7 +114,7 @@
 (load-theme 'monokai 'noconfirm)
 
 (bb-after-display
-  (set-face-attribute 'default nil :font bb-font :height 100))
+  (set-face-attribute 'default nil :font bb-font :height bb-font-size))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
 (set-face-attribute 'font-lock-keyword-face nil :weight 'bold)
