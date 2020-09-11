@@ -51,7 +51,7 @@
       bb-right (kbd (if keyboardiop "<right>" "C-l"))
 
       ;; FIXME: Different fonts on different computers
-      bb-font "Iosevka Semibold Extended"
+      bb-font "Iosevka SS09 Semibold Extended"
       bb-font-size 100)
 
 (push (concat user-emacs-directory "lisp") load-path)
