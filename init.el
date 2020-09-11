@@ -50,9 +50,14 @@
       bb-up (kbd (if keyboardiop "<up>" "C-k"))
       bb-right (kbd (if keyboardiop "<right>" "C-l"))
 
-      ;; FIXME: Different fonts on different computers
-      bb-font "Iosevka SS09 Medium Extended"
-      bb-font-size 100)
+      bb-font
+      (pcase (system-name)
+        ("leibniz" "Iosevka SS09 Semibold Extended")
+        (_ "Iosevka SS09 Medium Extended"))
+      bb-font-size
+      (pcase (system-name)
+        ("leibniz" 110)
+        (_ 100)))
 
 (push (concat user-emacs-directory "lisp") load-path)
 (push (concat user-emacs-directory "lib/borg") load-path)
