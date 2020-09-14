@@ -50,10 +50,7 @@
       bb-up (kbd (if keyboardiop "<up>" "C-k"))
       bb-right (kbd (if keyboardiop "<right>" "C-l"))
 
-      bb-font
-      (pcase (system-name)
-        ("leibniz" "Iosevka SS09 Semibold Extended")
-        (_ "Iosevka SS09 Semibold"))
+      bb-font "Iosevka SS09 Semibold"
       bb-font-size
       (pcase (system-name)
         ("leibniz" 110)
