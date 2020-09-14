@@ -53,7 +53,7 @@
       bb-font
       (pcase (system-name)
         ("leibniz" "Iosevka SS09 Semibold Extended")
-        (_ "Iosevka SS09 Medium Extended"))
+        (_ "Iosevka SS09 Semibold"))
       bb-font-size
       (pcase (system-name)
         ("leibniz" 110)
