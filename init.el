@@ -727,9 +727,7 @@
   :config
   (remove-hook 'lsp-eldoc-hook 'lsp-document-highlight)
   (set-face-attribute 'lsp-face-highlight-textual nil
-    :background monokai-highlight-line)
-  (when (executable-find "clangd-9")
-    (setq lsp-clients-clangd-executable "clangd-9")))
+    :background monokai-highlight-line))
 
 (use-package lsp-clients
   :defer t
