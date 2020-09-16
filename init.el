@@ -843,7 +843,9 @@
 
 (use-package ccls
   :if (bb-has-executable-p 'lsp-cc-ccls)
-  :after lsp)
+  :after lsp
+  :config
+  (bb-lsp-set-priority 'ccls 0))
 
 (use-package cquery
   ;; Use cquery if ccls is not available

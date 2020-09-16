@@ -505,6 +505,9 @@
 (defun bb-lsp-set-priority (server priority)
   (setf (lsp--client-priority (gethash server lsp-clients)) priority))
 
+(defun bb-lsp-priority (server)
+  (lsp--client-priority (gethash server lsp-clients)))
+
 (defun bb-show-and-copy-filename ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
