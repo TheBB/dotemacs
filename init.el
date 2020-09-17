@@ -62,10 +62,6 @@
 (borg-initialize)
 
 
-(eval-when-compile
-  (require 'lsp-clients))
-
-
 ;;; Local settings, if any
 
 (let ((filename (expand-file-name "local.el" user-emacs-directory)))
@@ -729,7 +725,7 @@
   (set-face-attribute 'lsp-face-highlight-textual nil
     :background monokai-highlight-line))
 
-(use-package lsp-clients
+(use-package lsp-clangd
   :defer t
   :config
   (bb-lsp-set-priority 'clangd 1))

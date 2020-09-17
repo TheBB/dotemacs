@@ -150,6 +150,13 @@
 [submodule "evil-plugins"]
 	path = lib/evil-plugins
 	url = git@github.com:tarao/evil-plugins
+	no-byte-compile = evil-ex-registers.el
+	no-byte-compile = evil-mode-line.el
+	no-byte-compile = evil-operator-comment.el
+	no-byte-compile = evil-operator-moccur.el
+	no-byte-compile = evil-relative-linum.el
+	no-byte-compile = evil-textobj-between.el
+	no-byte-compile = hexl-evil-patch.el
 [submodule "evil-smartparens"]
 	path = lib/evil-smartparens
 	url = git@github.com:expez/evil-smartparens.git
@@ -177,6 +184,9 @@
 [submodule "forge"]
 	path = lib/forge
 	url = git@github.com:magit/forge.git
+[submodule "frame-local"]
+	path = lib/frame-local
+	url = git@github.com:sebastiencs/frame-local.git
 [submodule "general"]
 	path = lib/general
 	url = git@github.com:noctuid/general.el.git
@@ -251,6 +261,8 @@
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
 	url = git@github.com:emacs-lsp/lsp-mode.git
+	load-path = .
+	load-path = clients
 [submodule "lsp-python-ms"]
 	path = lib/lsp-python-ms
 	url = git@github.com:emacs-lsp/lsp-python-ms.git
@@ -408,6 +420,7 @@
 [submodule "wgrep"]
 	path = lib/wgrep
 	url = git@github.com:mhayashi1120/Emacs-wgrep.git
+	no-byte-compile = wgrep-subtest.el
 [submodule "which-key"]
 	path = lib/which-key
 	url = git@github.com:justbur/emacs-which-key.git
