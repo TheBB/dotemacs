@@ -725,7 +725,9 @@
   :config
   (remove-hook 'lsp-eldoc-hook 'lsp-document-highlight)
   (set-face-attribute 'lsp-face-highlight-textual nil
-    :background monokai-highlight-line))
+    :background monokai-highlight-line)
+  ;; Diminish - the sledgehammer approach
+  (fset 'lsp-mode-line (lambda () "")))
 
 (use-package lsp-clangd
   :defer t
