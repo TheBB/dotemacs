@@ -1125,7 +1125,7 @@
   (bb-advise-except-derived-modes smartparens-mode
     lisp-mode scheme-mode emacs-lisp-mode web-mode)
   (sp-local-pair '(c-mode c++-mode) "'" nil :post-handlers '(:rem sp-escape-quotes-after-insert))
-  (bb-apply-newline-indent (c-mode c++-mode lua-mode python-mode) "{" "[" "(")
+  (bb-apply-newline-indent (c-mode c++-mode lua-mode python-mode rust-mode) "{" "[" "(")
   (bb-apply-newline-indent (css-mode scss-mode) "{")
   (bb-apply-newline-indent (js-mode typescript-mode) "{")
   ;; Workaround smartparens #963
