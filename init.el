@@ -1017,11 +1017,11 @@
   :defer t
   :init
   (cond
-   ((bb-has-executable-p 'lsp-rust-rls)
-    (setq lsp-rust-server 'rust-rls)
-    (add-hook 'rust-mode-hook 'lsp))
    ((bb-has-executable-p 'lsp-rust-analyzer)
     (setq lsp-rust-server 'rust-analyzer)
+    (add-hook 'rust-mode-hook 'lsp))
+   ((bb-has-executable-p 'lsp-rust-rls)
+    (setq lsp-rust-server 'rust-rls)
     (add-hook 'rust-mode-hook 'lsp))))
 
 (use-package text-mode
