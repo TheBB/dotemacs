@@ -40,7 +40,7 @@
 (defun bb-py-all-env-list ()
   (append
    (bb-py-all-env-annotate pyvenv pyvenv-workon
-     (and (fboundp 'pyvenv-virtualenv-list) (pyvenv-virtualenv-list)))
+     (and (fboundp 'pyvenv-virtualenv-list) (pyvenv-virtualenv-list 'noerror)))
    (bb-py-all-env-annotate conda conda-env-activate
      (and (fboundp 'conda-env-candidates) (conda-env-candidates)))))
 
