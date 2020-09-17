@@ -112,7 +112,9 @@
 (load-theme 'monokai 'noconfirm)
 
 (bb-after-display
-  (set-face-attribute 'default nil :font bb-font :height bb-font-size))
+  (set-face-attribute 'default nil :font bb-font :height bb-font-size)
+  (set-face-attribute 'fixed-pitch nil :font bb-font :height bb-font-size)
+  (set-face-attribute 'fixed-pitch-serif nil :font bb-font :height bb-font-size))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-string-face nil :slant 'italic)
 (set-face-attribute 'font-lock-keyword-face nil :weight 'bold)
