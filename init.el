@@ -396,6 +396,7 @@
 
   ;; Other
   (evil-set-command-property 'xref-find-definitions :jump t)
+  (evil-set-command-property 'xref-find-references :jump t)
   (define-key evil-visual-state-map (kbd ">") 'bb-shift-right)
   (define-key evil-visual-state-map (kbd "<") 'bb-shift-left)
 
