@@ -71,27 +71,20 @@
 
 ;;; Packages that should be enabled early
 
-(use-package exec-path-from-shell
-  :config
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-initialize))
+(setq exec-path-from-shell-check-startup-files nil)
+(exec-path-from-shell-initialize)
 
-(use-package general
-  :config
-  (setq general-override-states '(normal visual motion))
-  (general-override-mode))
+(require 'general)
+(setq general-override-states '(normal visual motion))
+(general-override-mode)
 
-(use-package no-littering)
+(require 'no-littering)
 
-(use-package popwin
-  :config
-  (setq popwin:special-display-config nil)
-  (popwin-mode))
+(setq popwin:special-display-config nil)
+(popwin-mode)
 
-(use-package which-key
-  :diminish which-key-mode
-  :config
-  (which-key-mode))
+(which-key-mode)
+(diminish 'which-key-mode)
 
 
 ;;; Function, variable, and macro definitions
@@ -123,6 +116,7 @@
 (set-face-attribute 'mode-line-emphasis nil :foreground "#ffabd6" :weight 'ultra-bold)
 (set-face-attribute 'region nil :background monokai-gray)
 
+;; I've gotten used to the Spacemacs state colors.
 (with-eval-after-load 'doom-modeline
   (set-face-attribute 'doom-modeline-evil-emacs-state nil :foreground "SkyBlue2")
   (set-face-attribute 'doom-modeline-evil-insert-state nil :foreground "chartreuse3")
@@ -133,6 +127,8 @@
   (set-face-attribute 'doom-modeline-evil-motion-state nil :foreground "plum3")
   (set-face-attribute 'doom-modeline-project-dir nil :italic nil))
 
+;; Most of these will be defined as :extend t upstream or in the theme.
+;; Remove when that happens.
 (with-eval-after-load 'company
   (set-face-attribute 'company-tooltip-selection nil :extend t))
 (with-eval-after-load 'hl-line
@@ -149,6 +145,7 @@
   (set-face-attribute 'org-block-begin-line nil :extend t)
   (set-face-attribute 'org-block-end-line nil :extend t))
 
+;; Ligatures
 (let ((alist `((?- . ,(rx (: (+ "-") (? ">"))))
                (?= . ,(rx (: (+ "=") (? ">"))))
                (?< . ,(rx (: "<" (| (: (+ "=") (? ">")) (+ "~") (: "!--" (* "-")) (: "|" (? ">"))))))
@@ -160,30 +157,21 @@
     (set-char-table-range composition-function-table (car char-regexp)
                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
-;; (use-package dimmer
-;;   :init
-;;   (setq dimmer-fraction 0.25)
-;;   :config
-;;   (push 'bb-dimmer-predicate dimmer-prevent-dimming-predicates)
-;;   (dimmer-configure-which-key)
-;;   (dimmer-mode))
-
 
 ;;; Modeline
 
-(use-package doom-modeline
-  :init
-  (bb-after-display
-    (setq doom-modeline-icon t))
-  (setq doom-modeline-buffer-file-name-style 'relative-to-project
-        doom-modeline-column-zero-based nil
-        doom-modeline-buffer-encoding nil
-        doom-modeline-minor-modes t
-        doom-modeline-project-detection 'projectile)
-  (setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
-  :config
-  (require 'bb-segments)
-  (doom-modeline-mode))
+(bb-after-display
+  (setq doom-modeline-icon t))
+(setq doom-modeline-buffer-file-name-style 'relative-to-project
+      doom-modeline-column-zero-based nil
+      doom-modeline-buffer-encoding nil
+      doom-modeline-minor-modes t
+      doom-modeline-project-detection 'projectile)
+(setq-default doom-modeline-env-python-parser-fn 'bb-py-all-env-parse)
+
+(require 'doom-modeline)
+(require 'bb-segments)
+(doom-modeline-mode)
 
 
 ;;; General Emacs settings (built-ins, etc.)
@@ -209,7 +197,10 @@
       ring-bell-function 'ignore
       scroll-conservatively 101
       vc-follow-symlinks t
-      x-wait-for-event-timeout 0.05)
+      x-wait-for-event-timeout 0.05
+
+      compilation-scroll-output 'first-error
+      recentf-max-saved-items 10000)
 
 (setq-default fill-column 70
               indent-tabs-mode nil)
@@ -218,83 +209,49 @@
 (fset 'startup-echo-area-message (lambda () ""))
 (put 'set-face-attribute 'lisp-indent-function 2)
 (push '(buffer-predicate . bb-useful-buffer-p) default-frame-alist)
+
+(bb-popwin compilation-mode)
+(bb-popwin help-mode)
 (bb-popwin special-mode)
 
 (global-set-key [C-mouse-4] 'text-scale-increase)
 (global-set-key [C-mouse-5] 'text-scale-decrease)
 
 (blink-cursor-mode -1)
+(global-auto-revert-mode)
+(global-hl-line-mode)
+(recentf-mode)
+(require 'uniquify)
+(winner-mode)
 
-(use-package abbrev
-  :defer t
-  :diminish abbrev-mode)
+(with-eval-after-load 'abbrev
+  (diminish 'abbrev-mode))
 
-(use-package autorevert
-  :diminish auto-revert-mode
-  :config
-  (global-auto-revert-mode))
-
-(use-package compile
-  :defer t
-  :init
-  (bb-popwin compilation-mode)
-  (setq compilation-scroll-output 'first-error)
-  :config
+(with-eval-after-load 'compile
   (require 'ansi-color)
   (add-hook 'compilation-filter-hook 'bb-compilation-filter))
 
-(use-package eldoc
-  :defer t
-  :diminish eldoc-mode)
+(with-eval-after-load 'eldoc
+  (diminish 'eldoc-mode))
 
-(use-package face-remap
-  :defer t
-  :diminish text-scale-mode)
+(with-eval-after-load 'face-remap
+  (diminish 'text-scale-mode))
 
-(use-package help-mode
-  :defer t
-  :init
-  (bb-popwin help-mode))
+(with-eval-after-load 'outline
+  (diminish 'outline-minor-mode))
 
-(use-package hl-line
-  :config
-  (global-hl-line-mode))
+(with-eval-after-load 'simple
+  (diminish 'auto-fill-function))
 
-(use-package outline
-  :defer t
-  :diminish outline-minor-mode)
+(with-eval-after-load 'smerge-mode
+  (diminish 'smerge-mode "[sm]"))
 
-(use-package recentf
-  :init
-  (setq recentf-max-saved-items 10000)
-  :config
-  (recentf-mode))
-
-(use-package simple
-  :defer t
-  :diminish auto-fill-function)
-
-(use-package smerge-mode
-  :defer t
-  :diminish (smerge-mode . "[sm]"))
-
-(use-package tree-widget
-  :defer t
-  :config
+(with-eval-after-load 'tree-widget
   (bb-after-display
     (setq tree-widget-image-enable (display-images-p))))
 
-(use-package uniquify)
-
-(use-package winner
-  :config
-  (winner-mode))
-
-(use-package whitespace
-  :defer t
-  :diminish (whitespace-mode . "w")
-  :init
-  (bb-leader ("tw" 'whitespace-mode "Toggle whitespace mode")))
+(with-eval-after-load 'whitespace
+  (diminish 'whitespace-mode "w"))
 
 
 ;;; Leader bindings, categories and descriptions
@@ -314,6 +271,7 @@
   ("hi" 'bb-find-init "init.el")
   ("hs" 'bb-find-scratch "Scratch buf")
   ("td" 'bb-toggle-debug-on-error "Toggle debug-on-error")
+  ("tw" 'whitespace-mode "Toggle whitespace mode")
   ("u" 'universal-argument "Universal arg")
   ("w" 'hydra-windows/body "Window mgmt"))
 
@@ -349,65 +307,57 @@
 
 ;;; Evil and Co.
 
-(use-package evil
-  :init
-  (setq evil-normal-state-cursor '("DarkGoldenrod2" box)
-        evil-insert-state-cursor '("chartreuse3" (bar . 2))
-        evil-emacs-state-cursor '("SkyBlue2" box)
-        evil-replace-state-cursor '("chocolate" (hbar . 2))
-        evil-visual-state-cursor '("gray" (hbar . 2))
-        evil-motion-state-cursor '("plum3" box)
-        evil-want-integration t
-        evil-want-C-u-scroll t)
-  :config
+(setq evil-normal-state-cursor '("DarkGoldenrod2" box)
+      evil-insert-state-cursor '("chartreuse3" (bar . 2))
+      evil-emacs-state-cursor '("SkyBlue2" box)
+      evil-replace-state-cursor '("chocolate" (hbar . 2))
+      evil-visual-state-cursor '("gray" (hbar . 2))
+      evil-motion-state-cursor '("plum3" box)
+      evil-want-integration t
+      evil-want-C-u-scroll t)
 
-  (unless (fboundp 'evil-bind-key)
-    (defun evil-bind-key (state keymap &rest body)
-     (if (and (symbolp keymap) (not (memq keymap '(local global))))
-         (apply #'evil-define-minor-mode-key state keymap body)
-       (apply #'evil-define-key* state keymap body))))
+(require 'evil)
+(evil-mode)
 
-  ;; Use undo-fu as undo provider if we have the right evil branch
-  (when (boundp 'evil-undo-provider)
-    (setq evil-undo-provider 'undo-fu))
+(unless (fboundp 'evil-bind-key)
+  (defun evil-bind-key (state keymap &rest body)
+    (if (and (symbolp keymap) (not (memq keymap '(local global))))
+        (apply #'evil-define-minor-mode-key state keymap body)
+      (apply #'evil-define-key* state keymap body))))
 
-  (evil-mode)
-  (bb-add-hook evil-insert-state-exit-hook
-    (deactivate-mark))
+(bb-add-hook evil-insert-state-exit-hook
+  (deactivate-mark))
 
-  ;; Miscellaneous keybindings
-  (define-key evil-motion-state-map (kbd "<left>") 'windmove-left)
-  (define-key evil-motion-state-map (kbd "<down>") 'windmove-down)
-  (define-key evil-motion-state-map (kbd "<up>") 'windmove-up)
-  (define-key evil-motion-state-map (kbd "<right>") 'windmove-right)
+;; Miscellaneous keybindings
+(define-key evil-motion-state-map (kbd "<left>") 'windmove-left)
+(define-key evil-motion-state-map (kbd "<down>") 'windmove-down)
+(define-key evil-motion-state-map (kbd "<up>") 'windmove-up)
+(define-key evil-motion-state-map (kbd "<right>") 'windmove-right)
 
-  (define-key evil-motion-state-map (kbd "gd") 'xref-find-definitions)
-  (define-key evil-motion-state-map (kbd "gD") 'xref-find-definitions-other-window)
-  (define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
-  (define-key evil-visual-state-map (kbd "K") (concat ":m '<-2" (kbd "RET") "gv=gv"))
+(define-key evil-motion-state-map (kbd "gd") 'xref-find-definitions)
+(define-key evil-motion-state-map (kbd "gD") 'xref-find-definitions-other-window)
+(define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
+(define-key evil-visual-state-map (kbd "K") (concat ":m '<-2" (kbd "RET") "gv=gv"))
 
-  ;; Unimpaired
-  (define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
-  (define-key evil-motion-state-map (kbd "] b") 'next-buffer)
-  (define-key evil-normal-state-map (kbd "[ SPC") 'bb-insert-line-above)
-  (define-key evil-normal-state-map (kbd "] SPC") 'bb-insert-line-below)
-  (define-key evil-normal-state-map (kbd "[ s") 'bb-insert-spaces-before)
-  (define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after)
+;; Unimpaired
+(define-key evil-motion-state-map (kbd "[ b") 'previous-buffer)
+(define-key evil-motion-state-map (kbd "] b") 'next-buffer)
+(define-key evil-normal-state-map (kbd "[ SPC") 'bb-insert-line-above)
+(define-key evil-normal-state-map (kbd "] SPC") 'bb-insert-line-below)
+(define-key evil-normal-state-map (kbd "[ s") 'bb-insert-spaces-before)
+(define-key evil-normal-state-map (kbd "] s") 'bb-insert-spaces-after)
 
-  ;; Other
-  (evil-set-command-property 'xref-find-definitions :jump t)
-  (evil-set-command-property 'xref-find-references :jump t)
-  (define-key evil-visual-state-map (kbd ">") 'bb-shift-right)
-  (define-key evil-visual-state-map (kbd "<") 'bb-shift-left)
+;; Other
+(evil-set-command-property 'xref-find-definitions :jump t)
+(evil-set-command-property 'xref-find-references :jump t)
+(define-key evil-visual-state-map (kbd ">") 'bb-shift-right)
+(define-key evil-visual-state-map (kbd "<") 'bb-shift-left)
 
-  (add-hook 'after-change-major-mode-hook 'bb-set-evil-shift-width)
-  (add-hook 'hack-local-variables-hook 'bb-set-evil-shift-width))
+(add-hook 'after-change-major-mode-hook 'bb-set-evil-shift-width)
+(add-hook 'hack-local-variables-hook 'bb-set-evil-shift-width)
 
-(use-package evil-args
-  :defer t
-  :init
-  (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))
+(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
 (use-package evil-collection
   :after evil
@@ -423,9 +373,7 @@
           magit-todos))
   (evil-collection-init))
 
-(use-package evil-embrace
-  :after evil-surround
-  :config
+(with-eval-after-load 'evil-surround
   (evil-embrace-enable-evil-surround-integration))
 
 (use-package evil-escape
