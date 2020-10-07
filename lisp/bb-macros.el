@@ -76,6 +76,7 @@ display system is initialized.")
         (type (intern (format ":%s" type))))
     `(progn
        (defun ,funcname ,arglist
+         ,@(when (memq 'orig-fn arglist) '((ignore orig-fn)))
          ,@body)
        (advice-add ',func ,type ',funcname))))
 

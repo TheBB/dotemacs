@@ -714,7 +714,7 @@
   :defer t
   :init
   (setq lsp-auto-guess-root t
-        lsp-diagnostic-package :flycheck
+        lsp-diagnostic-provider :flycheck
         lsp-enable-snippet nil
         lsp-flycheck-live-reporting nil
         lsp-log-io nil
@@ -890,6 +890,7 @@
 ;;; LaTeX and Co.
 
 (use-package auctex-latexmk
+  :commands auctex-latexmk-setup
   :after latex
   :init
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
@@ -1075,6 +1076,7 @@
   :hook (prog-mode . hl-todo-mode))
 
 (use-package lispy
+  :commands lispy-define-key
   :diminish (lispy-mode . "L")
   :hook ((lisp-mode scheme-mode emacs-lisp-mode) . lispy-mode)
   :config
@@ -1118,6 +1120,7 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package smartparens
+  :commands (sp-delete-pair sp-local-pair)
   :hook ((prog-mode LaTeX-mode) . smartparens-mode)
   :diminish (smartparens-mode . "s")
   :init
@@ -1208,6 +1211,7 @@
   (ws-butler-global-mode))
 
 (use-package yasnippet
+  :commands yas-reload-all
   :hook ((prog-mode LaTeX-mode) . yas-minor-mode)
   :diminish (yas-minor-mode . "y")
   :init
