@@ -358,18 +358,14 @@
         evil-visual-state-cursor '("gray" (hbar . 2))
         evil-motion-state-cursor '("plum3" box)
         evil-want-integration t
-        evil-want-C-u-scroll t)
+        evil-want-C-u-scroll t
+        evil-undo-system 'undo-redo)
   :config
-
   (unless (fboundp 'evil-bind-key)
     (defun evil-bind-key (state keymap &rest body)
      (if (and (symbolp keymap) (not (memq keymap '(local global))))
          (apply #'evil-define-minor-mode-key state keymap body)
        (apply #'evil-define-key* state keymap body))))
-
-  ;; Use undo-fu as undo provider if we have the right evil branch
-  (when (boundp 'evil-undo-provider)
-    (setq evil-undo-provider 'undo-fu))
 
   (evil-mode)
   (bb-add-hook evil-insert-state-exit-hook
