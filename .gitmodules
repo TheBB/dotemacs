@@ -116,7 +116,7 @@
 [submodule "evil"]
 	path = lib/evil
 	url = git@github.com:emacs-evil/evil.git
-	info-path = doc
+	info-path = doc/build/texinfo
 [submodule "evil-args"]
 	path = lib/evil-args
 	url = git@github.com:wcsmith/evil-args.git
