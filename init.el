@@ -961,7 +961,10 @@
   :init
   (setq lsp-python-ms-python-executable-cmd "python3")
   :config
-  (bb-lsp-set-priority 'mspyls -2))
+  (bb-lsp-set-priority 'mspyls -1))
+
+(use-package lsp-pyright
+  :after python)
 
 (use-package python
   :defer t

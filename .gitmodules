@@ -263,6 +263,9 @@
 	url = git@github.com:emacs-lsp/lsp-mode.git
 	load-path = .
 	load-path = clients
+[submodule "lsp-pyright"]
+	path = lib/lsp-pyright
+	url = git@github.com:emacs-lsp/lsp-pyright.git
 [submodule "lsp-python-ms"]
 	path = lib/lsp-python-ms
 	url = git@github.com:emacs-lsp/lsp-python-ms.git
