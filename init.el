@@ -714,6 +714,7 @@
         lsp-enable-snippet nil
         lsp-flycheck-live-reporting nil
         lsp-log-io nil
+        lsp-progress-via-spinner nil
         lsp-signature-auto-activate nil)
   (bb-leader ("tl" 'lsp-mode "Toggle LSP")
              ("vr" 'lsp-restart-workspace "Restart LSP"))
