@@ -962,10 +962,14 @@
   :init
   (setq lsp-python-ms-python-executable-cmd "python3")
   :config
-  (bb-lsp-set-priority 'mspyls -1))
+  (bb-lsp-set-priority 'mspyls 1)
+  (fset 'lsp-python-ms--begin-progress-callback (lambda (&rest args)))
+  (fset 'lsp-python-ms--end-progress-callback (lambda (&rest args))))
 
 (use-package lsp-pyright
-  :after python)
+  :after python
+  :config
+  (bb-lsp-set-priority 'pyright 2))
 
 (use-package python
   :defer t
